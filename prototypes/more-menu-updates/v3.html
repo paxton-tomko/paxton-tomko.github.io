@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SchoolApp</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify-content:center;font-family:"SF Pro Text",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;}
+.phone{width:375px;height:812px;border-radius:44px;border:1.5px solid #b0b0b0;overflow:hidden;background:#f8f8f8;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;}
+.screen{display:none;flex-direction:column;flex:1;min-height:0;background:#f8f8f8;}
+.screen.active{display:flex;}
+.sbar{background:#fff;padding:14px 24px 6px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;color:#2d2d2d;flex-shrink:0;}
+.topnav{background:#fff;padding:6px 16px 10px;display:flex;align-items:center;justify-content:space-between;position:relative;flex-shrink:0;}
+.topnav-title{font-size:17px;font-weight:600;color:#2d2d2d;position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;}
+.ver-title-btn{font-size:17px;font-weight:600;color:#2d2d2d;position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;padding:2px 6px;border-radius:8px;}
+.ver-title-btn:hover{background:#f4f4f4;}
+.ver-title-chev{font-size:11px;color:#747474;}
+.logo{width:32px;height:32px;border-radius:50%;background:#fde6cc;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.tnicons{display:flex;align-items:center;}
+.icon-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:#2d2d2d;}
+.back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:15px;color:#2d2d2d;font-family:inherit;padding:0;}
+.ver-popover{display:none;position:absolute;top:62px;left:50%;transform:translateX(-50%);background:#fff;border:0.5px solid #d1d1d1;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.14);z-index:100;min-width:150px;overflow:hidden;}
+.ver-popover.open{display:block;}
+.ver-pop-item{padding:13px 16px;font-size:15px;color:#2d2d2d;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.ver-pop-item:not(:last-child){border-bottom:0.5px solid #e1e1e1;}
+.ver-pop-item:hover{background:#f8f8f8;}
+.ver-pop-item.sel{font-weight:600;}
+.ver-pop-check{color:#2d2d2d;font-size:14px;}
+.tabstrip{background:#fff;border-bottom:1.5px solid #d1d1d1;display:flex;padding:0 16px;flex-shrink:0;overflow-x:auto;}
+.tabstrip::-webkit-scrollbar{display:none;}
+.tab{padding:12px 0;margin-right:20px;font-size:15px;color:#646464;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
+.tab.active{color:#2d2d2d;font-weight:600;border-bottom:2px solid #2d2d2d;}
+.filter-bar{background:#fff;padding:8px 16px;display:flex;gap:8px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid #e1e1e1;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.fchip{padding:5px 14px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;border:1.5px solid #d1d1d1;color:#2d2d2d;background:#fff;transition:all .15s;user-select:none;}
+.fchip.on{background:#2d2d2d;color:#fff;border-color:#2d2d2d;}
+.school-selector{background:#fff;padding:10px 16px;display:flex;gap:10px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid #e1e1e1;}
+.school-selector::-webkit-scrollbar{display:none;}
+.school-pill{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex-shrink:0;user-select:none;min-width:64px;}
+.school-pill .sp-logo{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;border:2.5px solid transparent;background:#f8f8f8;}
+.school-pill.active .sp-logo{border-color:#2d2d2d;}
+.school-pill .sp-name{font-size:11px;color:#646464;text-align:center;max-width:64px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.school-pill.active .sp-name{color:#2d2d2d;font-weight:600;}
+.scroll{flex:1;overflow-y:auto;background:#f8f8f8;}
+.scroll::-webkit-scrollbar{display:none;}
+.post-card{background:#fff;margin-bottom:8px;padding:16px;}
+.post-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;}
+.poster-info{flex:1;margin-left:10px;}
+.poster-name{font-size:15px;font-weight:600;color:#2d2d2d;}
+.poster-org{font-size:13px;color:#646464;}
+.kebab{font-size:18px;color:#646464;cursor:pointer;}
+.divider{height:1px;background:#e1e1e1;margin:10px 0;}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border:1px solid #d1d1d1;border-radius:6px;font-size:12px;color:#2d2d2d;background:#fff;}
+.post-body{font-size:15px;color:#2d2d2d;line-height:1.5;}
+.post-more{color:#747474;}
+.post-time{font-size:13px;color:#747474;margin-top:8px;}
+.search-wrap{padding:8px 16px;background:#f8f8f8;}
+.search-inner{background:#fff;border:1px solid #d1d1d1;border-radius:10px;padding:9px 14px;display:flex;align-items:center;gap:8px;font-size:15px;color:#747474;}
+.section-hdr{padding:10px 16px 4px;font-size:12px;color:#747474;text-transform:uppercase;letter-spacing:.05em;font-weight:500;}
+.more-list{background:#fff;margin-bottom:8px;}
+.more-item{display:flex;align-items:center;padding:16px;border-bottom:1px solid #e1e1e1;cursor:pointer;gap:14px;background:#fff;transition:background .1s;}
+.more-item:last-child{border-bottom:none;}
+.more-item:hover{background:#f4f4f4;}
+.more-item:active{background:#ededed;}
+.more-icon{width:20px;height:20px;flex-shrink:0;color:#2d2d2d;}
+.more-label{flex:1;font-size:16px;color:#2d2d2d;}
+.more-schools{font-size:11px;color:#747474;margin-right:6px;white-space:nowrap;}
+.more-chev{color:#c8c8c8;font-size:18px;}
+/* More 2 specific */
+.m2-star{background:none;border:none;cursor:pointer;font-size:18px;color:#d1d1d1;padding:0 2px 0 6px;line-height:1;flex-shrink:0;transition:color .1s;}
+.m2-star.on{color:#2d2d2d;}
+.m2-empty{padding:48px 24px;text-align:center;color:#747474;font-size:14px;line-height:1.7;}
+.m2-empty-icon{font-size:36px;margin-bottom:12px;}
+.list-row{background:#fff;padding:14px 16px;border-bottom:1px solid #e1e1e1;display:flex;align-items:center;gap:12px;cursor:pointer;}
+.list-row:last-child{border-bottom:none;}
+.list-row:hover{background:#f4f4f4;}
+.list-row-icon{width:36px;height:36px;border-radius:10px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#2d2d2d;font-size:18px;}
+.list-row-info{flex:1;}
+.list-row-name{font-size:15px;color:#2d2d2d;font-weight:500;}
+.list-row-sub{font-size:13px;color:#646464;margin-top:1px;}
+.list-chev{color:#c8c8c8;font-size:17px;}
+.initials-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
+.about-card{background:#fff;padding:20px 16px;margin-bottom:8px;}
+.about-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.about-logo{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.about-school-name{font-size:18px;font-weight:700;color:#2d2d2d;line-height:1.2;}
+.about-school-type{font-size:13px;color:#747474;margin-top:2px;}
+.about-desc{font-size:15px;color:#646464;line-height:1.65;margin-bottom:14px;}
+.about-divider{height:1px;background:#e1e1e1;margin:14px 0;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.stat-box{background:#f8f8f8;border-radius:10px;padding:12px;}
+.stat-label{font-size:11px;color:#747474;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+.stat-val{font-size:20px;font-weight:700;color:#2d2d2d;}
+.contact-label{font-size:12px;color:#747474;text-transform:uppercase;letter-spacing:.05em;font-weight:500;margin-bottom:10px;}
+.contact-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:0.5px solid #e1e1e1;}
+.contact-row:last-child{border-bottom:none;}
+.contact-icon{width:32px;height:32px;border-radius:8px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#2d2d2d;}
+.contact-info{flex:1;}
+.contact-type{font-size:11px;color:#747474;}
+.contact-val{font-size:14px;color:#2d2d2d;font-weight:500;margin-top:1px;}
+.contact-action{font-size:13px;color:#2d2d2d;font-weight:500;}
+.dtbar{background:#fff;border-bottom:1px solid #e1e1e1;display:flex;align-items:stretch;flex-shrink:0;}
+.dt-nav{width:36px;background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;padding:0;}
+.dt-inner{flex:1;display:flex;}
+.dt-tab{flex:1;display:flex;flex-direction:column;align-items:center;padding:6px 0 4px;cursor:pointer;border-bottom:2.5px solid transparent;gap:1px;user-select:none;}
+.dt-dot{width:4px;height:4px;border-radius:50%;background:#CC314B;margin-bottom:1px;}
+.dt-dot.hide{visibility:hidden;}
+.ev-card{background:#fff;margin-bottom:8px;}
+.ev-card-hdr{padding:16px 16px 10px;}
+.ev-card-r1{display:flex;align-items:center;gap:8px;}
+.ev-time{font-size:16px;font-weight:500;color:#2d2d2d;flex-shrink:0;}
+.ev-status{flex:1;font-size:12px;color:#646464;text-align:right;}
+.ev-keb{font-size:15px;color:#646464;cursor:pointer;}
+.ev-card-org{font-size:12px;color:#646464;margin-top:3px;}
+.ev-card-body{padding:10px 16px 12px;display:flex;flex-direction:column;gap:10px;}
+.ev-title{font-size:16px;font-weight:600;color:#2d2d2d;}
+.ev-desc{font-size:15px;color:#333;line-height:1.45;}
+.ev-desc-more{font-weight:600;color:#2d2d2d;text-decoration:underline;cursor:pointer;}
+.ev-addr{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:500;color:#2d2d2d;text-decoration:underline;cursor:pointer;}
+.ev-actions{border-top:1px solid #d1d1d1;padding:10px 16px 14px;display:flex;gap:8px;}
+.ev-btn-share{flex:1;height:28px;border:1px solid #d1d1d1;border-radius:8px;background:#fff;font-size:12px;font-weight:700;color:#2d2d2d;letter-spacing:.48px;text-transform:uppercase;cursor:pointer;font-family:inherit;}
+.ev-btn-add{flex:1;height:28px;border:none;border-radius:8px;background:#2d2d2d;font-size:12px;font-weight:700;color:#fff;letter-spacing:.48px;text-transform:uppercase;cursor:pointer;font-family:inherit;}
+.allday-card{background:#fff;margin-bottom:8px;padding:16px;}
+.allday-top{display:flex;align-items:flex-start;justify-content:space-between;}
+.allday-label{font-size:16px;font-weight:500;color:#2d2d2d;}
+.allday-org{font-size:12px;color:#646464;margin-top:2px;}
+.allday-red-dot{width:8px;height:8px;border-radius:50%;background:#CC314B;flex-shrink:0;margin-top:4px;}
+.allday-title{font-size:16px;font-weight:600;color:#2d2d2d;margin-top:10px;}
+.cal-month{background:#fff;padding:18px 14px 14px;margin-bottom:8px;}
+.cal-month-title{font-size:15px;font-weight:600;color:#2d2d2d;text-align:center;margin-bottom:10px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);}
+.cal-dow{font-size:10px;font-weight:600;color:#909090;text-align:center;padding:2px 0 8px;letter-spacing:.02em;}
+.cal-cell{display:flex;flex-direction:column;align-items:center;padding:2px 0;cursor:pointer;min-height:32px;}
+.cal-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#2d2d2d;}
+.cal-cell.sel .cal-num{background:#2d2d2d;color:#fff;}
+.cal-ev-dot{width:4px;height:4px;border-radius:50%;background:#CC314B;margin-top:1px;}
+.bnav{background:#fff;border-top:1px solid #e1e1e1;display:flex;align-items:flex-end;flex-shrink:0;padding-bottom:20px;}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px 0;cursor:pointer;background:none;border:none;font-size:11px;color:#909090;font-family:inherit;}
+.bnav-btn svg{width:24px;height:24px;}
+.bnav-btn.active{color:#2d2d2d;font-weight:600;}
+.bnav-fab{width:52px;height:52px;border-radius:14px;background:#2d2d2d;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;margin:0 6px;margin-top:-10px;}
+.bnav-fab svg{width:26px;height:26px;color:#fff;}
+.home-ind{height:5px;width:134px;background:#2d2d2d;border-radius:3px;margin:6px auto 0;}
+.empty-state{padding:48px 24px;text-align:center;color:#747474;font-size:14px;}
+</style>
+</head>
+<body>
+<div class="phone">
+<svg style="display:none">
+  <symbol id="ic-feed" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></symbol>
+  <symbol id="ic-rooms" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="ic-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="ic-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="ic-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="ic-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+  <symbol id="ic-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></symbol>
+  <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="ic-sport" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/><path d="M19.07 4.93L4.93 19.07"/></symbol>
+  <symbol id="ic-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+  <symbol id="ic-dining" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></symbol>
+  <symbol id="ic-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></symbol>
+  <symbol id="ic-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="ic-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="ic-back" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+  <symbol id="ic-web" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+</svg>
+
+<!-- Version popover -->
+<div id="ver-popover" class="ver-popover">
+  <div class="ver-pop-item sel" id="ver-pop-1" onclick="switchMoreVersion(1)"><span>Version 1</span><span class="ver-pop-check" id="ver-check-1">✓</span></div>
+  <div class="ver-pop-item" id="ver-pop-2" onclick="switchMoreVersion(2)"><span>Version 2</span><span class="ver-pop-check" id="ver-check-2" style="visibility:hidden;">✓</span></div>
+  <div class="ver-pop-item" id="ver-pop-3" onclick="switchMoreVersion(3)"><span>Version 3</span><span class="ver-pop-check" id="ver-check-3" style="visibility:hidden;">✓</span></div>
+</div>
+<div id="ver-overlay" onclick="closeMorePopover()" style="display:none;position:absolute;inset:0;z-index:99;"></div>
+
+<!-- ════ FEED ════ -->
+<div id="s-feed" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Feed</span><div class="tnicons"><button class="icon-btn"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><button class="icon-btn"><svg width="20" height="20"><use href="#ic-bell"/></svg></button></div></div>
+  <div class="tabstrip"><div class="tab active">Posts</div><div class="tab">Announcements</div><div class="tab">Drafts</div><div class="tab">Archived</div></div>
+  <div class="filter-bar" id="feed-chips">
+    <div class="fchip on" data-f="all" onclick="filterFeed('all')">All schools</div>
+    <div class="fchip" data-f="lincoln" onclick="filterFeed('lincoln')">Lincoln Elem</div>
+    <div class="fchip" data-f="washington" onclick="filterFeed('washington')">Washington MS</div>
+    <div class="fchip" data-f="district" onclick="filterFeed('district')">District</div>
+  </div>
+  <div class="scroll" id="feed-list">
+    <div class="post-card" data-school="lincoln"><div class="post-header"><div class="avatar" style="background:#dbeafe;color:#1e40af;">JL</div><div class="poster-info"><div class="poster-name">Jennie Leanne</div><div class="poster-org">Lincoln Elementary</div></div><div class="kebab">···</div></div><div class="divider"></div><div class="tag-row"><span class="tag">📋 Feed</span><span class="tag">🔔 Notification</span><span class="tag">📱 SMS</span><span class="tag">✉️ Email</span></div><div class="post-body">Spring Concert — Save the Date! Join us for the annual spring concert in the gymnasium. All families welcome. <span class="post-more">...more</span></div><div class="post-time">Just now · Mar 17, 2026</div></div>
+    <div class="post-card" data-school="washington"><div class="post-header"><div class="avatar" style="background:#d1fae5;color:#065f46;">JL</div><div class="poster-info"><div class="poster-name">Jennie Leanne</div><div class="poster-org">Washington Middle School</div></div><div class="kebab">···</div></div><div class="divider"></div><div class="tag-row"><span class="tag">📋 Feed</span><span class="tag">✉️ Email</span></div><div class="post-body">Basketball game this Friday at 6pm — home game vs Jefferson MS. Come support the Tigers! <span class="post-more">...more</span></div><div class="post-time">3h ago · Mar 17, 2026</div></div>
+    <div class="post-card" data-school="district"><div class="post-header"><div class="avatar" style="background:#ede9fe;color:#5b21b6;">JL</div><div class="poster-info"><div class="poster-name">Jennie Leanne</div><div class="poster-org">Brookwood district</div></div><div class="kebab">···</div></div><div class="divider"></div><div class="tag-row"><span class="tag">📋 Feed</span><span class="tag">🔔 Notification</span></div><div class="post-body">Superintendent update: The 2026–27 academic calendar has been approved. Key dates now available. <span class="post-more">...more</span></div><div class="post-time">Yesterday · Mar 16, 2026</div></div>
+    <div class="post-card" data-school="lincoln"><div class="post-header"><div class="avatar" style="background:#dbeafe;color:#1e40af;">JL</div><div class="poster-info"><div class="poster-name">Jennie Leanne</div><div class="poster-org">Lincoln Elementary</div></div><div class="kebab">···</div></div><div class="divider"></div><div class="tag-row"><span class="tag">📋 Feed</span></div><div class="post-body">Library closed this Friday for inventory. Please return all books by Thursday. <span class="post-more">...more</span></div><div class="post-time">Yesterday · Mar 16, 2026</div></div>
+  </div>
+  <div class="bnav">
+    <button class="bnav-btn active" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ ROOMS ════ -->
+<div id="s-rooms" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Rooms</span><div></div></div>
+  <div class="scroll"><div class="empty-state">Rooms screen</div></div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn active" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MESSAGES ════ -->
+<div id="s-messages" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Messages</span><div></div></div>
+  <div class="scroll"><div class="empty-state">Messages screen</div></div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn active" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MORE 1 ════ -->
+<div id="s-more" class="screen active">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav">
+    <div class="logo">🐯</div>
+    <button class="ver-title-btn" onclick="openMorePopover(event)"><span>More 1</span><span class="ver-title-chev">▾</span></button>
+    <div class="tnicons">
+      <button class="icon-btn"><svg width="20" height="20"><use href="#ic-filter"/></svg></button>
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
+  </div>
+  <div class="scroll">
+    <div class="search-wrap"><div class="search-inner"><svg width="16" height="16"><use href="#ic-search"/></svg>What would you like to find?</div></div>
+    <div class="section-hdr">Recent</div>
+    <div class="more-list">
+      <div class="more-item" onclick="show('s-events')"><svg class="more-icon"><use href="#ic-cal"/></svg><div class="more-label">Events <span style="color:#747474;font-size:13px;">· Lincoln Elem</span></div><span class="more-chev">›</span></div>
+      <div class="more-item" onclick="show('s-dining')"><svg class="more-icon"><use href="#ic-dining"/></svg><div class="more-label">Dining <span style="color:#747474;font-size:13px;">· Washington MS</span></div><span class="more-chev">›</span></div>
+    </div>
+    <div class="section-hdr">Universal</div>
+    <div class="more-list">
+      <div class="more-item" onclick="show('s-events')"><svg class="more-icon"><use href="#ic-cal"/></svg><div class="more-label">Events</div><span class="more-schools">Lincoln · Washington</span><span class="more-chev">›</span></div>
+      <div class="more-item" onclick="show('s-athletics')"><svg class="more-icon"><use href="#ic-sport"/></svg><div class="more-label">Athletics</div><span class="more-schools">Lincoln · Washington</span><span class="more-chev">›</span></div>
+      <div class="more-item" onclick="show('s-documents')"><svg class="more-icon"><use href="#ic-doc"/></svg><div class="more-label">Documents</div><span class="more-schools">Lincoln · Washington</span><span class="more-chev">›</span></div>
+      <div class="more-item" onclick="show('s-dining')"><svg class="more-icon"><use href="#ic-dining"/></svg><div class="more-label">Dining</div><span class="more-schools">Washington</span><span class="more-chev">›</span></div>
+      <div class="more-item" onclick="show('s-staff')"><svg class="more-icon"><use href="#ic-people"/></svg><div class="more-label">Staff Directory</div><span class="more-schools">Lincoln · Washington</span><span class="more-chev">›</span></div>
+      <div class="more-item" onclick="show('s-about')"><svg class="more-icon"><use href="#ic-info"/></svg><div class="more-label">About Us</div><span class="more-schools">District · Lincoln · Washington</span><span class="more-chev">›</span></div>
+      <div class="more-item"><svg class="more-icon"><use href="#ic-help"/></svg><div class="more-label">Help Center</div><span class="more-chev">›</span></div>
+    </div>
+  </div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MORE 2 — profile tab layout ════ -->
+<div id="s-more2" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav">
+    <div class="logo">🐯</div>
+    <button class="ver-title-btn" onclick="openMorePopover(event)"><span>More 2</span><span class="ver-title-chev">▾</span></button>
+    <div class="tnicons">
+      <button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
+  </div>
+  <!-- Profile tab bar -->
+  <div class="school-selector" id="m2-tabbar">
+    <div class="school-pill active" data-t="discover" onclick="m2Tab('discover')">
+      <div class="sp-logo" style="background:#f1f0fb;font-size:20px;">🔍</div>
+      <div class="sp-name">Discover</div>
+    </div>
+    <div class="school-pill" data-t="district" onclick="m2Tab('district')">
+      <div class="sp-logo" style="background:#ede9fe;">🏙️</div>
+      <div class="sp-name">District</div>
+    </div>
+    <div class="school-pill" data-t="lincoln" onclick="m2Tab('lincoln')">
+      <div class="sp-logo" style="background:#dbeafe;">🏫</div>
+      <div class="sp-name">Lincoln</div>
+    </div>
+    <div class="school-pill" data-t="washington" onclick="m2Tab('washington')">
+      <div class="sp-logo" style="background:#d1fae5;">🏛️</div>
+      <div class="sp-name">Washington</div>
+    </div>
+  </div>
+  <!-- Dynamic content area -->
+  <div class="scroll" id="m2-content" style="background:#f8f8f8;"></div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MORE 3 (duplicate of More 1) ════ -->
+<div id="s-more3" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav">
+    <div class="logo">🐯</div>
+    <button class="ver-title-btn" onclick="openMorePopover(event)"><span>Search</span><span class="ver-title-chev">▾</span></button>
+    <div class="tnicons">
+      <button class="icon-btn"><svg width="20" height="20"><use href="#ic-filter"/></svg></button>
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
+  </div>
+  <div class="scroll">
+    <!-- Search bar — opens full-screen overlay -->
+    <div class="search-wrap" style="padding:10px 16px;">
+      <div class="search-inner" onclick="openM3Search()" style="cursor:text;">
+        <svg width="16" height="16"><use href="#ic-search"/></svg>What would you like to find?
+      </div>
+    </div>
+
+    <!-- Universal — card grid -->
+    <div class="section-hdr">Universal</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:6px 16px 2px;">
+      <div onclick="show('s-events')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-cal"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Events</div>
+      </div>
+      <div onclick="show('s-athletics')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f0fff4;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-sport"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Athletics</div>
+      </div>
+      <div onclick="show('s-documents')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#fffbf0;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-doc"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Documents</div>
+      </div>
+      <div onclick="show('s-dining')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#fff0f0;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-dining"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Dining</div>
+      </div>
+      <div onclick="show('s-staff')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f5f0ff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-people"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Staff Directory</div>
+      </div>
+      <div onclick="show('s-about')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f0faff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-info"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">About Us</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'" onclick="show('s-help')">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-help"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Help Center</div>
+      </div>
+      <div onclick="show('s-forms')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#fff0f5;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d2d" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Forms</div>
+      </div>
+      <div onclick="show('s-pages')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f0faff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d2d" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Pages</div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ FORMS ════ -->
+<div id="s-forms" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;<span id="vbl-forms">More 1</span></button>
+    <span class="topnav-title">Forms</span>
+    <button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
+  </div>
+  <div class="school-selector" id="forms-selector">
+    <div class="school-pill active" data-s="lincoln" onclick="selectSchoolForms('lincoln')"><div class="sp-logo" style="background:#dbeafe;">🏫</div><div class="sp-name">Lincoln</div></div>
+    <div class="school-pill" data-s="washington" onclick="selectSchoolForms('washington')"><div class="sp-logo" style="background:#d1fae5;">🏛️</div><div class="sp-name">Washington</div></div>
+  </div>
+  <div class="scroll" style="padding-top:8px;">
+    <div id="forms-lincoln" style="background:#fff;">
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Permission Slip</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Emergency Contact Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Enrollment Forms</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Health Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Volunteer Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    </div>
+    <div id="forms-washington" style="display:none;background:#fff;">
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Field Trip Permission</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Health & Medication Form</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Supply Request</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Volunteer Form</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    </div>
+  </div>
+  <div class="bnav"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button></div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ PAGES ════ -->
+<div id="s-pages" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;<span id="vbl-pages">More 1</span></button>
+    <span class="topnav-title">Pages</span>
+    <button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
+  </div>
+  <div class="school-selector" id="pages-selector">
+    <div class="school-pill active" data-s="lincoln" onclick="selectSchoolPages('lincoln')"><div class="sp-logo" style="background:#dbeafe;">🏫</div><div class="sp-name">Lincoln</div></div>
+    <div class="school-pill" data-s="washington" onclick="selectSchoolPages('washington')"><div class="sp-logo" style="background:#d1fae5;">🏛️</div><div class="sp-name">Washington</div></div>
+  </div>
+  <div class="scroll" style="padding-top:8px;">
+    <div id="pages-lincoln" style="background:#fff;">
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Student Handbook</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Lunch Menu</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Supply List</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Dismissal Procedures</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    </div>
+    <div id="pages-washington" style="display:none;background:#fff;">
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Student Handbook</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Code of Conduct</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Supply List</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Bell Schedule</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    </div>
+  </div>
+  <div class="bnav"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button></div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MORE 3 SEARCH OVERLAY ════ -->
+<div id="s-more3-search" class="screen">
+  <div class="sbar" style="background:#f8f8f8;"><span>9:41</span><span>●●●●</span></div>
+  <!-- Search bar with back chevron -->
+  <div style="background:#f8f8f8;padding:8px 16px 10px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;background:#fff;border:1px solid #d1d1d1;border-radius:12px;padding:0 12px;height:44px;gap:8px;">
+      <button onclick="closeM3Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:0;flex-shrink:0;">
+        <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></svg>
+      </button>
+      <input id="m3-search-input" type="text" placeholder="Search sections, forms & pages..."
+        oninput="m3SearchUpdate(this.value)"
+        style="flex:1;border:none;outline:none;font-size:15px;color:#2d2d2d;background:transparent;font-family:inherit;"
+        autocomplete="off" autocorrect="off" spellcheck="false">
+      <button id="m3-clear-btn" onclick="m3ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
+    </div>
+  </div>
+  <!-- Results list -->
+  <div class="scroll" id="m3-search-results" style="background:#f8f8f8;"></div>
+  <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
+</div>
+<div id="s-events" class="screen" style="position:relative;overflow:hidden;">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;<span id="vbl-events">More 1</span></button>
+    <span class="topnav-title">Events</span>
+    <button class="icon-btn"><svg width="20" height="20"><use href="#ic-filter"/></svg></button>
+  </div>
+  <div class="dtbar" id="dtbar">
+    <button class="dt-nav" onclick="prevWeek()">‹</button>
+    <div class="dt-inner" id="dt-inner"></div>
+    <button class="dt-nav" onclick="nextWeek()">›</button>
+  </div>
+  <div id="ev-sched-wrap" class="scroll" style="background:#f8f8f8;padding-bottom:80px;"><div id="ev-schedule" style="padding-top:8px;"></div></div>
+  <div id="ev-cal-wrap" class="scroll" style="display:none;background:#f8f8f8;padding-bottom:80px;"></div>
+  <div style="position:absolute;bottom:24px;left:0;right:0;display:flex;justify-content:center;pointer-events:none;z-index:10;">
+    <div style="pointer-events:all;background:#2d2d2d;border-radius:16px;display:flex;align-items:center;gap:6px;padding:6px 8px;box-shadow:0 4px 20px rgba(0,0,0,.22);">
+      <button style="width:40px;height:40px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-size:22px;font-weight:300;line-height:1;">+</button>
+      <button onclick="toggleEvView()" style="height:40px;min-width:130px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
+        <span id="ev-dropdown-label">Schedule</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 3 18 9"/><polyline points="6 15 12 21 18 15"/></svg>
+      </button>
+      <button onclick="goToday()" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#2d2d2d;white-space:nowrap;flex-shrink:0;">Today</button>
+    </div>
+  </div>
+  <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
+</div>
+
+<!-- ════ ATHLETICS ════ -->
+<div id="s-athletics" class="screen" style="position:relative;overflow:hidden;">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;<span id="vbl-athletics">More 1</span></button>
+    <span class="topnav-title">Athletics</span>
+    <button class="icon-btn"><svg width="20" height="20"><use href="#ic-filter"/></svg></button>
+  </div>
+  <div class="dtbar" id="at-dtbar">
+    <button class="dt-nav" onclick="atPrevWeek()">‹</button>
+    <div class="dt-inner" id="at-inner"></div>
+    <button class="dt-nav" onclick="atNextWeek()">›</button>
+  </div>
+  <div id="at-sched-wrap" class="scroll" style="background:#f8f8f8;padding-bottom:80px;"><div id="at-schedule" style="padding-top:8px;"></div></div>
+  <div id="at-cal-wrap" class="scroll" style="display:none;background:#f8f8f8;padding-bottom:80px;"></div>
+  <div style="position:absolute;bottom:24px;left:0;right:0;display:flex;justify-content:center;pointer-events:none;z-index:10;">
+    <div style="pointer-events:all;background:#2d2d2d;border-radius:16px;display:flex;align-items:center;gap:6px;padding:6px 8px;box-shadow:0 4px 20px rgba(0,0,0,.22);">
+      <button style="width:40px;height:40px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-size:22px;font-weight:300;line-height:1;">+</button>
+      <button onclick="atToggleView()" style="height:40px;min-width:130px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
+        <span id="at-dropdown-label">Schedule</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 3 18 9"/><polyline points="6 15 12 21 18 15"/></svg>
+      </button>
+      <button onclick="atGoToday()" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#2d2d2d;white-space:nowrap;flex-shrink:0;">Today</button>
+    </div>
+  </div>
+  <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
+</div>
+
+<!-- ════ DOCUMENTS ════ -->
+<div id="s-documents" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;<span id="vbl-documents">More 1</span></button><span class="topnav-title">Documents</span><button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button></div>
+  <div class="filter-bar" id="doc-chips"><div class="fchip on" data-f="all" onclick="filterSub('doc','all')">All schools</div><div class="fchip" data-f="lincoln" onclick="filterSub('doc','lincoln')">Lincoln Elem</div><div class="fchip" data-f="washington" onclick="filterSub('doc','washington')">Washington MS</div></div>
+  <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
+    <div class="list-row" data-doc="lincoln"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">2025–26 School Handbook</div><div class="list-row-sub">Lincoln Elem · PDF</div></div><span class="list-chev">›</span></div>
+    <div class="list-row" data-doc="lincoln"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Lunch Menu — March</div><div class="list-row-sub">Lincoln Elem · PDF</div></div><span class="list-chev">›</span></div>
+    <div class="list-row" data-doc="washington"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Student Code of Conduct</div><div class="list-row-sub">Washington MS · PDF</div></div><span class="list-chev">›</span></div>
+    <div class="list-row" data-doc="washington"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name">Supply List 2025–26</div><div class="list-row-sub">Washington MS · PDF</div></div><span class="list-chev">›</span></div>
+  </div></div>
+  <div class="bnav"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ DINING ════ -->
+<div id="s-dining" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;<span id="vbl-dining">More 1</span></button><span class="topnav-title">Dining</span><div></div></div>
+  <div class="filter-bar"><div class="fchip on" style="cursor:default;">Washington MS</div></div>
+  <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
+    <div class="list-row"><div class="list-row-icon">🍕</div><div class="list-row-info"><div class="list-row-name">Monday — Pizza</div><div class="list-row-sub">Mar 18</div></div></div>
+    <div class="list-row"><div class="list-row-icon">🥗</div><div class="list-row-info"><div class="list-row-name">Tuesday — Salad Bar</div><div class="list-row-sub">Mar 19</div></div></div>
+    <div class="list-row"><div class="list-row-icon">🌮</div><div class="list-row-info"><div class="list-row-name">Wednesday — Tacos</div><div class="list-row-sub">Mar 20</div></div></div>
+    <div class="list-row"><div class="list-row-icon">🍔</div><div class="list-row-info"><div class="list-row-name">Thursday — Burgers</div><div class="list-row-sub">Mar 21</div></div></div>
+  </div></div>
+  <div class="bnav"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ STAFF ════ -->
+<div id="s-staff" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;<span id="vbl-staff">More 1</span></button><span class="topnav-title">Staff Directory</span><button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button></div>
+  <div class="school-selector" id="staff-selector">
+    <div class="school-pill active" data-s="lincoln" onclick="selectSchoolStaff('lincoln')"><div class="sp-logo" style="background:#dbeafe;">🏫</div><div class="sp-name">Lincoln</div></div>
+    <div class="school-pill" data-s="washington" onclick="selectSchoolStaff('washington')"><div class="sp-logo" style="background:#d1fae5;">🏛️</div><div class="sp-name">Washington</div></div>
+  </div>
+  <div class="scroll" style="padding-top:8px;">
+    <div id="staff-lincoln" style="background:#fff;">
+      <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">SC</div><div class="list-row-info"><div class="list-row-name">Ms. Sandra Craig</div><div class="list-row-sub">Principal</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">JR</div><div class="list-row-info"><div class="list-row-name">Mr. James Rivera</div><div class="list-row-sub">4th Grade Teacher</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">AL</div><div class="list-row-info"><div class="list-row-name">Ms. Amy Leung</div><div class="list-row-sub">Librarian</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">MW</div><div class="list-row-info"><div class="list-row-name">Ms. Maria Wong</div><div class="list-row-sub">2nd Grade Teacher</div></div><span class="list-chev">›</span></div>
+    </div>
+    <div id="staff-washington" style="display:none;background:#fff;">
+      <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">RD</div><div class="list-row-info"><div class="list-row-name">Mr. Robert Davis</div><div class="list-row-sub">Principal</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">KH</div><div class="list-row-info"><div class="list-row-name">Ms. Kaitlyn Henson</div><div class="list-row-sub">8th Grade English</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">BM</div><div class="list-row-info"><div class="list-row-name">Mr. Brian Moore</div><div class="list-row-sub">Math Teacher</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">CS</div><div class="list-row-info"><div class="list-row-name">Mr. Chris Stevens</div><div class="list-row-sub">Athletics Director</div></div><span class="list-chev">›</span></div>
+    </div>
+  </div>
+  <div class="bnav"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ ABOUT ════ -->
+<div id="s-about" class="screen">
+  <div class="sbar"><span>9:41</span><span>●●●●</span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;<span id="vbl-about">More 1</span></button><span class="topnav-title">About Us</span><button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button></div>
+  <div class="school-selector" id="about-selector">
+    <div class="school-pill active" data-s="district" onclick="selectSchoolAbout('district')"><div class="sp-logo" style="background:#ede9fe;">🏙️</div><div class="sp-name">District</div></div>
+    <div class="school-pill" data-s="lincoln" onclick="selectSchoolAbout('lincoln')"><div class="sp-logo" style="background:#dbeafe;">🏫</div><div class="sp-name">Lincoln</div></div>
+    <div class="school-pill" data-s="washington" onclick="selectSchoolAbout('washington')"><div class="sp-logo" style="background:#d1fae5;">🏛️</div><div class="sp-name">Washington</div></div>
+  </div>
+  <div class="scroll" style="padding-top:8px;">
+    <div id="about-district"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#ede9fe;">🏙️</div><div><div class="about-school-name">Brookwood ISD</div><div class="about-school-type">Independent School District</div></div></div><div class="about-desc">Brookwood ISD serves over 4,200 students across three campuses in the greater Brookwood area. Our mission is to inspire, challenge, and support every learner on their path to a successful future.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Students</div><div class="stat-val">4,200+</div></div><div class="stat-box"><div class="stat-label">Schools</div><div class="stat-val">3</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1948</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">310</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0100</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">General Email</div><div class="contact-val">info@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-web"/></svg></div><div class="contact-info"><div class="contact-type">Website</div><div class="contact-val">www.brookwoodisd.edu</div></div><span class="contact-action">Open</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">100 District Blvd, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
+    <div id="about-lincoln" style="display:none;"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#dbeafe;">🏫</div><div><div class="about-school-name">Lincoln Elementary</div><div class="about-school-type">Elementary School · Grades K–5</div></div></div><div class="about-desc">Lincoln Elementary has been a cornerstone of the Brookwood community since 1961. We foster a nurturing, rigorous environment where every child is known, valued, and challenged to grow.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Enrolled</div><div class="stat-val">612</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1961</div></div><div class="stat-box"><div class="stat-label">Grades</div><div class="stat-val">K–5</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">58</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0121</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">Office Email</div><div class="contact-val">lincoln@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">210 Lincoln Ave, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
+    <div id="about-washington" style="display:none;"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#d1fae5;">🏛️</div><div><div class="about-school-name">Washington Middle</div><div class="about-school-type">Middle School · Grades 6–8</div></div></div><div class="about-desc">Washington Middle School serves students in grades 6–8 in Brookwood ISD. Our mission is to provide an engaging, rigorous environment where every student thrives.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Enrolled</div><div class="stat-val">847</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1962</div></div><div class="stat-box"><div class="stat-label">Grades</div><div class="stat-val">6–8</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">52</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0148</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">Office Email</div><div class="contact-val">washington@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">450 Washington Blvd, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
+  </div>
+  <div class="bnav"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind"></div>
+</div>
+
+<script>
+// ─── Version ───
+let moreVersion = 1;
+const VBL_IDS = ['vbl-events','vbl-athletics','vbl-documents','vbl-dining','vbl-staff','vbl-about','vbl-forms','vbl-pages'];
+
+function showMore() {
+  closeMorePopover();
+  show(moreVersion === 1 ? 's-more' : moreVersion === 2 ? 's-more2' : 's-more3');
+}
+function openMorePopover(e) {
+  e.stopPropagation();
+  document.getElementById('ver-popover').classList.add('open');
+  document.getElementById('ver-overlay').style.display = 'block';
+}
+function closeMorePopover() {
+  document.getElementById('ver-popover').classList.remove('open');
+  document.getElementById('ver-overlay').style.display = 'none';
+}
+function switchMoreVersion(v) {
+  moreVersion = v;
+  [1,2,3].forEach(n => {
+    document.getElementById('ver-check-'+n).style.visibility = v===n?'visible':'hidden';
+    document.getElementById('ver-pop-'+n).classList.toggle('sel', v===n);
+  });
+  const label = 'More ' + v;
+  VBL_IDS.forEach(id => { const el=document.getElementById(id); if(el) el.textContent=label; });
+  closeMorePopover();
+  showMore();
+}
+
+// ─── Navigation ───
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 's-events') initEv();
+  if (id === 's-more2') initM2();
+  if (id === 's-athletics') initAt();
+}
+function filterFeed(f) {
+  document.querySelectorAll('#feed-chips .fchip').forEach(c => c.classList.toggle('on', c.dataset.f===f));
+  document.querySelectorAll('#feed-list .post-card').forEach(card => { card.style.display=(f==='all'||card.dataset.school===f)?'block':'none'; });
+}
+function filterSub(p, f) {
+  document.querySelectorAll('#'+p+'-chips .fchip').forEach(c => c.classList.toggle('on', c.dataset.f===f));
+  document.querySelectorAll('[data-'+p+']').forEach(r => { r.style.display=(f==='all'||r.dataset[p]===f)?'flex':'none'; });
+}
+function selectSchoolAbout(s) {
+  document.querySelectorAll('#about-selector .school-pill').forEach(p => p.classList.toggle('active', p.dataset.s===s));
+  ['district','lincoln','washington'].forEach(id => { document.getElementById('about-'+id).style.display=id===s?'block':'none'; });
+}
+function selectSchoolStaff(s) {
+  document.querySelectorAll('#staff-selector .school-pill').forEach(p => p.classList.toggle('active', p.dataset.s===s));
+  ['lincoln','washington'].forEach(id => { document.getElementById('staff-'+id).style.display=id===s?'block':'none'; });
+}
+function selectSchoolForms(s) {
+  document.querySelectorAll('#forms-selector .school-pill').forEach(p => p.classList.toggle('active', p.dataset.s===s));
+  ['lincoln','washington'].forEach(id => { document.getElementById('forms-'+id).style.display=id===s?'block':'none'; });
+}
+function selectSchoolPages(s) {
+  document.querySelectorAll('#pages-selector .school-pill').forEach(p => p.classList.toggle('active', p.dataset.s===s));
+  ['lincoln','washington'].forEach(id => { document.getElementById('pages-'+id).style.display=id===s?'block':'none'; });
+}
+
+// ─── More 2 ───
+// Catalog of all sections grouped by tab
+const M2_CATALOG = {
+  district: [
+    {k:'events',    ic:'#ic-cal',    lb:'Events'},
+    {k:'athletics', ic:'#ic-sport',  lb:'Athletics'},
+    {k:'dining',    ic:'#ic-dining', lb:'Dining'},
+    {k:'staff',     ic:'#ic-people', lb:'Staff Directory'},
+    {k:'about',     ic:'#ic-info',   lb:'About Us'},
+    {k:'help',      ic:'#ic-help',   lb:'Help Center'},
+  ],
+  lincoln: [
+    {k:'l-handbook',  ic:'#ic-doc',    lb:'Student Handbook',        sub:'Lincoln Elem'},
+    {k:'l-lunch',     ic:'#ic-doc',    lb:'Lunch Menu',              sub:'Lincoln Elem'},
+    {k:'l-emergency', ic:'#ic-doc',    lb:'Emergency Contact Form',  sub:'Lincoln Elem'},
+    {k:'l-enroll',    ic:'#ic-doc',    lb:'Enrollment Forms',        sub:'Lincoln Elem'},
+    {k:'l-supply',    ic:'#ic-doc',    lb:'Supply List',             sub:'Lincoln Elem'},
+    {k:'l-dismissal', ic:'#ic-doc',    lb:'Dismissal Procedures',    sub:'Lincoln Elem'},
+  ],
+  washington: [
+    {k:'w-handbook',  ic:'#ic-doc',    lb:'Student Handbook',        sub:'Washington MS'},
+    {k:'w-conduct',   ic:'#ic-doc',    lb:'Code of Conduct',         sub:'Washington MS'},
+    {k:'w-supply',    ic:'#ic-doc',    lb:'Supply List',             sub:'Washington MS'},
+    {k:'w-schedule',  ic:'#ic-doc',    lb:'Bell Schedule',           sub:'Washington MS'},
+    {k:'w-trip',      ic:'#ic-doc',    lb:'Field Trip Permission',   sub:'Washington MS'},
+    {k:'w-health',    ic:'#ic-doc',    lb:'Health & Medication Form', sub:'Washington MS'},
+  ],
+};
+
+// target map — which screen to navigate to
+const M2_TARGETS = {
+  events:'s-events', athletics:'s-athletics', about:'s-about',
+  dining:'s-dining', staff:'s-staff', help:null,
+};
+
+const M2_ALL = {};
+Object.values(M2_CATALOG).flat().forEach(i => { M2_ALL[i.k] = i; });
+
+let m2CurTab = 'discover';
+let m2Favs   = new Set();
+let m2Recents = [
+  {k:'events',  ic:'#ic-cal',    lb:'Events',  sub:'Lincoln · Washington'},
+  {k:'dining',  ic:'#ic-dining', lb:'Dining',  sub:'Washington'},
+];
+
+function m2Tab(tab) {
+  m2CurTab = tab;
+  document.querySelectorAll('#m2-tabbar .school-pill').forEach(p => p.classList.toggle('active', p.dataset.t === tab));
+  m2Render();
+}
+
+function m2Render() {
+  const c = document.getElementById('m2-content');
+  if (!c) return;
+
+  if (m2CurTab === 'discover') {
+    let h = `<div style="padding:10px 16px 0;background:#f8f8f8;">
+      <div class="search-inner" style="margin-bottom:0;"><svg width="16" height="16"><use href="#ic-search"/></svg>What would you like to find?</div>
+    </div>`;
+
+    // Recents section
+    h += `<div class="section-hdr">Recent</div>`;
+    if (m2Recents.length) {
+      h += '<div class="more-list">';
+      m2Recents.forEach(r => { h += m2Row(r.k, r.ic, r.lb, r.sub); });
+      h += '</div>';
+    } else {
+      h += `<div style="padding:12px 16px;font-size:14px;color:#747474;">No recently visited sections yet.</div>`;
+    }
+
+    // Favorites section
+    h += `<div class="section-hdr">Favorites</div>`;
+    if (m2Favs.size) {
+      h += '<div class="more-list">';
+      m2Favs.forEach(k => { const it=M2_ALL[k]; if(it) h+=m2Row(it.k,it.ic,it.lb,it.sub||''); });
+      h += '</div>';
+    } else {
+      h += `<div style="padding:12px 16px;font-size:14px;color:#747474;">Tap ☆ on any section to save it here.</div>`;
+    }
+
+    c.innerHTML = h;
+    return;
+  }
+
+  const items = M2_CATALOG[m2CurTab] || [];
+  if (!items.length) { c.innerHTML=`<div class="m2-empty">No sections available.</div>`; return; }
+  let h = '<div style="background:#fff;margin-top:8px;">';
+  items.forEach(it => { h += m2Row(it.k, it.ic, it.lb, it.sub||''); });
+  h += '</div>';
+  c.innerHTML = h;
+}
+
+function m2Row(k, ic, lb, sub) {
+  const tgt   = M2_TARGETS[k] || null;
+  const isFav = m2Favs.has(k);
+  const subHtml = sub ? `<div style="font-size:12px;color:#747474;margin-top:2px;">${sub}</div>` : '';
+  const navCall = tgt ? `m2NavTo('${k}','${ic}','${lb}','${sub}','${tgt}')` : '';
+  const favCall = `m2ToggleFav(event,'${k}','${ic}','${lb}','${sub}')`;
+  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+    <svg class="more-icon" width="20" height="20"><use href="${ic}"/></svg>
+    <div style="flex:1;min-width:0;">
+      <div class="more-label" style="flex:none;">${lb}</div>
+      ${subHtml}
+    </div>
+    <button class="m2-star${isFav?' on':''}" onclick="${favCall}">${isFav?'★':'☆'}</button>
+    ${tgt ? '<span class="more-chev">›</span>' : ''}
+  </div>`;
+}
+
+function m2NavTo(k, ic, lb, sub, tgt) {
+  m2Recents = m2Recents.filter(r => r.k !== k);
+  m2Recents.unshift({k, ic, lb, sub});
+  if (m2Recents.length > 5) m2Recents.length = 5;
+  if (tgt) show(tgt);
+}
+
+function m2ToggleFav(e, k, ic, lb, sub) {
+  e.stopPropagation();
+  if (m2Favs.has(k)) { m2Favs.delete(k); } else { m2Favs.add(k); }
+  m2Render();
+}
+
+function initM2() {
+  m2CurTab = 'discover';
+  document.querySelectorAll('#m2-tabbar .school-pill').forEach(p => p.classList.toggle('active', p.dataset.t === 'discover'));
+  m2Render();
+}
+
+// ─── Athletics ───
+const AT_DATA = {
+  '2026-03-17':[{type:'game',time:'3:30 PM',status:'LIVE',org:'Lincoln Elem',home:'Lincoln Tigers',away:'Jefferson Bears',homeScore:14,awayScore:7,addr:'210 Lincoln Ave, Brookwood, TX'}],
+  '2026-03-19':[{type:'game',time:'4:00 PM',status:'UPCOMING',org:'Washington MS',home:'Washington Tigers',away:'Oak Park Wolves',homeScore:0,awayScore:0,addr:'450 Washington Blvd, Brookwood, TX'}],
+  '2026-03-21':[{type:'game',time:'6:00 PM',status:'UPCOMING',org:'Washington MS',home:'Washington Tigers',away:'Jefferson MS',homeScore:0,awayScore:0,addr:'450 Washington Blvd, Brookwood, TX'}],
+  '2026-03-24':[{type:'tournament',time:'8:00 AM',status:'UPCOMING',org:'Brookwood ISD',title:'District Wrestling Tournament',desc:'Annual district tournament. All weight classes compete. Brackets posted day of.',addr:'100 District Blvd, Brookwood, TX'}],
+  '2026-03-26':[{type:'series',time:'9:00 AM',status:'UPCOMING',org:'Lincoln Elem',home:'Lincoln Runners',away:'District Invitees',desc:'Spring Track & Field Series — Meet 2 of 4. All events run simultaneously.',addr:'210 Lincoln Ave, Brookwood, TX'}],
+  '2026-04-04':[{type:'game',time:'10:00 AM',status:'UPCOMING',org:'Lincoln Elem',home:'Lincoln Tigers',away:'Madison Bears',homeScore:0,awayScore:0,addr:'210 Lincoln Ave, Brookwood, TX'}],
+};
+function atHasEv(d){const x=AT_DATA[d];return x&&x.length>0;}
+function atDs(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+let atView='schedule',atSelDate='2026-03-17',atWeekOff=0;
+function atGetWeekSun(off){const t=new Date(2026,2,17);const s=new Date(t);s.setDate(t.getDate()-t.getDay()+off*7);return s;}
+function atSetDropdownLabel(l){const el=document.getElementById('at-dropdown-label');if(el)el.textContent=l;}
+function atRenderTabs(){
+  const sun=atGetWeekSun(atWeekOff),inner=document.getElementById('at-inner');if(!inner)return;
+  inner.innerHTML='';
+  for(let i=0;i<7;i++){
+    const d=new Date(sun);d.setDate(sun.getDate()+i);
+    const dstr=atDs(d),isSel=dstr===atSelDate,hasDot=atHasEv(dstr);
+    const el=document.createElement('div');el.className='dt-tab';el.onclick=()=>atPickDay(dstr);
+    if(isSel)el.style.borderBottom='2.5px solid #2d2d2d';
+    el.innerHTML=`<div class="dt-dot${hasDot?'':' hide'}"></div><div style="font-size:16px;font-weight:${isSel?700:500};color:${isSel?'#2d2d2d':'#646464'};line-height:20px;">${d.getDate()}</div><div style="font-size:11px;color:${isSel?'#2d2d2d':'#646464'};text-transform:uppercase;">${DAY_A[d.getDay()]}</div>`;
+    inner.appendChild(el);
+  }
+}
+function atPickDay(dstr){
+  atSelDate=dstr;
+  const t=new Date(2026,2,17),ts=new Date(t);ts.setDate(t.getDate()-t.getDay());
+  const d=new Date(dstr+'T00:00:00'),ds2=new Date(d);ds2.setDate(d.getDate()-d.getDay());
+  atWeekOff=Math.round((ds2-ts)/(7*86400000));atRenderTabs();atRenderSchedule();
+}
+function atPrevWeek(){atWeekOff--;atRenderTabs();}
+function atNextWeek(){atWeekOff++;atRenderTabs();}
+function atRenderCard(ev){
+  const PAW=`<svg width="20" height="20" viewBox="0 0 36 36" fill="#e05c1a"><ellipse cx="10" cy="8" rx="4" ry="5"/><ellipse cx="26" cy="8" rx="4" ry="5"/><ellipse cx="4" cy="18" rx="3.5" ry="4.5"/><ellipse cx="32" cy="18" rx="3.5" ry="4.5"/><path d="M18 14c-6 0-11 4-11 10 0 4 2.5 7 5 8.5 1.5.9 3.5 1.5 6 1.5s4.5-.6 6-1.5c2.5-1.5 5-4.5 5-8.5 0-6-5-10-11-10z"/></svg>`;
+  const liveDot=`<span style="width:6px;height:6px;border-radius:50%;background:#CC314B;display:inline-block;flex-shrink:0;"></span>`;
+  const statusHtml=ev.status==='LIVE'
+    ?`<span style="display:flex;align-items:center;gap:4px;font-size:12px;color:#CC314B;font-weight:600;">${liveDot}LIVE</span>`
+    :`<span style="font-size:12px;color:#646464;">${ev.status}</span>`;
+  let bodyHtml='';
+  if(ev.type==='game'){
+    bodyHtml=`
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.home}</span></div>
+        <span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.homeScore}</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.away}</span></div>
+        <span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.awayScore}</span>
+      </div>`;
+  }else if(ev.type==='series'){
+    bodyHtml=`
+      <div style="display:flex;align-items:center;gap:8px;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.home}</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.away}</span></div>
+      <div style="font-size:15px;color:#646464;line-height:1.45;">${ev.desc}</div>`;
+  }else{
+    bodyHtml=`
+      <div style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.title}</div>
+      <div style="font-size:15px;color:#646464;line-height:1.45;">${ev.desc}</div>`;
+  }
+  const addrSvg=`<svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  return `<div class="ev-card">
+    <div class="ev-card-hdr">
+      <div class="ev-card-r1"><span class="ev-time">${ev.time}</span><span style="flex:1;text-align:right;">${statusHtml}</span><span class="ev-keb">···</span></div>
+      <div class="ev-card-org">${ev.org}</div>
+    </div>
+    <div class="ev-card-body" style="display:flex;flex-direction:column;gap:10px;">
+      ${bodyHtml}
+      <div class="ev-addr">${addrSvg}${ev.addr}</div>
+    </div>
+    <div class="ev-actions"><button class="ev-btn-share">SHARE</button><button class="ev-btn-add">ADD TO CALENDAR</button></div>
+  </div>`;
+}
+function atRenderSchedule(){
+  const c=document.getElementById('at-schedule');if(!c)return;
+  const data=AT_DATA[atSelDate];
+  if(!data||!data.length){c.innerHTML=`<div style="padding:48px 24px;text-align:center;"><div style="font-size:40px;margin-bottom:12px;">🏆</div><div style="font-size:16px;font-weight:600;color:#2d2d2d;margin-bottom:6px;">No athletic events this day</div><div style="font-size:14px;color:#747474;">Select another day or navigate weeks</div></div>`;return;}
+  document.getElementById('at-schedule').innerHTML=data.map(ev=>atRenderCard(ev)).join('');
+}
+function atToggleView(){
+  atView=atView==='schedule'?'calendar':'schedule';const isSched=atView==='schedule';
+  document.getElementById('at-sched-wrap').style.display=isSched?'block':'none';
+  document.getElementById('at-cal-wrap').style.display=isSched?'none':'block';
+  document.getElementById('at-dtbar').style.display=isSched?'flex':'none';
+  atSetDropdownLabel(isSched?'Schedule':'Year');
+  if(isSched){atRenderTabs();atRenderSchedule();}else{atRenderCal();}
+}
+function atGoToday(){
+  atSelDate='2026-03-17';atView='schedule';atWeekOff=0;
+  document.getElementById('at-sched-wrap').style.display='block';
+  document.getElementById('at-cal-wrap').style.display='none';
+  document.getElementById('at-dtbar').style.display='flex';
+  atSetDropdownLabel('Schedule');atRenderTabs();atRenderSchedule();
+}
+function atRenderCal(){
+  const c=document.getElementById('at-cal-wrap');
+  const DOW=['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  let h='<div style="padding-top:8px;">';
+  [[2026,2],[2026,3],[2026,4]].forEach(([y,m])=>{
+    h+=`<div class="cal-month"><div class="cal-month-title">${MON_L[m]} ${y}</div><div class="cal-grid">`;
+    DOW.forEach(d=>h+=`<div class="cal-dow">${d}</div>`);
+    const first=new Date(y,m,1),off=(first.getDay()+6)%7;
+    for(let i=0;i<off;i++)h+=`<div class="cal-cell"></div>`;
+    const days=new Date(y,m+1,0).getDate();
+    for(let day=1;day<=days;day++){
+      const dstr=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      let cls='cal-cell';if(dstr===atSelDate)cls+=' sel';
+      h+=`<div class="${cls}" onclick="atPickDayFromCal('${dstr}')"><div class="cal-num">${day}</div>${atHasEv(dstr)?'<div class="cal-ev-dot"></div>':''}</div>`;
+    }
+    h+=`</div></div>`;
+  });
+  c.innerHTML=h+'</div>';
+}
+function atPickDayFromCal(dstr){
+  atSelDate=dstr;atView='schedule';
+  document.getElementById('at-sched-wrap').style.display='block';
+  document.getElementById('at-cal-wrap').style.display='none';
+  document.getElementById('at-dtbar').style.display='flex';
+  atSetDropdownLabel('Schedule');
+  const t=new Date(2026,2,17),ts=new Date(t);ts.setDate(t.getDate()-t.getDay());
+  const d=new Date(dstr+'T00:00:00'),ds2=new Date(d);ds2.setDate(d.getDate()-d.getDay());
+  atWeekOff=Math.round((ds2-ts)/(7*86400000));atRenderTabs();atRenderSchedule();
+}
+function initAt(){
+  atView='schedule';atWeekOff=0;
+  document.getElementById('at-sched-wrap').style.display='block';
+  document.getElementById('at-cal-wrap').style.display='none';
+  document.getElementById('at-dtbar').style.display='flex';
+  atSetDropdownLabel('Schedule');atRenderTabs();atRenderSchedule();
+}
+
+// ─── More 3 Search ───
+const M3_ALL_ITEMS=[
+  {lb:'Events',          sub:'Universal',              ic:'#ic-cal',    tgt:'s-events'},
+  {lb:'Athletics',       sub:'Universal',              ic:'#ic-sport',  tgt:'s-athletics'},
+  {lb:'Documents',       sub:'Universal',              ic:'#ic-doc',    tgt:'s-documents'},
+  {lb:'Dining',          sub:'Universal · Washington', ic:'#ic-dining', tgt:'s-dining'},
+  {lb:'Staff Directory', sub:'Universal',              ic:'#ic-people', tgt:'s-staff'},
+  {lb:'About Us',        sub:'Universal',              ic:'#ic-info',   tgt:'s-about'},
+  {lb:'Help Center',     sub:'Universal',              ic:'#ic-help',   tgt:null},
+  {lb:'Forms',           sub:'Universal',              ic:'#ic-doc',    tgt:'s-forms'},
+  {lb:'Pages',           sub:'Universal',              ic:'#ic-doc',    tgt:'s-pages'},
+  // Forms by school
+  {lb:'Permission Slip',       sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Emergency Contact Form',sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Enrollment Forms',      sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Health Form',           sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Volunteer Form',        sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Field Trip Permission',   sub:'Forms · Washington MS', ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Health & Medication Form',sub:'Forms · Washington MS', ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Supply Request',          sub:'Forms · Washington MS', ic:'#ic-doc', tgt:'s-forms'},
+  // Pages by school
+  {lb:'Student Handbook',    sub:'Pages · Lincoln Elem',  ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Lunch Menu',          sub:'Pages · Lincoln Elem',  ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Supply List',         sub:'Pages · Lincoln Elem',  ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Dismissal Procedures',sub:'Pages · Lincoln Elem',  ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Student Handbook',    sub:'Pages · Washington MS', ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Code of Conduct',     sub:'Pages · Washington MS', ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Supply List',         sub:'Pages · Washington MS', ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Bell Schedule',       sub:'Pages · Washington MS', ic:'#ic-doc', tgt:'s-pages'},
+];
+let m3Recents=[
+  {lb:'Events', sub:'Universal', ic:'#ic-cal', tgt:'s-events'},
+  {lb:'Dining', sub:'Universal · Washington', ic:'#ic-dining', tgt:'s-dining'},
+];
+function openM3Search(){
+  show('s-more3-search');
+  const inp=document.getElementById('m3-search-input');
+  if(inp){inp.value='';inp.focus();}
+  const clr=document.getElementById('m3-clear-btn');
+  if(clr)clr.style.display='none';
+  m3RenderResults('');
+}
+function closeM3Search(){ show('s-more3'); }
+function m3ClearSearch(){
+  const inp=document.getElementById('m3-search-input');
+  if(inp){inp.value='';inp.focus();}
+  const clr=document.getElementById('m3-clear-btn');
+  if(clr)clr.style.display='none';
+  m3RenderResults('');
+}
+function m3SearchUpdate(val){
+  const clr=document.getElementById('m3-clear-btn');
+  if(clr)clr.style.display=val?'block':'none';
+  m3RenderResults(val.trim());
+}
+function m3RenderResults(query){
+  const c=document.getElementById('m3-search-results');if(!c)return;
+  if(!query){
+    let h=`<div class="section-hdr">Recent</div><div style="background:#fff;">`;
+    if(m3Recents.length){m3Recents.forEach(r=>{h+=m3ResultRow(r,true);});}
+    else{h+=`<div style="padding:14px 16px;font-size:14px;color:#747474;">No recent searches yet.</div>`;}
+    h+='</div>';
+    c.innerHTML=h;return;
+  }
+  const q=query.toLowerCase();
+  const results=M3_ALL_ITEMS.filter(it=>it.lb.toLowerCase().includes(q)||it.sub.toLowerCase().includes(q));
+  if(!results.length){c.innerHTML=`<div style="padding:48px 24px;text-align:center;color:#747474;font-size:14px;">No results for "<strong style="color:#2d2d2d;">${query}</strong>"</div>`;return;}
+  let h=`<div class="section-hdr">${results.length} result${results.length!==1?'s':''}</div><div style="background:#fff;">`;
+  results.forEach(r=>{h+=m3ResultRow(r,false);});
+  h+='</div>';
+  c.innerHTML=h;
+}
+function m3ResultRow(item,isRecent){
+  const clockIc=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#909090" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+  const sectionIc=`<svg width="18" height="18"><use href="${item.ic}"/></svg>`;
+  const nav=item.tgt?`onclick="m3NavTo('${item.lb}','${item.sub}','${item.ic}','${item.tgt}')" style="cursor:pointer;"`:`style="cursor:default;"`;
+  return `<div class="more-item" ${nav}>
+    <div style="width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#2d2d2d;">${isRecent?clockIc:sectionIc}</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:15px;color:#2d2d2d;font-weight:500;">${item.lb}</div>
+      <div style="font-size:12px;color:#747474;margin-top:2px;">${item.sub}</div>
+    </div>
+    <span class="more-chev">›</span>
+  </div>`;
+}
+function m3NavTo(lb,sub,ic,tgt){
+  m3Recents=m3Recents.filter(r=>!(r.lb===lb&&r.sub===sub));
+  m3Recents.unshift({lb,sub,ic,tgt});
+  if(m3Recents.length>5)m3Recents.length=5;
+  closeM3Search();
+  if(tgt)show(tgt);
+}
+
+// ─── Events ───
+const DAY_A=['Su','M','T','W','Th','F','Sa'];
+const MON_L=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const EV={
+  '2026-03-19':{allDay:[{title:'Spirit Week — Day 3',org:'Brookwood ISD'}],timed:[{time:'6:30 PM',status:'UPCOMING',org:'Lincoln Elem',title:'Spring Concert',desc:'Join us for the annual spring concert in the school gymnasium. Doors open at 6:00 PM. All families welcome.',addr:'210 Lincoln Ave, Brookwood, TX'}]},
+  '2026-03-20':{allDay:[],timed:[{time:'9:30 AM',status:'UPCOMING',org:'Washington MS',title:'Drama Club Showcase',desc:"Students present this semester's performances. Seating is first come, first served.",addr:'450 Washington Blvd, Brookwood, TX'}]},
+  '2026-03-21':{allDay:[],timed:[{time:'6:00 PM',status:'UPCOMING',org:'Washington MS',title:'Basketball vs Jefferson MS',desc:'Home game. Come support the Tigers! Concessions will be available.',addr:'450 Washington Blvd, Brookwood, TX'}]},
+  '2026-03-26':{allDay:[{title:'No School — Spring Break',org:'Brookwood ISD'}],timed:[]},
+  '2026-03-27':{allDay:[{title:'No School — Spring Break',org:'Brookwood ISD'}],timed:[]},
+  '2026-03-28':{allDay:[],timed:[{time:'3:00 PM',status:'UPCOMING',org:'Lincoln Elem',title:'Parent-Teacher Conferences',desc:'Schedule your conference slot through the school office. Evening slots until 7:00 PM.',addr:'210 Lincoln Ave, Brookwood, TX'}]},
+  '2026-04-02':{allDay:[{title:'Science Museum Field Trip',org:'Washington MS'}],timed:[]},
+  '2026-04-10':{allDay:[],timed:[{time:'11:00 AM',status:'UPCOMING',org:'Lincoln Elem',title:'Spring Carnival',desc:'Annual spring carnival with games, food, and activities for the whole family.',addr:'210 Lincoln Ave, Brookwood, TX'}]}
+};
+function hasEv(d){const x=EV[d];return x&&(x.allDay.length>0||x.timed.length>0);}
+function ds(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+let evView='schedule',selDate='2026-03-19',weekOff=0,evReady=false;
+function getWeekSun(off){const t=new Date(2026,2,17);const s=new Date(t);s.setDate(t.getDate()-t.getDay()+off*7);return s;}
+function setEvDropdownLabel(l){const el=document.getElementById('ev-dropdown-label');if(el)el.textContent=l;}
+function renderTabs(){
+  const sun=getWeekSun(weekOff),inner=document.getElementById('dt-inner');if(!inner)return;
+  inner.innerHTML='';
+  for(let i=0;i<7;i++){
+    const d=new Date(sun);d.setDate(sun.getDate()+i);
+    const dstr=ds(d),isSel=dstr===selDate,hasDot=hasEv(dstr);
+    const el=document.createElement('div');el.className='dt-tab';el.onclick=()=>pickDay(dstr);
+    if(isSel)el.style.borderBottom='2.5px solid #2d2d2d';
+    el.innerHTML=`<div class="dt-dot${hasDot?'':' hide'}"></div><div style="font-size:16px;font-weight:${isSel?700:500};color:${isSel?'#2d2d2d':'#646464'};line-height:20px;">${d.getDate()}</div><div style="font-size:11px;color:${isSel?'#2d2d2d':'#646464'};text-transform:uppercase;">${DAY_A[d.getDay()]}</div>`;
+    inner.appendChild(el);
+  }
+}
+function pickDay(dstr){
+  selDate=dstr;
+  const t=new Date(2026,2,17),ts=new Date(t);ts.setDate(t.getDate()-t.getDay());
+  const d=new Date(dstr+'T00:00:00'),ds2=new Date(d);ds2.setDate(d.getDate()-d.getDay());
+  weekOff=Math.round((ds2-ts)/(7*86400000));renderTabs();renderSchedule();
+}
+function prevWeek(){weekOff--;renderTabs();}
+function nextWeek(){weekOff++;renderTabs();}
+function renderSchedule(){
+  const c=document.getElementById('ev-schedule');if(!c)return;
+  const data=EV[selDate];
+  if(!data||(data.allDay.length===0&&data.timed.length===0)){c.innerHTML=`<div style="padding:48px 24px;text-align:center;"><div style="font-size:40px;margin-bottom:12px;">📅</div><div style="font-size:16px;font-weight:600;color:#2d2d2d;margin-bottom:6px;">No events this day</div><div style="font-size:14px;color:#747474;">Select another day or navigate weeks</div></div>`;return;}
+  let h='';
+  (data.allDay||[]).forEach(ev=>{h+=`<div class="allday-card"><div class="allday-top"><div><div class="allday-label">All Day</div><div class="allday-org">${ev.org}</div></div><div class="allday-red-dot"></div></div><div class="allday-title">${ev.title}</div></div>`;});
+  (data.timed||[]).forEach(ev=>{h+=`<div class="ev-card"><div class="ev-card-hdr"><div class="ev-card-r1"><span class="ev-time">${ev.time}</span><span class="ev-status">${ev.status}</span><span class="ev-keb">···</span></div><div class="ev-card-org">${ev.org}</div></div><div class="ev-card-body"><div class="ev-title">${ev.title}</div><div class="ev-desc">${ev.desc} <span class="ev-desc-more">more</span></div><div class="ev-addr"><svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${ev.addr}</div></div><div class="ev-actions"><button class="ev-btn-share">SHARE</button><button class="ev-btn-add">ADD TO CALENDAR</button></div></div>`;});
+  c.innerHTML=h;
+}
+const IC_CAL=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+const IC_LIST=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1.2" fill="currentColor"/><circle cx="3" cy="12" r="1.2" fill="currentColor"/><circle cx="3" cy="18" r="1.2" fill="currentColor"/></svg>`;
+function toggleEvView(){
+  evView=evView==='schedule'?'calendar':'schedule';const isSched=evView==='schedule';
+  document.getElementById('ev-sched-wrap').style.display=isSched?'block':'none';
+  document.getElementById('ev-cal-wrap').style.display=isSched?'none':'block';
+  document.getElementById('dtbar').style.display=isSched?'flex':'none';
+  setEvDropdownLabel(isSched?'Schedule':'Year');
+  if(isSched){renderTabs();renderSchedule();}else{renderCal();}
+}
+function goToday(){
+  selDate='2026-03-17';evView='schedule';weekOff=0;
+  document.getElementById('ev-sched-wrap').style.display='block';
+  document.getElementById('ev-cal-wrap').style.display='none';
+  document.getElementById('dtbar').style.display='flex';
+  setEvDropdownLabel('Schedule');renderTabs();renderSchedule();
+}
+function renderCal(){
+  const c=document.getElementById('ev-cal-wrap');
+  const DOW=['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  let h='<div style="padding-top:8px;">';
+  [[2026,2],[2026,3],[2026,4]].forEach(([y,m])=>{
+    h+=`<div class="cal-month"><div class="cal-month-title">${MON_L[m]} ${y}</div><div class="cal-grid">`;
+    DOW.forEach(d=>h+=`<div class="cal-dow">${d}</div>`);
+    const first=new Date(y,m,1),off=(first.getDay()+6)%7;
+    for(let i=0;i<off;i++)h+=`<div class="cal-cell"></div>`;
+    const days=new Date(y,m+1,0).getDate();
+    for(let day=1;day<=days;day++){
+      const dstr=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      let cls='cal-cell';if(dstr===selDate)cls+=' sel';
+      h+=`<div class="${cls}" onclick="pickDayFromCal('${dstr}')"><div class="cal-num">${day}</div>${hasEv(dstr)?'<div class="cal-ev-dot"></div>':''}</div>`;
+    }
+    h+=`</div></div>`;
+  });
+  c.innerHTML=h+'</div>';
+}
+function pickDayFromCal(dstr){
+  selDate=dstr;evView='schedule';
+  document.getElementById('ev-sched-wrap').style.display='block';
+  document.getElementById('ev-cal-wrap').style.display='none';
+  document.getElementById('dtbar').style.display='flex';
+  setEvDropdownLabel('Schedule');
+  const t=new Date(2026,2,17),ts=new Date(t);ts.setDate(t.getDate()-t.getDay());
+  const d=new Date(dstr+'T00:00:00'),ds2=new Date(d);ds2.setDate(d.getDate()-d.getDay());
+  weekOff=Math.round((ds2-ts)/(7*86400000));renderTabs();renderSchedule();
+}
+function initEv(){
+  evReady=true;evView='schedule';weekOff=0;
+  document.getElementById('ev-sched-wrap').style.display='block';
+  document.getElementById('ev-cal-wrap').style.display='none';
+  document.getElementById('dtbar').style.display='flex';
+  setEvDropdownLabel('Schedule');renderTabs();renderSchedule();
+}
+</script>
+</body>
+</html>
