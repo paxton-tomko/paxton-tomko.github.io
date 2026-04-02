@@ -242,11 +242,11 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Feed</span><div></div></div>
   <div class="scroll"><div class="empty-state">Feed screen</div></div>
   <div class="bnav">
-    <button class="bnav-btn active" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
-    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <button class="bnav-btn active" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
     <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
-    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
-    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+    <button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -257,11 +257,11 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Rooms</span><div></div></div>
   <div class="scroll"><div class="empty-state">Rooms screen</div></div>
   <div class="bnav">
-    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
-    <button class="bnav-btn active" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn active" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
     <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
-    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
-    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+    <button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -272,11 +272,11 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Messages</span><div></div></div>
   <div class="scroll"><div class="empty-state">Messages screen</div></div>
   <div class="bnav">
-    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
-    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
     <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
-    <button class="bnav-btn active" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
-    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+    <button class="bnav-btn active" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -286,19 +286,19 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div class="topnav">
     <div class="logo">🐯</div>
-    <button class="ver-title-btn" onclick="openMorePopover(event)"><span>More 1</span><span class="ver-title-chev">▾</span></button>
+    <button class="ver-title-btn" data-maze-id="more-version-toggle" onclick="openMorePopover(event)"><span>More 1</span><span class="ver-title-chev">▾</span></button>
     <div class="tnicons">
-      <button class="icon-btn" onclick="openM1Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
+      <button class="icon-btn" data-maze-id="more1-open-search" onclick="openM1Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
       <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
     </div>
   </div>
   <div class="scroll" id="m1-content" style="background:#f8f8f8;"></div>
   <div class="bnav">
-    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
-    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
     <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
-    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
-    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+    <button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -308,14 +308,14 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div style="background:#fff;border-bottom:1px solid #e1e1e1;padding:8px 12px;flex-shrink:0;">
     <div style="display:flex;align-items:center;background:#fff;border:1px solid #adadad;border-radius:8px;padding:0 10px;height:48px;gap:8px;">
-      <button onclick="closeM1Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:4px;flex-shrink:0;">
+      <button data-maze-id="more1-close-search" onclick="closeM1Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:4px;flex-shrink:0;">
         <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></svg>
       </button>
       <input id="m1-search-input" type="text" placeholder="Placeholder text..."
         oninput="m1SearchUpdate(this.value)"
         style="flex:1;border:none;outline:none;font-size:17px;color:#2d2d2d;background:transparent;font-family:inherit;"
         autocomplete="off" autocorrect="off" spellcheck="false">
-      <button id="m1-clear-btn" onclick="m1ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
+      <button id="m1-clear-btn" data-maze-id="more1-clear-search" onclick="m1ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
     </div>
   </div>
   <div class="scroll" id="m1-search-results" style="background:#f8f8f8;"></div>
@@ -327,33 +327,33 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div class="topnav">
     <div class="logo">🐯</div>
-    <button class="ver-title-btn" onclick="openMorePopover(event)"><span>More 2</span><span class="ver-title-chev">▾</span></button>
+    <button class="ver-title-btn" data-maze-id="more-version-toggle" onclick="openMorePopover(event)"><span>More 2</span><span class="ver-title-chev">▾</span></button>
     <div class="tnicons">
-      <button class="icon-btn" onclick="openM2Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
+      <button class="icon-btn" data-maze-id="more2-open-search" onclick="openM2Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
       <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
     </div>
   </div>
   <div class="school-selector" id="m2-tabbar">
-    <div class="school-pill active" data-t="discover" onclick="m2Tab('discover')">
+    <div class="school-pill active" data-t="discover" data-maze-id="more2-tab-discover" onclick="m2Tab('discover')">
       <div class="sp-logo" style="background:#f1f0fb;font-size:20px;">🔍</div>
       <div class="sp-name">All schools</div>
     </div>
-    <div class="school-pill" data-t="lincoln" onclick="m2Tab('lincoln')">
+    <div class="school-pill" data-t="lincoln" data-maze-id="more2-tab-lincoln" onclick="m2Tab('lincoln')">
       <div class="sp-logo" style="background:#dbeafe;">🏫</div>
       <div class="sp-name">Lincoln</div>
     </div>
-    <div class="school-pill" data-t="washington" onclick="m2Tab('washington')">
+    <div class="school-pill" data-t="washington" data-maze-id="more2-tab-washington" onclick="m2Tab('washington')">
       <div class="sp-logo" style="background:#d1fae5;">🏛️</div>
       <div class="sp-name">Washington</div>
     </div>
   </div>
   <div class="scroll" id="m2-content" style="background:#f8f8f8;"></div>
   <div class="bnav">
-    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
-    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
     <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
-    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
-    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+    <button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -363,14 +363,14 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div style="background:#fff;border-bottom:1px solid #e1e1e1;padding:8px 12px;flex-shrink:0;">
     <div style="display:flex;align-items:center;background:#fff;border:1px solid #adadad;border-radius:8px;padding:0 10px;height:48px;gap:8px;">
-      <button onclick="closeM2Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:4px;flex-shrink:0;">
+      <button data-maze-id="more2-close-search" onclick="closeM2Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:4px;flex-shrink:0;">
         <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></svg>
       </button>
       <input id="m2-search-input" type="text" placeholder="Placeholder text..."
         oninput="m2SearchUpdate(this.value)"
         style="flex:1;border:none;outline:none;font-size:17px;color:#2d2d2d;background:transparent;font-family:inherit;"
         autocomplete="off" autocorrect="off" spellcheck="false">
-      <button id="m2-clear-btn" onclick="m2ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
+      <button id="m2-clear-btn" data-maze-id="more2-clear-search" onclick="m2ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
     </div>
   </div>
   <div class="scroll" id="m2-search-results" style="background:#f8f8f8;"></div>
@@ -390,7 +390,7 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <div class="scroll">
     <!-- Search bar — opens full-screen overlay -->
     <div class="search-wrap" style="padding:10px 16px;">
-      <div class="search-inner" onclick="openM3Search()" style="cursor:text;">
+      <div class="search-inner" data-maze-id="more3-open-search" onclick="openM3Search()" style="cursor:text;">
         <svg width="16" height="16"><use href="#ic-search"/></svg>What would you like to find?
       </div>
     </div>
@@ -398,46 +398,46 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
     <!-- Universal — card grid -->
     <div class="section-hdr">Universal</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:6px 16px 2px;">
-      <div onclick="show('s-events')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+      <div data-maze-id="more3-tile-events" onclick="show('s-events')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
         <div style="width:40px;height:40px;border-radius:10px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-cal"/></svg></div>
         <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Events</div>
       </div>
-      <div onclick="show('s-athletics')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+      <div data-maze-id="more3-tile-athletics" onclick="show('s-athletics')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
         <div style="width:40px;height:40px;border-radius:10px;background:#f0fff4;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-sport"/></svg></div>
         <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Athletics</div>
       </div>
-      <div onclick="show('s-documents')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+      <div data-maze-id="more3-tile-documents" onclick="show('s-documents')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
         <div style="width:40px;height:40px;border-radius:10px;background:#fffbf0;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-doc"/></svg></div>
         <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Documents</div>
       </div>
-      <div onclick="show('s-dining')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+      <div data-maze-id="more3-tile-dining" onclick="show('s-dining')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
         <div style="width:40px;height:40px;border-radius:10px;background:#fff0f0;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-dining"/></svg></div>
         <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Dining</div>
       </div>
-      <div onclick="show('s-forms')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+      <div data-maze-id="more3-tile-forms" onclick="show('s-forms')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
         <div style="width:40px;height:40px;border-radius:10px;background:#fff0f5;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d2d" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
         <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Forms</div>
       </div>
-      <div onclick="show('s-pages')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+      <div data-maze-id="more3-tile-pages" onclick="show('s-pages')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
         <div style="width:40px;height:40px;border-radius:10px;background:#f0faff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d2d" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
         <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Pages</div>
       </div>
-      <div onclick="show('s-staff')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+      <div data-maze-id="more3-tile-staff" onclick="show('s-staff')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
         <div style="width:40px;height:40px;border-radius:10px;background:#f5f0ff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-people"/></svg></div>
         <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Staff Directory</div>
       </div>
-      <div onclick="show('s-help')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+      <div data-maze-id="more3-tile-help" onclick="show('s-help')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
         <div style="width:40px;height:40px;border-radius:10px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-help"/></svg></div>
         <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Help Center</div>
       </div>
     </div>
   </div>
   <div class="bnav">
-    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
-    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
     <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
-    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
-    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button>
+    <button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" data-maze-id="nav-search" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -446,9 +446,9 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <div id="s-forms" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div class="topnav">
-    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
+    <button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
     <span class="topnav-title">Forms</span>
-    <div class="tnicons"><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('forms')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-forms"></span></div></div>
+    <div class="tnicons"><button class="icon-btn" data-maze-id="subscreen-open-search" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('forms')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-forms"></span></div></div>
   </div>
   <div class="scroll" style="padding-top:8px;">
     <div id="forms-district" style="background:#fff;">
@@ -456,7 +456,7 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="emergency">Emergency Contact Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="enrollment">Enrollment Forms</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="health">Health Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
-      <div class="list-row" onclick="show('s-success-volunteer')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row" data-maze-id="form-volunteer" onclick="show('s-success-volunteer')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="field-trip">Field Trip Permission</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="health">Health &amp; Medication Form</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="supplies">Supply Request</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
@@ -467,7 +467,7 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="emergency">Emergency Contact Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="enrollment">Enrollment Forms</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="health">Health Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
-      <div class="list-row" onclick="show('s-success-volunteer')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row" data-maze-id="form-volunteer" onclick="show('s-success-volunteer')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
     </div>
     <div id="forms-washington" style="display:none;background:#fff;">
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="field-trip">Field Trip Permission</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
@@ -476,7 +476,7 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
       <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
     </div>
   </div>
-  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" data-maze-id="nav-search" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button></div>
   <div class="home-ind" style="display:none;"></div>
 </div>
 
@@ -484,7 +484,7 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <!-- ════ HELP CENTER ════ -->
 <div id="s-help" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
-  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Help Center</span><button id="sstar-help" class="icon-btn" onclick="m2ToggleSectionFav('help')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button></div>
+  <div class="topnav"><button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Help Center</span><button id="sstar-help" class="icon-btn" onclick="m2ToggleSectionFav('help')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button></div>
   <div class="scroll" style="background:#f8f8f8;">
     <!-- Hero mockup area -->
     <div style="background:#eeecf8;padding:28px 24px 20px;display:flex;justify-content:center;">
@@ -534,25 +534,25 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <div id="s-pages" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div class="topnav">
-    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
+    <button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
     <span class="topnav-title">Pages</span>
-    <div class="tnicons"><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('pages')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-pages"></span></div></div>
+    <div class="tnicons"><button class="icon-btn" data-maze-id="subscreen-open-search" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('pages')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-pages"></span></div></div>
   </div>
   <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-info"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="general">About Us</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="newsletter">PTA Newsletter — Spring 2026</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="programs">After School Programs</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
-    <div class="list-row" onclick="show('s-success-bus-routes')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="transportation">Bus Routes &amp; Pickup Times</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row" data-maze-id="page-bus-routes" onclick="show('s-success-bus-routes')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="transportation">Bus Routes &amp; Pickup Times</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="nutrition">Cafeteria &amp; Nutrition Info</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="newsletter">Staff Spotlight</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-info"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="general">About Us</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="programs">Drama Club</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="calendar">Academic Calendar 2025–26</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
-    <div class="list-row" onclick="show('s-success-parent-resources')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="general">Parent Resources</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row" data-maze-id="page-parent-resources" onclick="show('s-success-parent-resources')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="general">Parent Resources</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="policy">Technology &amp; Device Policy</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="athletics">Athletics Schedule — Spring</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
   </div></div>
-  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
   <div class="home-ind" style="display:none;"></div>
 </div>
 
@@ -560,7 +560,7 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <div id="s-parent-resources" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div class="topnav">
-    <button class="back-btn" onclick="show('s-pages')"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;Pages</button>
+    <button class="back-btn" data-maze-id="back-to-pages" onclick="show('s-pages')"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;Pages</button>
     <span class="topnav-title"></span>
     <div></div>
   </div>
@@ -596,7 +596,7 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <div id="s-volunteer-form" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div class="topnav">
-    <button class="back-btn" onclick="show('s-forms')"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;Forms</button>
+    <button class="back-btn" data-maze-id="back-to-forms" onclick="show('s-forms')"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;Forms</button>
     <span class="topnav-title"></span>
     <div></div>
   </div>
@@ -649,14 +649,14 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
   <!-- Search bar with back chevron -->
   <div style="background:#f8f8f8;padding:8px 16px 10px;flex-shrink:0;">
     <div style="display:flex;align-items:center;background:#fff;border:1px solid #d1d1d1;border-radius:12px;padding:0 12px;height:44px;gap:8px;">
-      <button onclick="closeM3Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:0;flex-shrink:0;">
+      <button data-maze-id="more3-close-search" onclick="closeM3Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:0;flex-shrink:0;">
         <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></svg>
       </button>
       <input id="m3-search-input" type="text" placeholder="Search sections, forms & pages..."
         oninput="m3SearchUpdate(this.value)"
         style="flex:1;border:none;outline:none;font-size:15px;color:#2d2d2d;background:transparent;font-family:inherit;"
         autocomplete="off" autocorrect="off" spellcheck="false">
-      <button id="m3-clear-btn" onclick="m3ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
+      <button id="m3-clear-btn" data-maze-id="more3-clear-search" onclick="m3ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
     </div>
   </div>
   <!-- Results list -->
@@ -666,14 +666,14 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <div id="s-events" class="screen" style="position:relative;overflow:hidden;">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div class="topnav">
-    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
+    <button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
     <span class="topnav-title">Events</span>
-    <div class="tnicons"><button id="sstar-events" class="icon-btn" onclick="m2ToggleSectionFav('events')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('events')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-events"></span></div></div>
+    <div class="tnicons"><button id="sstar-events" class="icon-btn" onclick="m2ToggleSectionFav('events')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" data-maze-id="open-filter-events" onclick="openFilterSheet('events')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-events"></span></div></div>
   </div>
   <div class="dtbar" id="dtbar">
-    <button class="dt-nav" onclick="prevWeek()">‹</button>
+    <button class="dt-nav" data-maze-id="events-prev-week" onclick="prevWeek()">‹</button>
     <div class="dt-inner" id="dt-inner"></div>
-    <button class="dt-nav" onclick="nextWeek()">›</button>
+    <button class="dt-nav" data-maze-id="events-next-week" onclick="nextWeek()">›</button>
   </div>
   <div id="ev-sched-wrap" class="scroll" style="background:#f8f8f8;padding-bottom:80px;"><div id="ev-schedule" style="padding-top:8px;"></div></div>
   <div id="ev-cal-wrap" class="scroll" style="display:none;background:#f8f8f8;padding-bottom:80px;"></div>
@@ -682,17 +682,17 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
     <div style="pointer-events:all;background:#2d2d2d;border-radius:16px;display:flex;align-items:center;gap:6px;padding:6px 8px;box-shadow:0 4px 20px rgba(0,0,0,.22);">
       <button style="width:40px;height:40px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-size:22px;font-weight:300;line-height:1;">+</button>
       <div style="position:relative;">
-        <button id="ev-view-btn" onclick="openEvViewMenu(event)" style="height:40px;min-width:130px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
+        <button id="ev-view-btn" data-maze-id="events-view-toggle" onclick="openEvViewMenu(event)" style="height:40px;min-width:130px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
           <span id="ev-dropdown-label">Schedule</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 3 18 9"/><polyline points="6 15 12 21 18 15"/></svg>
         </button>
         <div id="ev-view-menu" style="display:none;position:absolute;bottom:52px;left:50%;transform:translateX(-50%);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden;min-width:160px;z-index:50;">
-          <div onclick="setEvView('schedule')" id="evmenu-schedule" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Schedule<span id="evmenu-check-schedule" style="color:#2d2d2d;opacity:0;">✓</span></div>
-          <div onclick="setEvView('month')"    id="evmenu-month"    style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Month<span    id="evmenu-check-month"    style="color:#2d2d2d;opacity:0;">✓</span></div>
-          <div onclick="setEvView('calendar')" id="evmenu-calendar" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;">Year<span     id="evmenu-check-calendar" style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div data-maze-id="events-view-schedule" onclick="setEvView('schedule')" id="evmenu-schedule" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Schedule<span id="evmenu-check-schedule" style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div data-maze-id="events-view-month" onclick="setEvView('month')"    id="evmenu-month"    style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Month<span    id="evmenu-check-month"    style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div data-maze-id="events-view-year" onclick="setEvView('calendar')" id="evmenu-calendar" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;">Year<span     id="evmenu-check-calendar" style="color:#2d2d2d;opacity:0;">✓</span></div>
         </div>
       </div>
-      <button onclick="goToday()" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#2d2d2d;white-space:nowrap;flex-shrink:0;">Today</button>
+      <button data-maze-id="events-go-today" onclick="goToday()" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#2d2d2d;white-space:nowrap;flex-shrink:0;">Today</button>
     </div>
   </div>
   <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
@@ -702,14 +702,14 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <div id="s-athletics" class="screen" style="position:relative;overflow:hidden;">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
   <div class="topnav">
-    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
+    <button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
     <span class="topnav-title">Athletics</span>
-    <div class="tnicons"><button id="sstar-athletics" class="icon-btn" onclick="m2ToggleSectionFav('athletics')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('athletics')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-athletics"></span></div></div>
+    <div class="tnicons"><button id="sstar-athletics" class="icon-btn" onclick="m2ToggleSectionFav('athletics')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" data-maze-id="open-filter-athletics" onclick="openFilterSheet('athletics')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-athletics"></span></div></div>
   </div>
   <div class="dtbar" id="at-dtbar">
-    <button class="dt-nav" onclick="atPrevWeek()">‹</button>
+    <button class="dt-nav" data-maze-id="athletics-prev-week" onclick="atPrevWeek()">‹</button>
     <div class="dt-inner" id="at-inner"></div>
-    <button class="dt-nav" onclick="atNextWeek()">›</button>
+    <button class="dt-nav" data-maze-id="athletics-next-week" onclick="atNextWeek()">›</button>
   </div>
   <div id="at-sched-wrap" class="scroll" style="background:#f8f8f8;padding-bottom:80px;"><div id="at-schedule" style="padding-top:8px;"></div></div>
   <div id="at-cal-wrap" class="scroll" style="display:none;background:#f8f8f8;padding-bottom:80px;"></div>
@@ -718,17 +718,17 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
     <div style="pointer-events:all;background:#2d2d2d;border-radius:16px;display:flex;align-items:center;gap:6px;padding:6px 8px;box-shadow:0 4px 20px rgba(0,0,0,.22);">
       <button style="width:40px;height:40px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-size:22px;font-weight:300;line-height:1;">+</button>
       <div style="position:relative;">
-        <button id="at-view-btn" onclick="openAtViewMenu(event)" style="height:40px;min-width:130px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
+        <button id="at-view-btn" data-maze-id="athletics-view-toggle" onclick="openAtViewMenu(event)" style="height:40px;min-width:130px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
           <span id="at-dropdown-label">Schedule</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 3 18 9"/><polyline points="6 15 12 21 18 15"/></svg>
         </button>
         <div id="at-view-menu" style="display:none;position:absolute;bottom:52px;left:50%;transform:translateX(-50%);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden;min-width:160px;z-index:50;">
-          <div onclick="setAtView('schedule')" id="atmenu-schedule" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Schedule<span id="atmenu-check-schedule" style="color:#2d2d2d;opacity:0;">✓</span></div>
-          <div onclick="setAtView('month')"    id="atmenu-month"    style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Month<span    id="atmenu-check-month"    style="color:#2d2d2d;opacity:0;">✓</span></div>
-          <div onclick="setAtView('calendar')" id="atmenu-calendar" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;">Year<span     id="atmenu-check-calendar" style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div data-maze-id="athletics-view-schedule" onclick="setAtView('schedule')" id="atmenu-schedule" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Schedule<span id="atmenu-check-schedule" style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div data-maze-id="athletics-view-month" onclick="setAtView('month')"    id="atmenu-month"    style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Month<span    id="atmenu-check-month"    style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div data-maze-id="athletics-view-year" onclick="setAtView('calendar')" id="atmenu-calendar" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;">Year<span     id="atmenu-check-calendar" style="color:#2d2d2d;opacity:0;">✓</span></div>
         </div>
       </div>
-      <button onclick="atGoToday()" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#2d2d2d;white-space:nowrap;flex-shrink:0;">Today</button>
+      <button data-maze-id="athletics-go-today" onclick="atGoToday()" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#2d2d2d;white-space:nowrap;flex-shrink:0;">Today</button>
     </div>
   </div>
   <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
@@ -737,35 +737,35 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <!-- ════ DOCUMENTS ════ -->
 <div id="s-documents" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
-  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Documents</span><div class="tnicons"><button id="sstar-documents" class="icon-btn" onclick="m2ToggleSectionFav('documents')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('documents')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-documents"></span></div></div></div>
+  <div class="topnav"><button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Documents</span><div class="tnicons"><button id="sstar-documents" class="icon-btn" onclick="m2ToggleSectionFav('documents')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('documents')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-documents"></span></div></div></div>
   <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="handbook">2025–26 School Handbook</div><div class="list-row-sub">Lincoln Elem · PDF</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="nutrition">Lunch Menu — March</div><div class="list-row-sub">Lincoln Elem · PDF</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="policy">Student Code of Conduct</div><div class="list-row-sub">Washington MS · PDF</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="supplies">Supply List 2025–26</div><div class="list-row-sub">Washington MS · PDF</div></div><span class="list-chev">›</span></div>
   </div></div>
-  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
   <div class="home-ind" style="display:none;"></div>
 </div>
 
 <!-- ════ DINING ════ -->
 <div id="s-dining" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
-  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Dining</span><div class="tnicons"><button id="sstar-dining" class="icon-btn" onclick="m2ToggleSectionFav('dining')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('dining')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-dining"></span></div></div></div>
+  <div class="topnav"><button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Dining</span><div class="tnicons"><button id="sstar-dining" class="icon-btn" onclick="m2ToggleSectionFav('dining')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('dining')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-dining"></span></div></div></div>
   <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
     <div class="list-row"><div class="list-row-icon">🍕</div><div class="list-row-info"><div class="list-row-name">Monday — Pizza</div><div class="list-row-sub">Washington MS · Mar 18</div></div></div>
     <div class="list-row"><div class="list-row-icon">🥗</div><div class="list-row-info"><div class="list-row-name">Tuesday — Salad Bar</div><div class="list-row-sub">Washington MS · Mar 19</div></div></div>
     <div class="list-row"><div class="list-row-icon">🌮</div><div class="list-row-info"><div class="list-row-name">Wednesday — Tacos</div><div class="list-row-sub">Washington MS · Mar 20</div></div></div>
     <div class="list-row"><div class="list-row-icon">🍔</div><div class="list-row-info"><div class="list-row-name">Thursday — Burgers</div><div class="list-row-sub">Washington MS · Mar 21</div></div></div>
   </div></div>
-  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
   <div class="home-ind" style="display:none;"></div>
 </div>
 
 <!-- ════ STAFF ════ -->
 <div id="s-staff" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
-  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Staff Directory</span><div class="tnicons"><button id="sstar-staff" class="icon-btn" onclick="m2ToggleSectionFav('staff')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('staff')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-staff"></span></div></div></div>
+  <div class="topnav"><button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Staff Directory</span><div class="tnicons"><button id="sstar-staff" class="icon-btn" onclick="m2ToggleSectionFav('staff')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('staff')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-staff"></span></div></div></div>
   <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
     <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">SC</div><div class="list-row-info"><div class="list-row-name" data-tag="administration">Ms. Sandra Craig</div><div class="list-row-sub">Principal · Lincoln Elem</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">JR</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Mr. James Rivera</div><div class="list-row-sub">4th Grade Teacher · Lincoln Elem</div></div><span class="list-chev">›</span></div>
@@ -776,7 +776,7 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
     <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">BM</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Mr. Brian Moore</div><div class="list-row-sub">Math Teacher · Washington MS</div></div><span class="list-chev">›</span></div>
     <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">CS</div><div class="list-row-info"><div class="list-row-name" data-tag="athletics">Mr. Chris Stevens</div><div class="list-row-sub">Athletics Director · Washington MS</div></div><span class="list-chev">›</span></div>
   </div></div>
-  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
   <div class="home-ind" style="display:none;"></div>
 </div>
 
@@ -784,18 +784,18 @@ html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify
 <!-- ════ ABOUT ════ -->
 <div id="s-about" class="screen">
   <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
-  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">About Us</span><button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button></div>
+  <div class="topnav"><button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">About Us</span><button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button></div>
   <div class="school-selector" id="about-selector">
-    <div class="school-pill active" data-s="district" onclick="selectSchoolAbout('district')"><div class="sp-logo" style="background:#ede9fe;">🏙️</div><div class="sp-name">District</div></div>
-    <div class="school-pill" data-s="lincoln" onclick="selectSchoolAbout('lincoln')"><div class="sp-logo" style="background:#dbeafe;">🏫</div><div class="sp-name">Lincoln</div></div>
-    <div class="school-pill" data-s="washington" onclick="selectSchoolAbout('washington')"><div class="sp-logo" style="background:#d1fae5;">🏛️</div><div class="sp-name">Washington</div></div>
+    <div class="school-pill active" data-s="district" data-maze-id="about-school-district" onclick="selectSchoolAbout('district')"><div class="sp-logo" style="background:#ede9fe;">🏙️</div><div class="sp-name">District</div></div>
+    <div class="school-pill" data-s="lincoln" data-maze-id="about-school-lincoln" onclick="selectSchoolAbout('lincoln')"><div class="sp-logo" style="background:#dbeafe;">🏫</div><div class="sp-name">Lincoln</div></div>
+    <div class="school-pill" data-s="washington" data-maze-id="about-school-washington" onclick="selectSchoolAbout('washington')"><div class="sp-logo" style="background:#d1fae5;">🏛️</div><div class="sp-name">Washington</div></div>
   </div>
   <div class="scroll" style="padding-top:8px;">
     <div id="about-district"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#ede9fe;">🏙️</div><div><div class="about-school-name">Brookwood ISD</div><div class="about-school-type">Independent School District</div></div></div><div class="about-desc">Brookwood ISD serves over 4,200 students across three campuses in the greater Brookwood area. Our mission is to inspire, challenge, and support every learner on their path to a successful future.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Students</div><div class="stat-val">4,200+</div></div><div class="stat-box"><div class="stat-label">Schools</div><div class="stat-val">3</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1948</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">310</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0100</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">General Email</div><div class="contact-val">info@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-web"/></svg></div><div class="contact-info"><div class="contact-type">Website</div><div class="contact-val">www.brookwoodisd.edu</div></div><span class="contact-action">Open</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">100 District Blvd, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
     <div id="about-lincoln" style="display:none;"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#dbeafe;">🏫</div><div><div class="about-school-name">Lincoln Elementary</div><div class="about-school-type">Elementary School · Grades K–5</div></div></div><div class="about-desc">Lincoln Elementary has been a cornerstone of the Brookwood community since 1961. We foster a nurturing, rigorous environment where every child is known, valued, and challenged to grow.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Enrolled</div><div class="stat-val">612</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1961</div></div><div class="stat-box"><div class="stat-label">Grades</div><div class="stat-val">K–5</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">58</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0121</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">Office Email</div><div class="contact-val">lincoln@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">210 Lincoln Ave, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
     <div id="about-washington" style="display:none;"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#d1fae5;">🏛️</div><div><div class="about-school-name">Washington Middle</div><div class="about-school-type">Middle School · Grades 6–8</div></div></div><div class="about-desc">Washington Middle School serves students in grades 6–8 in Brookwood ISD. Our mission is to provide an engaging, rigorous environment where every student thrives.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Enrolled</div><div class="stat-val">847</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1962</div></div><div class="stat-box"><div class="stat-label">Grades</div><div class="stat-val">6–8</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">52</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0148</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">Office Email</div><div class="contact-val">washington@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">450 Washington Blvd, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
   </div>
-  <div class="bnav"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="bnav"><button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
   <div class="home-ind"></div>
 </div>
 
@@ -1054,7 +1054,7 @@ function renderFilterSchools() {
   c.innerHTML = '<div class="fsheet-list">' +
     cfg.schools.map(s => {
       const sel = fsSelSchools.has(s);
-      return `<div class="fsheet-row${sel?' sel':''}" onclick="toggleFilterChip('school','${s}')">
+      return `<div class="fsheet-row${sel?' sel':''}" data-maze-id="filter-school-${s}" onclick="toggleFilterChip('school','${s}')">
         <span class="fsheet-row-label">${s}</span>
         <div class="fsheet-row-check">${fsheetCheckSvg()}</div>
       </div>`;
@@ -1068,7 +1068,7 @@ function renderFilterTags() {
   c.innerHTML = '<div class="fsheet-list">' +
     cfg.tags.map(t => {
       const sel = fsSelTags.has(t.value);
-      return `<div class="fsheet-row${sel?' sel':''}" onclick="toggleFilterChip('tag','${t.value}')">
+      return `<div class="fsheet-row${sel?' sel':''}" data-maze-id="filter-tag-${t.value}" onclick="toggleFilterChip('tag','${t.value}')">
         <span class="fsheet-row-label">${t.label}</span>
         <div class="fsheet-row-check">${fsheetCheckSvg()}</div>
       </div>`;
@@ -1224,7 +1224,7 @@ const M1_CHEV_R = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" s
 function m1AccordionHdr(label, key, emoji) {
   const open = m1Open[key];
   const emojiHtml = emoji ? `<span style="font-size:14px;margin-right:6px;">${emoji}</span>` : '';
-  return `<div onclick="m1Toggle('${key}')" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#fff;border-bottom:1px solid #e1e1e1;cursor:pointer;user-select:none;">
+  return `<div data-maze-id="more1-toggle-${key}" onclick="m1Toggle('${key}')" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#fff;border-bottom:1px solid #e1e1e1;cursor:pointer;user-select:none;">
     <div style="display:flex;align-items:center;">${emojiHtml}<span style="font-size:15px;font-weight:600;color:#2d2d2d;">${label}</span></div>
     <span style="color:#909090;">${open ? M1_CHEV_D : M1_CHEV_R}</span>
   </div>`;
@@ -1247,7 +1247,7 @@ function m1Render() {
   let h = '';
 
   // Recents
-  h += `<div onclick="m1Toggle('recents')" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px 4px;cursor:pointer;user-select:none;">
+  h += `<div data-maze-id="more1-toggle-recents" onclick="m1Toggle('recents')" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px 4px;cursor:pointer;user-select:none;">
     <span style="font-size:12px;font-weight:500;color:#747474;text-transform:uppercase;letter-spacing:.05em;">Recent</span>
     <span style="color:#909090;">${m1Open.recents ? M1_CHEV_D : M1_CHEV_R}</span>
   </div>`;
@@ -1257,7 +1257,7 @@ function m1Render() {
       m1Recents.forEach(r => {
         const lbE = r.lb.replace(/'/g,"\\'");
         const subE = r.sub.replace(/'/g,"\\'");
-        h += `<div class="more-item" onclick="m1NavTo('${lbE}','${subE}','${r.ic}','${r.tgt||''}')">
+        h += `<div class="more-item" data-maze-id="more1-nav-${lbE}" onclick="m1NavTo('${lbE}','${subE}','${r.ic}','${r.tgt||''}')">
           <svg class="more-icon"><use href="${r.ic}"/></svg>
           <div style="flex:1;min-width:0;">
             <div class="more-label">${r.lb}</div>
@@ -1280,7 +1280,7 @@ function m1Render() {
       school.items.forEach(it => {
         const lbE = it.lb.replace(/'/g,"\\'");
         const subE = school.name.replace(/'/g,"\\'");
-        h += `<div class="more-item" onclick="m1NavTo('${lbE}','${subE}','${it.ic}','${it.tgt}')">
+        h += `<div class="more-item" data-maze-id="more1-nav-${lbE}" onclick="m1NavTo('${lbE}','${subE}','${it.ic}','${it.tgt}')">
           <svg class="more-icon"><use href="${it.ic}"/></svg>
           <div class="more-label" style="flex:1;">${it.lb}</div>
           <span class="more-chev">›</span>
@@ -1291,7 +1291,7 @@ function m1Render() {
   });
 
   // Help Center (ungrouped at bottom)
-  h += `<div style="margin-top:8px;margin-bottom:8px;"><div class="more-list"><div class="more-item" onclick="show('s-help')"><svg class="more-icon"><use href="#ic-help"/></svg><div class="more-label" style="flex:1;">Help Center</div><span class="more-chev">›</span></div></div></div>`;
+  h += `<div style="margin-top:8px;margin-bottom:8px;"><div class="more-list"><div class="more-item" data-maze-id="more1-nav-help" onclick="show('s-help')"><svg class="more-icon"><use href="#ic-help"/></svg><div class="more-label" style="flex:1;">Help Center</div><span class="more-chev">›</span></div></div></div>`;
 
   c.innerHTML = h;
 }
@@ -1342,7 +1342,7 @@ function m1SearchNavTo(lb, sub, ic, tgt) {
 function m1SearchRow(it) {
   const lbE = it.lb.replace(/'/g,"\\'");
   const subE = (it.sub||'').replace(/'/g,"\\'");
-  const nav = it.tgt ? `onclick="m1SearchNavTo('${lbE}','${subE}','${it.ic}','${it.tgt}')"` : '';
+  const nav = it.tgt ? `data-maze-id="more1-search-nav-${lbE}" onclick="m1SearchNavTo('${lbE}','${subE}','${it.ic}','${it.tgt}')"` : '';
   return `<div class="more-item" ${nav} style="background:#fff;border-bottom:1px solid #dfdfdf;align-items:center;">
     <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
     <div style="flex:1;min-width:0;">
@@ -1498,16 +1498,16 @@ const CHEV_RIGHT = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" 
 
 function m2AccordionHdr(label, section) {
   const open = m2Open[section];
-  return `<div onclick="m2Toggle('${section}')" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px 6px;cursor:pointer;user-select:none;">
+  return `<div data-maze-id="more2-toggle-${section}" onclick="m2Toggle('${section}')" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px 6px;cursor:pointer;user-select:none;">
     <span style="font-size:12px;font-weight:500;color:#747474;text-transform:uppercase;letter-spacing:.05em;">${label}</span>
     <span style="color:#747474;">${open ? CHEV_DOWN : CHEV_RIGHT}</span>
   </div>`;
 }
 
-function m2StarBtn(isFav, onclick) {
+function m2StarBtn(isFav, onclick, mazeId) {
   const col = isFav ? '#2d2d2d' : '#d1d1d1';
   const href = isFav ? '#ic-star-filled' : '#ic-star-empty';
-  return `<button class="m2-star${isFav?' on':''}" onclick="${onclick}" style="background:none;border:none;cursor:pointer;padding:0 2px 0 6px;display:flex;align-items:center;">
+  return `<button class="m2-star${isFav?' on':''}" ${mazeId ? 'data-maze-id="'+mazeId+'"' : ''} onclick="${onclick}" style="background:none;border:none;cursor:pointer;padding:0 2px 0 6px;display:flex;align-items:center;">
     <svg width="18" height="18" style="color:${col}"><use href="${href}"/></svg>
   </button>`;
 }
@@ -1515,10 +1515,10 @@ function m2StarBtn(isFav, onclick) {
 function m2UniversalRow(item) {
   const isFav = m2IsFav(item.k);
   const navCall = item.tgt ? `m2NavTo('${item.k}','${item.ic}','${item.lb}','${item.tgt}')` : '';
-  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+  return `<div class="more-item" data-maze-id="more2-nav-${item.k}" onclick="${navCall}" style="align-items:center;">
     <svg class="more-icon" width="20" height="20"><use href="${item.ic}"/></svg>
     <div class="more-label" style="flex:1;">${item.lb}</div>
-    ${m2StarBtn(isFav, `m2ToggleFav(event,'${item.k}')`)}
+    ${m2StarBtn(isFav, `m2ToggleFav(event,'${item.k}')`, `more2-fav-${item.k}`)}
     ${item.tgt ? '<span class="more-chev">›</span>' : ''}
   </div>`;
 }
@@ -1528,10 +1528,10 @@ function m2RecentRow(item) {
   const tgt = univ ? univ.tgt : null;
   const isFav = m2IsFav(item.k);
   const navCall = tgt ? `m2NavTo('${item.k}','${item.ic}','${item.lb}','${tgt}')` : '';
-  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+  return `<div class="more-item" data-maze-id="more2-nav-recent-${item.k}" onclick="${navCall}" style="align-items:center;">
     <svg class="more-icon" width="20" height="20"><use href="${item.ic}"/></svg>
     <div class="more-label" style="flex:1;">${item.lb}</div>
-    ${m2StarBtn(isFav, `m2ToggleFav(event,'${item.k}')`)}
+    ${m2StarBtn(isFav, `m2ToggleFav(event,'${item.k}')`, `more2-fav-${item.k}`)}
     ${tgt ? '<span class="more-chev">›</span>' : ''}
   </div>`;
 }
@@ -1542,10 +1542,10 @@ function m2SchoolItemRow(it) {
   const lbEsc = it.lb.replace(/'/g,"\\'");
   const subEsc = it.sub.replace(/'/g,"\\'");
   const navCall = it.tgt ? `show('${it.tgt}')` : '';
-  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+  return `<div class="more-item" data-maze-id="more2-nav-${lbEsc}" onclick="${navCall}" style="align-items:center;">
     <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
     <div class="more-label" style="flex:1;">${it.lb}</div>
-    ${m2StarBtn(isFav, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${it.ic}','${it.tgt||''}')`)}
+    ${m2StarBtn(isFav, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${it.ic}','${it.tgt||\'\'}')`, `more2-fav-${lbEsc}`)}
     ${it.tgt ? '<span class="more-chev">›</span>' : ''}
   </div>`;
 }
@@ -1560,13 +1560,13 @@ function m2FavRow(key, data) {
   const lbEsc = lb.replace(/'/g,"\\'");
   const subEsc = sub.replace(/'/g,"\\'");
   const navCall = data.tgt ? `show('${data.tgt}')` : '';
-  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+  return `<div class="more-item" data-maze-id="more2-nav-fav-${lb}" onclick="${navCall}" style="align-items:center;">
     <svg class="more-icon" width="20" height="20"><use href="${data.ic}"/></svg>
     <div style="flex:1;min-width:0;">
       <div class="more-label" style="flex:none;">${lb}</div>
       <div style="font-size:12px;color:#747474;margin-top:1px;">${sub}</div>
     </div>
-    ${m2StarBtn(true, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${data.ic}','${data.tgt||''}')`)}
+    ${m2StarBtn(true, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${data.ic}','${data.tgt||\'\'}')`, `more2-fav-${lbEsc}`)}
     ${data.tgt ? '<span class="more-chev">›</span>' : ''}
   </div>`;
 }
@@ -1699,13 +1699,13 @@ function m2SearchRow(it) {
     starCall = `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${it.ic}','${it.tgt||''}')`;
     navCall = it.tgt ? `m2SearchNavTo('${lbEsc}','${subEsc}','${it.ic}','${it.tgt}')` : '';
   }
-  return `<div class="more-item" onclick="${navCall}" style="background:#fff;border-bottom:1px solid #dfdfdf;align-items:center;">
+  return `<div class="more-item" data-maze-id="more2-search-result-${it.lb}" onclick="${navCall}" style="background:#fff;border-bottom:1px solid #dfdfdf;align-items:center;">
     <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
     <div style="flex:1;min-width:0;">
       <div style="font-size:16px;font-weight:500;color:#2d2d2d;">${it.lb}</div>
       <div style="font-size:12px;color:#747474;margin-top:2px;">${it.sub||''}</div>
     </div>
-    ${m2StarBtn(isFav, starCall)}
+    ${m2StarBtn(isFav, starCall, `more2-search-fav-${it.lb}`)}
     <span class="more-chev">›</span>
   </div>`;
 }
@@ -1725,13 +1725,13 @@ function m2RenderSearchResults(query) {
         const lbEsc = (it.lb||'').replace(/'/g,"\\'");
         const subEsc = (it.sub||'').replace(/'/g,"\\'");
         const navCall = tgt ? `m2SearchNavTo('${lbEsc}','${subEsc}','${it.ic}','${tgt}')` : '';
-        h += `<div class="more-item" onclick="${navCall}" style="background:#fff;border-bottom:1px solid #dfdfdf;align-items:center;">
+        h += `<div class="more-item" data-maze-id="more2-search-recent-${it.lb}" onclick="${navCall}" style="background:#fff;border-bottom:1px solid #dfdfdf;align-items:center;">
           <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
           <div style="flex:1;min-width:0;">
             <div style="font-size:16px;font-weight:500;color:#2d2d2d;">${it.lb}</div>
             ${it.sub ? `<div style="font-size:12px;color:#747474;margin-top:2px;">${it.sub}</div>` : ''}
           </div>
-          ${m2StarBtn(isFav, `m2ToggleFav(event,'${it.k}')`)}
+          ${m2StarBtn(isFav, `m2ToggleFav(event,'${it.k}')`, `more2-fav-${it.k}`)}
           ${tgt ? '<span class="more-chev">›</span>' : ''}
         </div>`;
       });
@@ -2076,7 +2076,7 @@ function m3RenderResults(query){
 function m3ResultRow(item,isRecent){
   const clockIc=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#909090" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
   const sectionIc=`<svg width="18" height="18"><use href="${item.ic}"/></svg>`;
-  const nav=item.tgt?`onclick="m3NavTo('${item.lb}','${item.sub}','${item.ic}','${item.tgt}')" style="cursor:pointer;"`:`style="cursor:default;"`;
+  const nav=item.tgt?`data-maze-id="more3-search-result-${item.lb}" onclick="m3NavTo('${item.lb}','${item.sub}','${item.ic}','${item.tgt}')" style="cursor:pointer;"`:`style="cursor:default;"`;
   return `<div class="more-item" ${nav}>
     <div style="width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#2d2d2d;">${isRecent?clockIc:sectionIc}</div>
     <div style="flex:1;min-width:0;">
@@ -2157,7 +2157,7 @@ function renderSchedule(){
   if(!data||(data.allDay.length===0&&data.timed.length===0)){const _ed=new Date(selDate+'T00:00:00'),_elabel=MON_L[_ed.getMonth()]+' '+_ed.getDate();c.innerHTML=`<div style="padding:48px 24px;text-align:center;"><div style="font-size:40px;margin-bottom:12px;">📅</div><div style="font-size:16px;font-weight:600;color:#2d2d2d;margin-bottom:6px;">No events on ${_elabel}</div><div style="font-size:14px;color:#747474;">Select another day or navigate weeks</div></div>`;return;}
   let h='';
   (data.allDay||[]).forEach(ev=>{const _atag=EV_TYPE_MAP[ev.title]||'district';h+=`<div class="allday-card" data-org="${ev.org}" data-type="${_atag}"><div class="allday-top"><div><div class="allday-label">All Day</div><div class="allday-org">${ev.org}</div></div><div class="allday-red-dot"></div></div><div class="allday-title">${ev.title}</div></div>`;});
-  (data.timed||[]).forEach(ev=>{const _etag=EV_TYPE_MAP[ev.title]||'community';const _isPT=ev.title==='Parent-Teacher Conferences';h+=`<div class="ev-card" data-org="${ev.org}" data-type="${_etag}"${_isPT?' data-ptlink style="cursor:pointer;"':''}><div class="ev-card-hdr"><div class="ev-card-r1"><span class="ev-time">${ev.time}</span><span class="ev-status">${ev.status}</span><span class="ev-keb">···</span></div><div class="ev-card-org">${ev.org}</div></div><div class="ev-card-body"><div class="ev-title">${ev.title}</div><div class="ev-desc">${ev.desc} <span class="ev-desc-more">more</span></div><div class="ev-addr"><svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${ev.addr}</div></div><div class="ev-actions"><button class="ev-btn-share">SHARE</button><button class="ev-btn-add">ADD TO CALENDAR</button></div></div>`;}); 
+  (data.timed||[]).forEach(ev=>{const _etag=EV_TYPE_MAP[ev.title]||'community';const _isPT=ev.title==='Parent-Teacher Conferences';h+=`<div class="ev-card" data-org="${ev.org}" data-type="${_etag}"${_isPT?' data-ptlink data-maze-id="ptconf-link" style="cursor:pointer;"':''}><div class="ev-card-hdr"><div class="ev-card-r1"><span class="ev-time">${ev.time}</span><span class="ev-status">${ev.status}</span><span class="ev-keb">···</span></div><div class="ev-card-org">${ev.org}</div></div><div class="ev-card-body"><div class="ev-title">${ev.title}</div><div class="ev-desc">${ev.desc} <span class="ev-desc-more">more</span></div><div class="ev-addr"><svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${ev.addr}</div></div><div class="ev-actions"><button class="ev-btn-share">SHARE</button><button class="ev-btn-add">ADD TO CALENDAR</button></div></div>`;}); 
   c.onclick=function(e){if(e.target.closest('[data-ptlink]'))show('s-success-ptconf');};
   c.innerHTML=h;
   m1ApplySchoolFilter();
@@ -2345,7 +2345,7 @@ function initEv(){
     </div>
     <div style="font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px;">Task Complete!</div>
     <div style="font-size:15px;color:#747474;line-height:1.6;margin-bottom:32px;">You found the <strong style="color:#2d2d2d;">Parent-Teacher Conferences</strong> event on March 28.</div>
-    <button onclick="show('s-events')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Events</button>
+    <button data-maze-id="success-back-events" onclick="show('s-events')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Events</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -2359,7 +2359,7 @@ function initEv(){
     </div>
     <div style="font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px;">Task Complete!</div>
     <div style="font-size:15px;color:#747474;line-height:1.6;margin-bottom:32px;">You found <strong style="color:#2d2d2d;">Bus Routes &amp; Pickup Times</strong> for Lincoln Elementary.</div>
-    <button onclick="show('s-pages')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Pages</button>
+    <button data-maze-id="success-back-pages" onclick="show('s-pages')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Pages</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -2373,7 +2373,7 @@ function initEv(){
     </div>
     <div style="font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px;">Task Complete!</div>
     <div style="font-size:15px;color:#747474;line-height:1.6;margin-bottom:32px;">You found the <strong style="color:#2d2d2d;">Volunteer Sign-Up Form</strong> for Lincoln Elementary.</div>
-    <button onclick="show('s-forms')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Forms</button>
+    <button data-maze-id="success-back-forms" onclick="show('s-forms')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Forms</button>
   </div>
   <div class="home-ind"></div>
 </div>
@@ -2387,27 +2387,27 @@ function initEv(){
     </div>
     <div style="font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px;">Task Complete!</div>
     <div style="font-size:15px;color:#747474;line-height:1.6;margin-bottom:32px;">You found <strong style="color:#2d2d2d;">Parent Resources</strong> for Washington Middle School.</div>
-    <button onclick="show('s-pages')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Pages</button>
+    <button data-maze-id="success-back-pages-2" onclick="show('s-pages')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Pages</button>
   </div>
   <div class="home-ind"></div>
 </div>
 
 <!-- ════ FILTER BOTTOM SHEET ════ -->
-<div id="fsheet-overlay" class="fsheet-overlay" onclick="closeFilterSheet()"></div>
+<div id="fsheet-overlay" class="fsheet-overlay" data-maze-id="filter-overlay-close" onclick="closeFilterSheet()"></div>
 <div id="fsheet" class="fsheet">
   <div class="fsheet-handle"></div>
   <div class="fsheet-header">
     <span class="fsheet-title">Filter</span>
-    <button class="fsheet-clear" onclick="clearFilters()">Clear all</button>
+    <button class="fsheet-clear" data-maze-id="filter-clear-all" onclick="clearFilters()">Clear all</button>
   </div>
   <div class="fsheet-tabs">
-    <div class="fsheet-tab active" id="fstab-school" onclick="switchFilterTab('school')">School</div>
-    <div class="fsheet-tab" id="fstab-tags" onclick="switchFilterTab('tags')">Tags</div>
+    <div class="fsheet-tab active" id="fstab-school" data-maze-id="filter-tab-school" onclick="switchFilterTab('school')">School</div>
+    <div class="fsheet-tab" id="fstab-tags" data-maze-id="filter-tab-tags" onclick="switchFilterTab('tags')">Tags</div>
   </div>
   <div id="fsheet-school" class="fsheet-section"></div>
   <div id="fsheet-tags" class="fsheet-section" style="display:none;"></div>
   <div class="fsheet-footer">
-    <button class="fsheet-apply" onclick="applyFilters()">Apply Filters</button>
+    <button class="fsheet-apply" data-maze-id="filter-apply" onclick="applyFilters()">Apply Filters</button>
   </div>
 </div>
 </body>
