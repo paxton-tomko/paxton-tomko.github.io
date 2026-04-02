@@ -1545,7 +1545,7 @@ function m2SchoolItemRow(it) {
   return `<div class="more-item" data-maze-id="more2-nav-${lbEsc}" onclick="${navCall}" style="align-items:center;">
     <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
     <div class="more-label" style="flex:1;">${it.lb}</div>
-    ${m2StarBtn(isFav, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${it.ic}','${it.tgt||\'\'}')`, `more2-fav-${lbEsc}`)}
+    ${m2StarBtn(isFav, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${it.ic}','${it.tgt||''}')`, `more2-fav-${lbEsc}`)}
     ${it.tgt ? '<span class="more-chev">›</span>' : ''}
   </div>`;
 }
@@ -1566,7 +1566,7 @@ function m2FavRow(key, data) {
       <div class="more-label" style="flex:none;">${lb}</div>
       <div style="font-size:12px;color:#747474;margin-top:1px;">${sub}</div>
     </div>
-    ${m2StarBtn(true, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${data.ic}','${data.tgt||\'\'}')`, `more2-fav-${lbEsc}`)}
+    ${m2StarBtn(true, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${data.ic}','${data.tgt||''}')`, `more2-fav-${lbEsc}`)}
     ${data.tgt ? '<span class="more-chev">›</span>' : ''}
   </div>`;
 }
