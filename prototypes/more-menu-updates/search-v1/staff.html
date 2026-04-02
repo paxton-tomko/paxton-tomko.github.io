@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SchoolApp</title>
+<script>
+(function (m, a, z, e) {
+  var s, t, u, v;
+  try { t = m.sessionStorage.getItem('maze-us'); } catch (err) {}
+  if (!t) { t = new Date().getTime(); try { m.sessionStorage.setItem('maze-us', t); } catch (err) {} }
+  u = document.currentScript || (function () { var w = document.getElementsByTagName('script'); return w[w.length - 1]; })();
+  v = u && u.nonce;
+  s = a.createElement('script');
+  s.src = z + '?apiKey=' + e;
+  s.async = true;
+  if (v) s.setAttribute('nonce', v);
+  a.getElementsByTagName('head')[0].appendChild(s);
+  m.mazeUniversalSnippetApiKey = e;
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'ca832a46-e4da-49ad-aeaf-dd2523bea24d');
+</script>
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+<div class="phone">
+<svg style="display:none">
+  <symbol id="ic-feed" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></symbol>
+  <symbol id="ic-rooms" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="ic-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="ic-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="ic-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="ic-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+  <symbol id="ic-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></symbol>
+  <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="ic-sport" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/><path d="M19.07 4.93L4.93 19.07"/></symbol>
+  <symbol id="ic-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+  <symbol id="ic-dining" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></symbol>
+  <symbol id="ic-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></symbol>
+  <symbol id="ic-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="ic-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="ic-star-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="ic-star-filled" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="ic-back" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+  <symbol id="ic-web" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+</svg>
+
+<div id="s-staff" class="screen active">
+
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Staff Directory</span><div class="tnicons"><button id="sstar-staff" class="icon-btn" onclick="m2ToggleSectionFav('staff')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search('staff.html')"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('staff')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-staff"></span></div></div></div>
+  <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
+    <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">SC</div><div class="list-row-info"><div class="list-row-name" data-tag="administration">Ms. Sandra Craig</div><div class="list-row-sub">Principal · Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">JR</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Mr. James Rivera</div><div class="list-row-sub">4th Grade Teacher · Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">AL</div><div class="list-row-info"><div class="list-row-name" data-tag="library">Ms. Amy Leung</div><div class="list-row-sub">Librarian · Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">MW</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Ms. Maria Wong</div><div class="list-row-sub">2nd Grade Teacher · Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">RD</div><div class="list-row-info"><div class="list-row-name" data-tag="administration">Mr. Robert Davis</div><div class="list-row-sub">Principal · Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">KH</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Ms. Kaitlyn Henson</div><div class="list-row-sub">8th Grade English · Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">BM</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Mr. Brian Moore</div><div class="list-row-sub">Math Teacher · Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">CS</div><div class="list-row-info"><div class="list-row-name" data-tag="athletics">Mr. Chris Stevens</div><div class="list-row-sub">Athletics Director · Washington MS</div></div><span class="list-chev">›</span></div>
+  </div></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" data-maze-id="nav-feed" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" data-maze-id="nav-rooms" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" data-maze-id="nav-messages" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" data-maze-id="nav-more" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind" style="display:none;"></div>
+
+</div>
+<div id="fsheet-overlay" class="fsheet-overlay" data-maze-id="filter-overlay-close" onclick="closeFilterSheet()"></div>
+<div id="fsheet" class="fsheet">
+  <div class="fsheet-handle"></div>
+  <div class="fsheet-header">
+    <span class="fsheet-title">Filter</span>
+    <button class="fsheet-clear" data-maze-id="filter-clear-all" onclick="clearFilters()">Clear all</button>
+  </div>
+  <div class="fsheet-tabs">
+    <div class="fsheet-tab active" id="fstab-school" data-maze-id="filter-tab-school" onclick="switchFilterTab('school')">School</div>
+    <div class="fsheet-tab" id="fstab-tags" data-maze-id="filter-tab-tags" onclick="switchFilterTab('tags')">Tags</div>
+  </div>
+  <div id="fsheet-school" class="fsheet-section"></div>
+  <div id="fsheet-tags" class="fsheet-section" style="display:none;"></div>
+  <div class="fsheet-footer">
+    <button class="fsheet-apply" data-maze-id="filter-apply" onclick="applyFilters()">Apply Filters</button>
+  </div>
+</div>
+</div>
+<script src="_shared.js"></script>
+<script>
+loadState();
+restoreFilterBadges();
+
+</script>
+</body>
+</html>
