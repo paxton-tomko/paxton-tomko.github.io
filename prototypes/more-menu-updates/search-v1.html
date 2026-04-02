@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SchoolApp</title>
+<script>
+(function (m, a, z, e) {
+  var s, t, u, v;
+  try {
+    t = m.sessionStorage.getItem('maze-us');
+  } catch (err) {}
+  if (!t) {
+    t = new Date().getTime();
+    try {
+      m.sessionStorage.setItem('maze-us', t);
+    } catch (err) {}
+  }
+  u = document.currentScript || (function () {
+    var w = document.getElementsByTagName('script');
+    return w[w.length - 1];
+  })();
+  v = u && u.nonce;
+  s = a.createElement('script');
+  s.src = z + '?apiKey=' + e;
+  s.async = true;
+  if (v) s.setAttribute('nonce', v);
+  a.getElementsByTagName('head')[0].appendChild(s);
+  m.mazeUniversalSnippetApiKey = e;
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'ca832a46-e4da-49ad-aeaf-dd2523bea24d');
+</script>
+</head>
+<body>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:#e8e8e8;display:flex;align-items:center;justify-content:center;font-family:"SF Pro Text",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;}
+.phone{width:375px;height:812px;border-radius:44px;border:1.5px solid #b0b0b0;overflow:hidden;background:#f8f8f8;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;}
+.screen{display:none;flex-direction:column;flex:1;min-height:0;background:#f8f8f8;}
+.screen.active{display:flex;}
+.sbar{background:#fff;padding:14px 24px 6px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;color:#2d2d2d;flex-shrink:0;}
+.topnav{background:#fff;padding:6px 16px 10px;display:flex;align-items:center;justify-content:space-between;position:relative;flex-shrink:0;}
+.topnav-title{font-size:17px;font-weight:600;color:#2d2d2d;position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;}
+.ver-title-btn{font-size:17px;font-weight:600;color:#2d2d2d;position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;padding:2px 6px;border-radius:8px;}
+.ver-title-btn:hover{background:#f4f4f4;}
+.ver-title-chev{font-size:11px;color:#747474;}
+.logo{width:32px;height:32px;border-radius:50%;background:#fde6cc;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.tnicons{display:flex;align-items:center;}
+.icon-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:#2d2d2d;}
+.back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:15px;color:#2d2d2d;font-family:inherit;padding:0;}
+.ver-popover{display:none;position:absolute;top:62px;left:50%;transform:translateX(-50%);background:#fff;border:0.5px solid #d1d1d1;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.14);z-index:100;min-width:150px;overflow:hidden;}
+.ver-popover.open{display:block;}
+.ver-pop-item{padding:13px 16px;font-size:15px;color:#2d2d2d;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.ver-pop-item:not(:last-child){border-bottom:0.5px solid #e1e1e1;}
+.ver-pop-item:hover{background:#f8f8f8;}
+.ver-pop-item.sel{font-weight:600;}
+.ver-pop-check{color:#2d2d2d;font-size:14px;}
+.tabstrip{background:#fff;border-bottom:1.5px solid #d1d1d1;display:flex;padding:0 16px;flex-shrink:0;overflow-x:auto;}
+.tabstrip::-webkit-scrollbar{display:none;}
+.tab{padding:12px 0;margin-right:20px;font-size:15px;color:#646464;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
+.tab.active{color:#2d2d2d;font-weight:600;border-bottom:2px solid #2d2d2d;}
+.filter-bar{background:#fff;padding:8px 16px;display:flex;gap:8px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid #e1e1e1;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.fchip{padding:5px 14px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;border:1.5px solid #d1d1d1;color:#2d2d2d;background:#fff;transition:all .15s;user-select:none;}
+.fchip.on{background:#2d2d2d;color:#fff;border-color:#2d2d2d;}
+.school-selector{background:#fff;padding:10px 16px;display:flex;gap:10px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid #e1e1e1;}
+.school-selector::-webkit-scrollbar{display:none;}
+.school-pill{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex-shrink:0;user-select:none;min-width:64px;}
+.school-pill .sp-logo{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;border:2.5px solid transparent;background:#f8f8f8;}
+.school-pill.active .sp-logo{border-color:#2d2d2d;}
+.school-pill .sp-name{font-size:11px;color:#646464;text-align:center;max-width:64px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.school-pill.active .sp-name{color:#2d2d2d;font-weight:600;}
+.scroll{flex:1;overflow-y:auto;background:#f8f8f8;}
+.scroll::-webkit-scrollbar{display:none;}
+.post-card{background:#fff;margin-bottom:8px;padding:16px;}
+.post-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;}
+.poster-info{flex:1;margin-left:10px;}
+.poster-name{font-size:15px;font-weight:600;color:#2d2d2d;}
+.poster-org{font-size:13px;color:#646464;}
+.kebab{font-size:18px;color:#646464;cursor:pointer;}
+.divider{height:1px;background:#e1e1e1;margin:10px 0;}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border:1px solid #d1d1d1;border-radius:6px;font-size:12px;color:#2d2d2d;background:#fff;}
+.post-body{font-size:15px;color:#2d2d2d;line-height:1.5;}
+.post-more{color:#747474;}
+.post-time{font-size:13px;color:#747474;margin-top:8px;}
+.search-wrap{padding:8px 16px;background:#f8f8f8;}
+.search-inner{background:#fff;border:1px solid #d1d1d1;border-radius:10px;padding:9px 14px;display:flex;align-items:center;gap:8px;font-size:15px;color:#747474;}
+.section-hdr{padding:10px 16px 4px;font-size:12px;color:#747474;text-transform:uppercase;letter-spacing:.05em;font-weight:500;}
+.more-list{background:#fff;margin-bottom:8px;}
+.more-item{display:flex;align-items:center;padding:16px;border-bottom:1px solid #e1e1e1;cursor:pointer;gap:14px;background:#fff;transition:background .1s;}
+.more-item:last-child{border-bottom:none;}
+.more-item:hover{background:#f4f4f4;}
+.more-item:active{background:#ededed;}
+.more-icon{width:20px;height:20px;flex-shrink:0;color:#2d2d2d;}
+.more-label{flex:1;font-size:16px;color:#2d2d2d;}
+.more-schools{font-size:11px;color:#747474;margin-right:6px;white-space:nowrap;}
+.more-chev{color:#c8c8c8;font-size:18px;}
+/* More 2 specific */
+.m2-star{background:none;border:none;cursor:pointer;font-size:18px;color:#d1d1d1;padding:0 2px 0 6px;line-height:1;flex-shrink:0;transition:color .1s;}
+.m2-star.on{color:#2d2d2d;}
+.m2-empty{padding:48px 24px;text-align:center;color:#747474;font-size:14px;line-height:1.7;}
+.m2-empty-icon{font-size:36px;margin-bottom:12px;}
+.list-row{background:#fff;padding:14px 16px;border-bottom:1px solid #e1e1e1;display:flex;align-items:center;gap:12px;cursor:pointer;}
+.list-row:last-child{border-bottom:none;}
+.list-row:hover{background:#f4f4f4;}
+.list-row-icon{width:36px;height:36px;border-radius:10px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#2d2d2d;font-size:18px;}
+.list-row-info{flex:1;}
+.list-row-name{font-size:15px;color:#2d2d2d;font-weight:500;}
+.list-row-sub{font-size:13px;color:#646464;margin-top:1px;}
+.list-chev{color:#c8c8c8;font-size:17px;}
+.initials-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
+.about-card{background:#fff;padding:20px 16px;margin-bottom:8px;}
+.about-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.about-logo{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.about-school-name{font-size:18px;font-weight:700;color:#2d2d2d;line-height:1.2;}
+.about-school-type{font-size:13px;color:#747474;margin-top:2px;}
+.about-desc{font-size:15px;color:#646464;line-height:1.65;margin-bottom:14px;}
+.about-divider{height:1px;background:#e1e1e1;margin:14px 0;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.stat-box{background:#f8f8f8;border-radius:10px;padding:12px;}
+.stat-label{font-size:11px;color:#747474;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+.stat-val{font-size:20px;font-weight:700;color:#2d2d2d;}
+.contact-label{font-size:12px;color:#747474;text-transform:uppercase;letter-spacing:.05em;font-weight:500;margin-bottom:10px;}
+.contact-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:0.5px solid #e1e1e1;}
+.contact-row:last-child{border-bottom:none;}
+.contact-icon{width:32px;height:32px;border-radius:8px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#2d2d2d;}
+.contact-info{flex:1;}
+.contact-type{font-size:11px;color:#747474;}
+.contact-val{font-size:14px;color:#2d2d2d;font-weight:500;margin-top:1px;}
+.contact-action{font-size:13px;color:#2d2d2d;font-weight:500;}
+.dtbar{background:#fff;border-bottom:1px solid #e1e1e1;display:flex;align-items:stretch;flex-shrink:0;}
+.dt-nav{width:36px;background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;padding:0;}
+.dt-inner{flex:1;display:flex;}
+.dt-tab{flex:1;display:flex;flex-direction:column;align-items:center;padding:6px 0 4px;cursor:pointer;border-bottom:2.5px solid transparent;gap:1px;user-select:none;}
+.dt-dot{width:4px;height:4px;border-radius:50%;background:#CC314B;margin-bottom:1px;}
+.dt-dot.hide{visibility:hidden;}
+.ev-card{background:#fff;margin-bottom:8px;}
+.ev-card-hdr{padding:16px 16px 10px;}
+.ev-card-r1{display:flex;align-items:center;gap:8px;}
+.ev-time{font-size:16px;font-weight:500;color:#2d2d2d;flex-shrink:0;}
+.ev-status{flex:1;font-size:12px;color:#646464;text-align:right;}
+.ev-keb{font-size:15px;color:#646464;cursor:pointer;}
+.ev-card-org{font-size:12px;color:#646464;margin-top:3px;}
+.ev-card-body{padding:10px 16px 12px;display:flex;flex-direction:column;gap:10px;}
+.ev-title{font-size:16px;font-weight:600;color:#2d2d2d;}
+.ev-desc{font-size:15px;color:#333;line-height:1.45;}
+.ev-desc-more{font-weight:600;color:#2d2d2d;text-decoration:underline;cursor:pointer;}
+.ev-addr{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:500;color:#2d2d2d;text-decoration:underline;cursor:pointer;}
+.ev-actions{border-top:1px solid #d1d1d1;padding:10px 16px 14px;display:flex;gap:8px;}
+.ev-btn-share{flex:1;height:28px;border:1px solid #d1d1d1;border-radius:8px;background:#fff;font-size:12px;font-weight:700;color:#2d2d2d;letter-spacing:.48px;text-transform:uppercase;cursor:pointer;font-family:inherit;}
+.ev-btn-add{flex:1;height:28px;border:none;border-radius:8px;background:#2d2d2d;font-size:12px;font-weight:700;color:#fff;letter-spacing:.48px;text-transform:uppercase;cursor:pointer;font-family:inherit;}
+.allday-card{background:#fff;margin-bottom:8px;padding:16px;}
+.allday-top{display:flex;align-items:flex-start;justify-content:space-between;}
+.allday-label{font-size:16px;font-weight:500;color:#2d2d2d;}
+.allday-org{font-size:12px;color:#646464;margin-top:2px;}
+.allday-red-dot{width:8px;height:8px;border-radius:50%;background:#CC314B;flex-shrink:0;margin-top:4px;}
+.allday-title{font-size:16px;font-weight:600;color:#2d2d2d;margin-top:10px;}
+.cal-month{background:#fff;padding:18px 14px 14px;margin-bottom:8px;}
+.cal-month-title{font-size:15px;font-weight:600;color:#2d2d2d;text-align:center;margin-bottom:10px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);}
+.cal-dow{font-size:10px;font-weight:600;color:#909090;text-align:center;padding:2px 0 8px;letter-spacing:.02em;}
+.cal-cell{display:flex;flex-direction:column;align-items:center;padding:2px 0;cursor:pointer;min-height:32px;}
+.cal-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#2d2d2d;}
+.cal-cell.sel .cal-num{background:#2d2d2d;color:#fff;}
+.cal-ev-dot{width:4px;height:4px;border-radius:50%;background:#CC314B;margin-top:1px;}
+.bnav{background:#fff;border-top:1px solid #e1e1e1;display:flex;align-items:flex-end;flex-shrink:0;padding-bottom:20px;}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px 0;cursor:pointer;background:none;border:none;font-size:11px;color:#909090;font-family:inherit;}
+.bnav-btn svg{width:24px;height:24px;}
+.bnav-btn.active{color:#2d2d2d;font-weight:600;}
+.bnav-fab{width:52px;height:52px;border-radius:14px;background:#2d2d2d;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;margin:0 6px;margin-top:-10px;}
+.bnav-fab svg{width:26px;height:26px;color:#fff;}
+.home-ind{height:5px;width:134px;background:#2d2d2d;border-radius:3px;margin:6px auto 0;}
+.empty-state{padding:48px 24px;text-align:center;color:#747474;font-size:14px;}
+
+/* ─── Filter Bottom Sheet ─── */
+.fsheet-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;}
+.fsheet-overlay.open{display:block;}
+.fsheet{position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:18px 18px 0 0;z-index:201;padding-bottom:env(safe-area-inset-bottom,0px);transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);}
+.fsheet.open{transform:translateY(0);}
+.fsheet-handle{width:36px;height:4px;background:#d1d1d1;border-radius:2px;margin:10px auto 0;}
+.fsheet-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0;}
+.fsheet-title{font-size:17px;font-weight:700;color:#2d2d2d;}
+.fsheet-clear{font-size:15px;color:#185FA5;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;}
+.fsheet-tabs{display:flex;border-bottom:1.5px solid #e1e1e1;margin:14px 0 0;padding:0 20px;}
+.fsheet-tab{font-size:14px;font-weight:500;color:#747474;padding:8px 0;margin-right:24px;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;}
+.fsheet-tab.active{color:#2d2d2d;border-bottom-color:#2d2d2d;}
+.fsheet-section{padding:0;}
+.fsheet-list{display:flex;flex-direction:column;}
+.fsheet-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #f0f0f0;cursor:pointer;user-select:none;background:#fff;}
+.fsheet-row:last-child{border-bottom:none;}
+.fsheet-row-label{font-size:16px;color:#2d2d2d;}
+.fsheet-row-check{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d1d1;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .14s;}
+.fsheet-row.sel .fsheet-row-check{background:#2d2d2d;border-color:#2d2d2d;}
+.fsheet-row.sel .fcheck-svg{opacity:1;}
+.fcheck-svg{opacity:0;transition:opacity .1s;}
+.fsheet-footer{padding:12px 20px 20px;border-top:1px solid #e1e1e1;}
+.fsheet-apply{width:100%;background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;}
+
+.filter-btn-wrap{position:relative;display:inline-flex;}
+.filter-badge{position:absolute;top:-5px;right:-5px;min-width:16px;height:16px;border-radius:8px;background:#2d2d2d;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 3px;line-height:1;pointer-events:none;display:none;}
+.filter-badge.visible{display:flex;}
+
+/* ─── Month list date tile ─── */
+.ev-date-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;min-width:40px;height:44px;border-radius:10px;background:#f4f4f4;margin-right:12px;flex-shrink:0;}
+.ev-date-tile-mon{font-size:10px;font-weight:600;color:#747474;text-transform:uppercase;letter-spacing:.04em;line-height:1.1;}
+.ev-date-tile-day{font-size:17px;font-weight:700;color:#2d2d2d;line-height:1.1;}
+</style>
+<div class="phone">
+<svg style="display:none">
+  <symbol id="ic-feed" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></symbol>
+  <symbol id="ic-rooms" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="ic-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="ic-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="ic-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="ic-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+  <symbol id="ic-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></symbol>
+  <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="ic-sport" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/><path d="M19.07 4.93L4.93 19.07"/></symbol>
+  <symbol id="ic-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+  <symbol id="ic-dining" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></symbol>
+  <symbol id="ic-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></symbol>
+  <symbol id="ic-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="ic-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="ic-star-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="ic-star-filled" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="ic-back" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+  <symbol id="ic-web" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+</svg>
+
+<!-- Version popover -->
+<div id="ver-popover" class="ver-popover" style="display:none!important;"></div>
+<div id="ver-overlay" style="display:none!important;"></div>
+
+<!-- ════ FEED ════ -->
+<div id="s-feed" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Feed</span><div></div></div>
+  <div class="scroll"><div class="empty-state">Feed screen</div></div>
+  <div class="bnav">
+    <button class="bnav-btn active" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ ROOMS ════ -->
+<div id="s-rooms" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Rooms</span><div></div></div>
+  <div class="scroll"><div class="empty-state">Rooms screen</div></div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn active" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MESSAGES ════ -->
+<div id="s-messages" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><div class="logo">🐯</div><span class="topnav-title">Messages</span><div></div></div>
+  <div class="scroll"><div class="empty-state">Messages screen</div></div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn active" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MORE 1 ════ (hidden for Figma testing) -->
+<div id="s-more" class="screen" style="display:none!important;">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <div class="logo">🐯</div>
+    <button class="ver-title-btn" onclick="openMorePopover(event)"><span>More 1</span><span class="ver-title-chev">▾</span></button>
+    <div class="tnicons">
+      <button class="icon-btn" onclick="openM1Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
+  </div>
+  <div class="scroll" id="m1-content" style="background:#f8f8f8;"></div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MORE 1 SEARCH ════ (hidden for Figma testing) -->
+<div id="s-more1-search" class="screen" style="display:none!important;">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div style="background:#fff;border-bottom:1px solid #e1e1e1;padding:8px 12px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;background:#fff;border:1px solid #adadad;border-radius:8px;padding:0 10px;height:48px;gap:8px;">
+      <button onclick="closeM1Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:4px;flex-shrink:0;">
+        <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></svg>
+      </button>
+      <input id="m1-search-input" type="text" placeholder="Placeholder text..."
+        oninput="m1SearchUpdate(this.value)"
+        style="flex:1;border:none;outline:none;font-size:17px;color:#2d2d2d;background:transparent;font-family:inherit;"
+        autocomplete="off" autocorrect="off" spellcheck="false">
+      <button id="m1-clear-btn" onclick="m1ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
+    </div>
+  </div>
+  <div class="scroll" id="m1-search-results" style="background:#f8f8f8;"></div>
+  <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
+</div>
+
+<!-- ════ MORE 2 — accordion layout ════ (hidden for Figma testing) -->
+<div id="s-more2" class="screen" style="display:none!important;">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <div class="logo">🐯</div>
+    <button class="ver-title-btn" onclick="openMorePopover(event)"><span>More 2</span><span class="ver-title-chev">▾</span></button>
+    <div class="tnicons">
+      <button class="icon-btn" onclick="openM2Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button>
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
+  </div>
+  <div class="school-selector" id="m2-tabbar">
+    <div class="school-pill active" data-t="discover" onclick="m2Tab('discover')">
+      <div class="sp-logo" style="background:#f1f0fb;font-size:20px;">🔍</div>
+      <div class="sp-name">All schools</div>
+    </div>
+    <div class="school-pill" data-t="lincoln" onclick="m2Tab('lincoln')">
+      <div class="sp-logo" style="background:#dbeafe;">🏫</div>
+      <div class="sp-name">Lincoln</div>
+    </div>
+    <div class="school-pill" data-t="washington" onclick="m2Tab('washington')">
+      <div class="sp-logo" style="background:#d1fae5;">🏛️</div>
+      <div class="sp-name">Washington</div>
+    </div>
+  </div>
+  <div class="scroll" id="m2-content" style="background:#f8f8f8;"></div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ MORE 2 SEARCH ════ (hidden for Figma testing) -->
+<div id="s-more2-search" class="screen" style="display:none!important;">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div style="background:#fff;border-bottom:1px solid #e1e1e1;padding:8px 12px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;background:#fff;border:1px solid #adadad;border-radius:8px;padding:0 10px;height:48px;gap:8px;">
+      <button onclick="closeM2Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:4px;flex-shrink:0;">
+        <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></svg>
+      </button>
+      <input id="m2-search-input" type="text" placeholder="Placeholder text..."
+        oninput="m2SearchUpdate(this.value)"
+        style="flex:1;border:none;outline:none;font-size:17px;color:#2d2d2d;background:transparent;font-family:inherit;"
+        autocomplete="off" autocorrect="off" spellcheck="false">
+      <button id="m2-clear-btn" onclick="m2ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
+    </div>
+  </div>
+  <div class="scroll" id="m2-search-results" style="background:#f8f8f8;"></div>
+  <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
+</div>
+
+<!-- ════ MORE 3 (duplicate of More 1) ════ -->
+<div id="s-more3" class="screen active">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <div class="logo">🐯</div>
+    <button class="ver-title-btn" style="cursor:default;pointer-events:none;"><span>Search</span></button>
+    <div class="tnicons">
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
+  </div>
+  <div class="scroll">
+    <!-- Search bar — opens full-screen overlay -->
+    <div class="search-wrap" style="padding:10px 16px;">
+      <div class="search-inner" onclick="openM3Search()" style="cursor:text;">
+        <svg width="16" height="16"><use href="#ic-search"/></svg>What would you like to find?
+      </div>
+    </div>
+
+    <!-- Universal — card grid -->
+    <div class="section-hdr">Universal</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:6px 16px 2px;">
+      <div onclick="show('s-events')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-cal"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Events</div>
+      </div>
+      <div onclick="show('s-athletics')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f0fff4;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-sport"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Athletics</div>
+      </div>
+      <div onclick="show('s-documents')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#fffbf0;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-doc"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Documents</div>
+      </div>
+      <div onclick="show('s-dining')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#fff0f0;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-dining"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Dining</div>
+      </div>
+      <div onclick="show('s-forms')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#fff0f5;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d2d" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Forms</div>
+      </div>
+      <div onclick="show('s-pages')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f0faff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d2d2d" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Pages</div>
+      </div>
+      <div onclick="show('s-staff')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f5f0ff;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-people"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Staff Directory</div>
+      </div>
+      <div onclick="show('s-help')" style="background:#fff;border-radius:14px;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .1s;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='#fff'">
+        <div style="width:40px;height:40px;border-radius:10px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" fill="none" stroke="#2d2d2d" stroke-width="1.8"><use href="#ic-help"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:#2d2d2d;line-height:1.2;">Help Center</div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button>
+    <button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button>
+    <div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div>
+    <button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button>
+    <button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ FORMS ════ -->
+<div id="s-forms" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
+    <span class="topnav-title">Forms</span>
+    <div class="tnicons"><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('forms')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-forms"></span></div></div>
+  </div>
+  <div class="scroll" style="padding-top:8px;">
+    <div id="forms-district" style="background:#fff;">
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="permission">Permission Slip</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="emergency">Emergency Contact Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="enrollment">Enrollment Forms</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="health">Health Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row" onclick="show('s-success-volunteer')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="field-trip">Field Trip Permission</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="health">Health &amp; Medication Form</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="supplies">Supply Request</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    </div>
+    <div id="forms-lincoln" style="display:none;background:#fff;">
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="permission">Permission Slip</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="emergency">Emergency Contact Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="enrollment">Enrollment Forms</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="health">Health Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+      <div class="list-row" onclick="show('s-success-volunteer')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    </div>
+    <div id="forms-washington" style="display:none;background:#fff;">
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="field-trip">Field Trip Permission</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name">Health & Medication Form</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="supplies">Supply Request</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+      <div class="list-row"><div class="list-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="volunteer">Volunteer Form</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    </div>
+  </div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-search"/></svg>Search</button></div>
+  <div class="home-ind" style="display:none;"></div>
+</div>
+
+<!-- ════ PAGES ════ -->
+<!-- ════ HELP CENTER ════ -->
+<div id="s-help" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Help Center</span><button id="sstar-help" class="icon-btn" onclick="m2ToggleSectionFav('help')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button></div>
+  <div class="scroll" style="background:#f8f8f8;">
+    <!-- Hero mockup area -->
+    <div style="background:#eeecf8;padding:28px 24px 20px;display:flex;justify-content:center;">
+      <div style="width:140px;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #d1d1d1;box-shadow:0 4px 16px rgba(0,0,0,.12);">
+        <div style="background:#fff;padding:6px 8px 4px;display:flex;justify-content:space-between;align-items:center;font-size:8px;font-weight:600;color:#2d2d2d;border-bottom:0.5px solid #e1e1e1;">
+          <span>12:22</span><span>●●●</span>
+        </div>
+        <div style="padding:6px 8px 4px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="width:16px;height:16px;border-radius:50%;background:#fde6cc;display:flex;align-items:center;justify-content:center;font-size:9px;">🐯</div>
+          <span style="font-size:10px;font-weight:600;color:#2d2d2d;">Feed</span>
+          <div style="width:14px;height:14px;border-radius:4px;background:#7c3aed;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;color:#fff;">D</span></div>
+        </div>
+        <div style="background:#eeecf8;margin:0 6px 4px;border-radius:8px;padding:3px 6px;font-size:7px;font-weight:600;color:#7c3aed;">District ▾</div>
+        <div style="padding:4px 8px;">
+          <div style="display:flex;gap:5px;margin-bottom:5px;align-items:center;">
+            <div style="width:18px;height:18px;border-radius:50%;background:#fde6cc;flex-shrink:0;font-size:8px;display:flex;align-items:center;justify-content:center;">🐯</div>
+            <div><div style="font-size:7px;font-weight:600;color:#2d2d2d;">Brookwood ISD</div><div style="font-size:6px;color:#747474;">2 min ago</div></div>
+          </div>
+          <div style="font-size:6.5px;color:#2d2d2d;line-height:1.4;margin-bottom:5px;">Hey sports fans! 🏈 Get ready for an exciting football game coming up this weekend!</div>
+          <div style="display:flex;gap:5px;margin-bottom:5px;align-items:center;">
+            <div style="width:18px;height:18px;border-radius:50%;background:#fde6cc;flex-shrink:0;font-size:8px;display:flex;align-items:center;justify-content:center;">🐯</div>
+            <div><div style="font-size:7px;font-weight:600;color:#2d2d2d;">Brookwood ISD</div><div style="font-size:6px;color:#747474;">3 min ago</div></div>
+          </div>
+          <div style="font-size:6.5px;color:#2d2d2d;line-height:1.4;margin-bottom:6px;">Hey everyone! 😊 Just wanted to share the fun we had in Ms. Harvey's first grade class!</div>
+          <div style="border-radius:6px;overflow:hidden;margin-bottom:8px;"><div style="background:#c9b8f5;height:40px;display:flex;align-items:center;justify-content:center;font-size:18px;">🎓</div></div>
+        </div>
+        <div style="border-top:0.5px solid #e1e1e1;padding:5px 6px;display:flex;justify-content:space-around;font-size:7px;color:#909090;">
+          <span>Feed</span><span>Rooms</span><span style="font-size:14px;line-height:1;">+</span><span>Msg</span><span>More</span>
+        </div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div style="background:#fff;padding:20px 16px 24px;">
+      <h1 style="font-size:24px;font-weight:700;color:#2d2d2d;margin-bottom:14px;line-height:1.25;">Navigating your App</h1>
+      <p style="font-size:15px;color:#333;line-height:1.6;margin-bottom:14px;">From work, school, or home our phones are a key tool to navigate and communicate throughout the day. Our apps make it easy for you to stay up to date with news and events!</p>
+      <p style="font-size:15px;color:#333;line-height:1.6;margin-bottom:28px;">Your Organization's App is available for free and can be used with both Apple and Android.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <button style="background:#2d2d2d;border:none;border-radius:24px;padding:14px 20px;font-size:13px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase;font-family:inherit;cursor:pointer;text-align:left;">NAVIGATING THE APP</button>
+        <button style="background:#2d2d2d;border:none;border-radius:24px;padding:14px 20px;font-size:13px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase;font-family:inherit;cursor:pointer;text-align:left;">SUBSCRIBING TO PUSH GROUPS</button>
+        <button style="background:#2d2d2d;border:none;border-radius:24px;padding:14px 20px;font-size:13px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase;font-family:inherit;cursor:pointer;text-align:left;">HOW TO ADD EVENTS TO A CALENDAR</button>
+      </div>
+    </div>
+  </div>
+  <div class="home-ind" style="display:none;"></div>
+</div>
+
+<div id="s-pages" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
+    <span class="topnav-title">Pages</span>
+    <div class="tnicons"><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('pages')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-pages"></span></div></div>
+  </div>
+  <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-info"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="general">About Us</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="newsletter">PTA Newsletter — Spring 2026</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="programs">After School Programs</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row" onclick="show('s-success-bus-routes')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="transportation">Bus Routes &amp; Pickup Times</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="nutrition">Cafeteria &amp; Nutrition Info</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="newsletter">Staff Spotlight</div><div class="list-row-sub">Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-info"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="general">About Us</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="programs">Drama Club</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="calendar">Academic Calendar 2025–26</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row" onclick="show('s-success-parent-resources')" style="cursor:pointer;"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="general">Parent Resources</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="policy">Technology &amp; Device Policy</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="athletics">Athletics Schedule — Spring</div><div class="list-row-sub">Washington MS</div></div><span class="list-chev">›</span></div>
+  </div></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind" style="display:none;"></div>
+</div>
+
+<!-- ════ PARENT RESOURCES (Washington MS) ════ -->
+<div id="s-parent-resources" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="show('s-pages')"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;Pages</button>
+    <span class="topnav-title"></span>
+    <div></div>
+  </div>
+  <div class="scroll" style="background:#fff;">
+    <div style="padding:20px 16px 0;">
+      <h1 style="font-size:26px;font-weight:700;color:#2d2d2d;line-height:1.2;margin-bottom:8px;">Parent Resources</h1>
+      <div style="display:inline-block;background:#f1f5f9;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:500;color:#475569;margin-bottom:16px;">Washington Middle School</div>
+      <p style="font-size:15px;color:#444;line-height:1.7;margin-bottom:24px;">Everything you need to stay connected and support your student at Washington Middle School. Explore the resources below to get started.</p>
+
+      <h2 style="font-size:18px;font-weight:700;color:#2d2d2d;margin-bottom:10px;">Quick Links</h2>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:6px;"><a href="#" style="color:#185FA5;text-decoration:none;">Washington MS Website</a></p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:6px;"><a href="#" style="color:#185FA5;text-decoration:none;">Academic Calendar 2025–26</a></p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:6px;"><a href="#" style="color:#185FA5;text-decoration:none;">Student Handbook</a></p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:24px;"><a href="#" style="color:#185FA5;text-decoration:none;">Course Selection Guide 2025–26</a></p>
+
+      <h2 style="font-size:18px;font-weight:700;color:#2d2d2d;margin-bottom:10px;">Communication</h2>
+      <p style="font-size:15px;color:#444;line-height:1.7;margin-bottom:10px;">Have a question for the office? Reach us at <a href="#" style="color:#185FA5;text-decoration:none;">(512) 555-0148</a> or email <a href="#" style="color:#185FA5;text-decoration:none;">office@washington.brookwoodisd.edu</a>.</p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:6px;"><a href="#" style="color:#185FA5;text-decoration:none;">Meet the Teachers</a></p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:24px;"><a href="#" style="color:#185FA5;text-decoration:none;">Parent-Teacher Conference Sign-Up — Spring 2026</a></p>
+
+      <h2 style="font-size:18px;font-weight:700;color:#2d2d2d;margin-bottom:10px;">Student Life</h2>
+      <p style="font-size:15px;color:#444;line-height:1.7;margin-bottom:10px;">Washington MS offers a wide range of clubs, activities, and athletics for all students. Below you'll find resources to help your student get involved.</p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:6px;"><a href="#" style="color:#185FA5;text-decoration:none;">Clubs &amp; Activities Guide</a></p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:6px;"><a href="#" style="color:#185FA5;text-decoration:none;">Athletics &amp; Sports Information</a></p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:6px;"><a href="#" style="color:#185FA5;text-decoration:none;">Student Code of Conduct</a></p>
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:32px;"><a href="#" style="color:#185FA5;text-decoration:none;">Bell Schedule</a></p>
+    </div>
+  </div>
+  <div class="home-ind" style="display:none;"></div>
+</div>
+
+<!-- ════ VOLUNTEER FORM (Lincoln Elem) ════ -->
+<div id="s-volunteer-form" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="show('s-forms')"><svg width="10" height="18"><use href="#ic-back"/></svg>&nbsp;Forms</button>
+    <span class="topnav-title"></span>
+    <div></div>
+  </div>
+  <div class="scroll" style="background:#f8f8f8;">
+    <div style="background:#fff;padding:20px 16px 16px;border-bottom:1px solid #e1e1e1;">
+      <h1 style="font-size:26px;font-weight:700;color:#2d2d2d;line-height:1.2;margin-bottom:8px;">Volunteer Sign-Up</h1>
+      <div style="display:inline-block;background:#f1f5f9;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:500;color:#475569;margin-bottom:14px;">Lincoln Elementary</div>
+      <p style="font-size:15px;color:#646464;line-height:1.6;">We love our volunteers! Please complete the form below to register your interest. All volunteers must have a current background check on file with the district.</p>
+    </div>
+    <div style="background:#fff;margin-top:8px;padding:16px;">
+      <div style="margin-bottom:18px;">
+        <label style="font-size:13px;font-weight:600;color:#2d2d2d;display:block;margin-bottom:6px;">Full Name</label>
+        <div style="border:1px solid #d1d1d1;border-radius:8px;padding:12px;font-size:15px;color:#747474;background:#fff;">Your name</div>
+      </div>
+      <div style="margin-bottom:18px;">
+        <label style="font-size:13px;font-weight:600;color:#2d2d2d;display:block;margin-bottom:6px;">Email Address</label>
+        <div style="border:1px solid #d1d1d1;border-radius:8px;padding:12px;font-size:15px;color:#747474;background:#fff;">your@email.com</div>
+      </div>
+      <div style="margin-bottom:18px;">
+        <label style="font-size:13px;font-weight:600;color:#2d2d2d;display:block;margin-bottom:6px;">Phone Number</label>
+        <div style="border:1px solid #d1d1d1;border-radius:8px;padding:12px;font-size:15px;color:#747474;background:#fff;">(555) 000-0000</div>
+      </div>
+      <div style="margin-bottom:18px;">
+        <label style="font-size:13px;font-weight:600;color:#2d2d2d;display:block;margin-bottom:6px;">Student Name &amp; Grade</label>
+        <div style="border:1px solid #d1d1d1;border-radius:8px;padding:12px;font-size:15px;color:#747474;background:#fff;">e.g. Jane Doe, 3rd Grade</div>
+      </div>
+      <div style="margin-bottom:18px;">
+        <label style="font-size:13px;font-weight:600;color:#2d2d2d;display:block;margin-bottom:8px;">Areas of Interest</label>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:20px;height:20px;border:1.5px solid #d1d1d1;border-radius:4px;flex-shrink:0;"></div><span style="font-size:15px;color:#2d2d2d;">Classroom helper</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:20px;height:20px;border:1.5px solid #d1d1d1;border-radius:4px;flex-shrink:0;"></div><span style="font-size:15px;color:#2d2d2d;">Library assistance</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:20px;height:20px;border:1.5px solid #d1d1d1;border-radius:4px;flex-shrink:0;"></div><span style="font-size:15px;color:#2d2d2d;">Field trip chaperone</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:20px;height:20px;border:1.5px solid #d1d1d1;border-radius:4px;flex-shrink:0;"></div><span style="font-size:15px;color:#2d2d2d;">PTA &amp; school events</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:20px;height:20px;border:1.5px solid #d1d1d1;border-radius:4px;flex-shrink:0;"></div><span style="font-size:15px;color:#2d2d2d;">Before/after school programs</span></div>
+        </div>
+      </div>
+      <div style="margin-bottom:24px;">
+        <label style="font-size:13px;font-weight:600;color:#2d2d2d;display:block;margin-bottom:6px;">Additional Comments</label>
+        <div style="border:1px solid #d1d1d1;border-radius:8px;padding:12px;font-size:15px;color:#747474;background:#fff;min-height:80px;">Optional</div>
+      </div>
+      <button style="width:100%;background:#2d2d2d;border:none;border-radius:10px;padding:16px;font-size:16px;font-weight:600;color:#fff;font-family:inherit;cursor:pointer;">Submit</button>
+    </div>
+  </div>
+  <div class="home-ind" style="display:none;"></div>
+</div>
+
+<!-- ════ MORE 3 SEARCH OVERLAY ════ -->
+<div id="s-more3-search" class="screen">
+  <div class="sbar" style="background:#f8f8f8;"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <!-- Search bar with back chevron -->
+  <div style="background:#f8f8f8;padding:8px 16px 10px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;background:#fff;border:1px solid #d1d1d1;border-radius:12px;padding:0 12px;height:44px;gap:8px;">
+      <button onclick="closeM3Search()" style="background:none;border:none;cursor:pointer;color:#2d2d2d;display:flex;align-items:center;padding:0;flex-shrink:0;">
+        <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></svg>
+      </button>
+      <input id="m3-search-input" type="text" placeholder="Search sections, forms & pages..."
+        oninput="m3SearchUpdate(this.value)"
+        style="flex:1;border:none;outline:none;font-size:15px;color:#2d2d2d;background:transparent;font-family:inherit;"
+        autocomplete="off" autocorrect="off" spellcheck="false">
+      <button id="m3-clear-btn" onclick="m3ClearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:#909090;font-size:18px;line-height:1;padding:0;">✕</button>
+    </div>
+  </div>
+  <!-- Results list -->
+  <div class="scroll" id="m3-search-results" style="background:#f8f8f8;"></div>
+  <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
+</div>
+<div id="s-events" class="screen" style="position:relative;overflow:hidden;">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
+    <span class="topnav-title">Events</span>
+    <div class="tnicons"><button id="sstar-events" class="icon-btn" onclick="m2ToggleSectionFav('events')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('events')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-events"></span></div></div>
+  </div>
+  <div class="dtbar" id="dtbar">
+    <button class="dt-nav" onclick="prevWeek()">‹</button>
+    <div class="dt-inner" id="dt-inner"></div>
+    <button class="dt-nav" onclick="nextWeek()">›</button>
+  </div>
+  <div id="ev-sched-wrap" class="scroll" style="background:#f8f8f8;padding-bottom:80px;"><div id="ev-schedule" style="padding-top:8px;"></div></div>
+  <div id="ev-cal-wrap" class="scroll" style="display:none;background:#f8f8f8;padding-bottom:80px;"></div>
+  <div id="ev-month-wrap" class="scroll" style="display:none;background:#f8f8f8;padding-bottom:80px;"><div id="ev-month-list" style="padding-bottom:8px;"></div></div>
+  <div style="position:absolute;bottom:24px;left:0;right:0;display:flex;justify-content:center;pointer-events:none;z-index:10;">
+    <div style="pointer-events:all;background:#2d2d2d;border-radius:16px;display:flex;align-items:center;gap:6px;padding:6px 8px;box-shadow:0 4px 20px rgba(0,0,0,.22);">
+      <button style="width:40px;height:40px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-size:22px;font-weight:300;line-height:1;">+</button>
+      <div style="position:relative;">
+        <button id="ev-view-btn" onclick="openEvViewMenu(event)" style="height:40px;min-width:130px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
+          <span id="ev-dropdown-label">Schedule</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 3 18 9"/><polyline points="6 15 12 21 18 15"/></svg>
+        </button>
+        <div id="ev-view-menu" style="display:none;position:absolute;bottom:52px;left:50%;transform:translateX(-50%);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden;min-width:160px;z-index:50;">
+          <div onclick="setEvView('schedule')" id="evmenu-schedule" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Schedule<span id="evmenu-check-schedule" style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div onclick="setEvView('month')"    id="evmenu-month"    style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Month<span    id="evmenu-check-month"    style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div onclick="setEvView('calendar')" id="evmenu-calendar" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;">Year<span     id="evmenu-check-calendar" style="color:#2d2d2d;opacity:0;">✓</span></div>
+        </div>
+      </div>
+      <button onclick="goToday()" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#2d2d2d;white-space:nowrap;flex-shrink:0;">Today</button>
+    </div>
+  </div>
+  <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
+</div>
+
+<!-- ════ ATHLETICS ════ -->
+<div id="s-athletics" class="screen" style="position:relative;overflow:hidden;">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav">
+    <button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
+    <span class="topnav-title">Athletics</span>
+    <div class="tnicons"><button id="sstar-athletics" class="icon-btn" onclick="m2ToggleSectionFav('athletics')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('athletics')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-athletics"></span></div></div>
+  </div>
+  <div class="dtbar" id="at-dtbar">
+    <button class="dt-nav" onclick="atPrevWeek()">‹</button>
+    <div class="dt-inner" id="at-inner"></div>
+    <button class="dt-nav" onclick="atNextWeek()">›</button>
+  </div>
+  <div id="at-sched-wrap" class="scroll" style="background:#f8f8f8;padding-bottom:80px;"><div id="at-schedule" style="padding-top:8px;"></div></div>
+  <div id="at-cal-wrap" class="scroll" style="display:none;background:#f8f8f8;padding-bottom:80px;"></div>
+  <div id="at-month-wrap" class="scroll" style="display:none;background:#f8f8f8;padding-bottom:80px;"><div id="at-month-list" style="padding-bottom:8px;"></div></div>
+  <div style="position:absolute;bottom:24px;left:0;right:0;display:flex;justify-content:center;pointer-events:none;z-index:10;">
+    <div style="pointer-events:all;background:#2d2d2d;border-radius:16px;display:flex;align-items:center;gap:6px;padding:6px 8px;box-shadow:0 4px 20px rgba(0,0,0,.22);">
+      <button style="width:40px;height:40px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-size:22px;font-weight:300;line-height:1;">+</button>
+      <div style="position:relative;">
+        <button id="at-view-btn" onclick="openAtViewMenu(event)" style="height:40px;min-width:130px;border-radius:10px;background:#3d3d3d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
+          <span id="at-dropdown-label">Schedule</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 3 18 9"/><polyline points="6 15 12 21 18 15"/></svg>
+        </button>
+        <div id="at-view-menu" style="display:none;position:absolute;bottom:52px;left:50%;transform:translateX(-50%);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden;min-width:160px;z-index:50;">
+          <div onclick="setAtView('schedule')" id="atmenu-schedule" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Schedule<span id="atmenu-check-schedule" style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div onclick="setAtView('month')"    id="atmenu-month"    style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;border-bottom:1px solid #f0f0f0;">Month<span    id="atmenu-check-month"    style="color:#2d2d2d;opacity:0;">✓</span></div>
+          <div onclick="setAtView('calendar')" id="atmenu-calendar" style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:15px;font-weight:500;color:#2d2d2d;cursor:pointer;">Year<span     id="atmenu-check-calendar" style="color:#2d2d2d;opacity:0;">✓</span></div>
+        </div>
+      </div>
+      <button onclick="atGoToday()" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#2d2d2d;white-space:nowrap;flex-shrink:0;">Today</button>
+    </div>
+  </div>
+  <div class="home-ind" style="background:#d1d1d1;margin-bottom:6px;"></div>
+</div>
+
+<!-- ════ DOCUMENTS ════ -->
+<div id="s-documents" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Documents</span><div class="tnicons"><button id="sstar-documents" class="icon-btn" onclick="m2ToggleSectionFav('documents')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('documents')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-documents"></span></div></div></div>
+  <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="handbook">2025–26 School Handbook</div><div class="list-row-sub">Lincoln Elem · PDF</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="nutrition">Lunch Menu — March</div><div class="list-row-sub">Lincoln Elem · PDF</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="policy">Student Code of Conduct</div><div class="list-row-sub">Washington MS · PDF</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="list-row-icon"><svg width="20" height="20"><use href="#ic-doc"/></svg></div><div class="list-row-info"><div class="list-row-name" data-tag="supplies">Supply List 2025–26</div><div class="list-row-sub">Washington MS · PDF</div></div><span class="list-chev">›</span></div>
+  </div></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind" style="display:none;"></div>
+</div>
+
+<!-- ════ DINING ════ -->
+<div id="s-dining" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Dining</span><div class="tnicons"><button id="sstar-dining" class="icon-btn" onclick="m2ToggleSectionFav('dining')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('dining')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-dining"></span></div></div></div>
+  <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
+    <div class="list-row"><div class="list-row-icon">🍕</div><div class="list-row-info"><div class="list-row-name">Monday — Pizza</div><div class="list-row-sub">Washington MS · Mar 18</div></div></div>
+    <div class="list-row"><div class="list-row-icon">🥗</div><div class="list-row-info"><div class="list-row-name">Tuesday — Salad Bar</div><div class="list-row-sub">Washington MS · Mar 19</div></div></div>
+    <div class="list-row"><div class="list-row-icon">🌮</div><div class="list-row-info"><div class="list-row-name">Wednesday — Tacos</div><div class="list-row-sub">Washington MS · Mar 20</div></div></div>
+    <div class="list-row"><div class="list-row-icon">🍔</div><div class="list-row-info"><div class="list-row-name">Thursday — Burgers</div><div class="list-row-sub">Washington MS · Mar 21</div></div></div>
+  </div></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind" style="display:none;"></div>
+</div>
+
+<!-- ════ STAFF ════ -->
+<div id="s-staff" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">Staff Directory</span><div class="tnicons"><button id="sstar-staff" class="icon-btn" onclick="m2ToggleSectionFav('staff')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><button class="icon-btn" onclick="openM3Search()"><svg width="20" height="20"><use href="#ic-search"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" onclick="openFilterSheet('staff')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-staff"></span></div></div></div>
+  <div class="scroll" style="padding-top:8px;"><div style="background:#fff;">
+    <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">SC</div><div class="list-row-info"><div class="list-row-name" data-tag="administration">Ms. Sandra Craig</div><div class="list-row-sub">Principal · Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">JR</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Mr. James Rivera</div><div class="list-row-sub">4th Grade Teacher · Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">AL</div><div class="list-row-info"><div class="list-row-name" data-tag="library">Ms. Amy Leung</div><div class="list-row-sub">Librarian · Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#dbeafe;color:#1e40af;">MW</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Ms. Maria Wong</div><div class="list-row-sub">2nd Grade Teacher · Lincoln Elem</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">RD</div><div class="list-row-info"><div class="list-row-name" data-tag="administration">Mr. Robert Davis</div><div class="list-row-sub">Principal · Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">KH</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Ms. Kaitlyn Henson</div><div class="list-row-sub">8th Grade English · Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">BM</div><div class="list-row-info"><div class="list-row-name" data-tag="teaching">Mr. Brian Moore</div><div class="list-row-sub">Math Teacher · Washington MS</div></div><span class="list-chev">›</span></div>
+    <div class="list-row"><div class="initials-circle" style="background:#d1fae5;color:#065f46;">CS</div><div class="list-row-info"><div class="list-row-name" data-tag="athletics">Mr. Chris Stevens</div><div class="list-row-sub">Athletics Director · Washington MS</div></div><span class="list-chev">›</span></div>
+  </div></div>
+  <div class="bnav" style="display:none;"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind" style="display:none;"></div>
+</div>
+
+
+<!-- ════ ABOUT ════ -->
+<div id="s-about" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div class="topnav"><button class="back-btn" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button><span class="topnav-title">About Us</span><button class="icon-btn"><svg width="20" height="20"><use href="#ic-search"/></svg></button></div>
+  <div class="school-selector" id="about-selector">
+    <div class="school-pill active" data-s="district" onclick="selectSchoolAbout('district')"><div class="sp-logo" style="background:#ede9fe;">🏙️</div><div class="sp-name">District</div></div>
+    <div class="school-pill" data-s="lincoln" onclick="selectSchoolAbout('lincoln')"><div class="sp-logo" style="background:#dbeafe;">🏫</div><div class="sp-name">Lincoln</div></div>
+    <div class="school-pill" data-s="washington" onclick="selectSchoolAbout('washington')"><div class="sp-logo" style="background:#d1fae5;">🏛️</div><div class="sp-name">Washington</div></div>
+  </div>
+  <div class="scroll" style="padding-top:8px;">
+    <div id="about-district"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#ede9fe;">🏙️</div><div><div class="about-school-name">Brookwood ISD</div><div class="about-school-type">Independent School District</div></div></div><div class="about-desc">Brookwood ISD serves over 4,200 students across three campuses in the greater Brookwood area. Our mission is to inspire, challenge, and support every learner on their path to a successful future.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Students</div><div class="stat-val">4,200+</div></div><div class="stat-box"><div class="stat-label">Schools</div><div class="stat-val">3</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1948</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">310</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0100</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">General Email</div><div class="contact-val">info@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-web"/></svg></div><div class="contact-info"><div class="contact-type">Website</div><div class="contact-val">www.brookwoodisd.edu</div></div><span class="contact-action">Open</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">100 District Blvd, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
+    <div id="about-lincoln" style="display:none;"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#dbeafe;">🏫</div><div><div class="about-school-name">Lincoln Elementary</div><div class="about-school-type">Elementary School · Grades K–5</div></div></div><div class="about-desc">Lincoln Elementary has been a cornerstone of the Brookwood community since 1961. We foster a nurturing, rigorous environment where every child is known, valued, and challenged to grow.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Enrolled</div><div class="stat-val">612</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1961</div></div><div class="stat-box"><div class="stat-label">Grades</div><div class="stat-val">K–5</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">58</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0121</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">Office Email</div><div class="contact-val">lincoln@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">210 Lincoln Ave, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
+    <div id="about-washington" style="display:none;"><div class="about-card"><div class="about-header"><div class="about-logo" style="background:#d1fae5;">🏛️</div><div><div class="about-school-name">Washington Middle</div><div class="about-school-type">Middle School · Grades 6–8</div></div></div><div class="about-desc">Washington Middle School serves students in grades 6–8 in Brookwood ISD. Our mission is to provide an engaging, rigorous environment where every student thrives.</div><div class="stats-grid"><div class="stat-box"><div class="stat-label">Enrolled</div><div class="stat-val">847</div></div><div class="stat-box"><div class="stat-label">Est.</div><div class="stat-val">1962</div></div><div class="stat-box"><div class="stat-label">Grades</div><div class="stat-val">6–8</div></div><div class="stat-box"><div class="stat-label">Staff</div><div class="stat-val">52</div></div></div><div class="about-divider"></div><div class="contact-label">Contact</div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-phone"/></svg></div><div class="contact-info"><div class="contact-type">Main Office</div><div class="contact-val">(512) 555-0148</div></div><span class="contact-action">Call</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-mail"/></svg></div><div class="contact-info"><div class="contact-type">Office Email</div><div class="contact-val">washington@brookwoodisd.edu</div></div><span class="contact-action">Email</span></div><div class="contact-row"><div class="contact-icon"><svg width="18" height="18"><use href="#ic-pin"/></svg></div><div class="contact-info"><div class="contact-type">Address</div><div class="contact-val">450 Washington Blvd, Brookwood, TX</div></div><span class="contact-action">Map</span></div></div></div>
+  </div>
+  <div class="bnav"><button class="bnav-btn" onclick="show('s-feed')"><svg width="24" height="24"><use href="#ic-feed"/></svg>Feed</button><button class="bnav-btn" onclick="show('s-rooms')"><svg width="24" height="24"><use href="#ic-rooms"/></svg>Rooms</button><div class="bnav-fab"><svg width="26" height="26"><use href="#ic-plus"/></svg></div><button class="bnav-btn" onclick="show('s-messages')"><svg width="24" height="24"><use href="#ic-msg"/></svg>Messages</button><button class="bnav-btn active" onclick="showMore()"><svg width="24" height="24"><use href="#ic-more"/></svg>More</button></div>
+  <div class="home-ind"></div>
+</div>
+
+<script>
+// ─── Version ───
+// Close view menus on outside tap
+document.addEventListener('click', function(e){
+  if(!e.target.closest('#ev-view-btn') && !e.target.closest('#ev-view-menu')) closeEvViewMenu();
+  if(!e.target.closest('#at-view-btn') && !e.target.closest('#at-view-menu')) closeAtViewMenu();
+});
+let moreVersion = 3;
+const VBL_IDS = ['vbl-events','vbl-athletics','vbl-documents','vbl-dining','vbl-staff','vbl-about','vbl-forms','vbl-pages'];
+
+function showMore() {
+  closeMorePopover();
+  show('s-more3');
+}
+function openMorePopover(e) {
+  e.stopPropagation();
+  // Version switcher hidden for testing — no-op
+}
+function closeMorePopover() {
+  document.getElementById('ver-popover').classList.remove('open');
+  document.getElementById('ver-overlay').style.display = 'none';
+}
+function switchMoreVersion(v) {
+  // Disabled for testing — version locked to 3
+}
+
+// ─── Navigation ───
+
+// All screens that can be deep-linked via hash
+const ROUTABLE_SCREENS = [
+  's-feed','s-rooms','s-messages','s-more3','s-more3-search',
+  's-forms','s-help','s-pages','s-parent-resources','s-volunteer-form',
+  's-success-ptconf','s-success-bus-routes','s-success-volunteer','s-success-parent-resources',
+  's-events','s-athletics','s-documents','s-dining','s-staff','s-about',
+];
+
+function pushHash(hash) {
+  try { history.replaceState(null, '', '#' + hash); } catch(e) {}
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 's-more') { initM1(); m1ActiveSchool = null; }
+  if (id === 's-events') { initEv(); syncSectionStars(); }
+  if (id === 's-more2') initM2();
+  if (id === 's-athletics') { initAt(); syncSectionStars(); }
+  if (['s-documents','s-dining','s-staff','s-help'].includes(id)) syncSectionStars();
+  if (['s-pages','s-forms','s-staff','s-dining','s-documents'].includes(id)) m1ApplySchoolFilter();
+  // Update URL hash for Maze deep-linking
+  if (ROUTABLE_SCREENS.includes(id)) pushHash(id);
+}
+function syncSectionStars() {
+  const show = moreVersion === 2;
+  ['events','athletics','documents','dining','staff','help'].forEach(k => {
+    const btn = document.getElementById('sstar-' + k);
+    if (btn) btn.style.display = show ? '' : 'none';
+  });
+}
+function m1ApplySchoolFilter() {
+  if (moreVersion !== 1 || !m1ActiveSchool) return;
+  const schoolName = M1_SCHOOLS[m1ActiveSchool]?.name;
+  if (!schoolName) return;
+  const chipKey = m1ActiveSchool; // 'lincoln' or 'washington'
+  const active = document.querySelector('.screen.active');
+  if (!active) return;
+  const sid = active.id;
+
+  if (sid === 's-documents') {
+    // Documents has filter chips with data-doc attributes
+    filterSub('doc', chipKey);
+  } else {
+    // Flat list screens — hide rows whose subtitle doesn't match
+    active.querySelectorAll('.list-row').forEach(row => {
+      const sub = row.querySelector('.list-row-sub');
+      if (sub) row.style.display = sub.textContent.includes(schoolName) ? '' : 'none';
+    });
+  }
+  // Events schedule cards
+  if (sid === 's-events') {
+    active.querySelectorAll('.allday-card').forEach(card => {
+      const org = card.querySelector('.allday-org');
+      card.style.display = (!org || org.textContent.includes(schoolName)) ? '' : 'none';
+    });
+    active.querySelectorAll('.ev-card').forEach(card => {
+      const org = card.querySelector('.ev-card-org');
+      card.style.display = (!org || org.textContent.includes(schoolName)) ? '' : 'none';
+    });
+  }
+  // Athletics schedule cards
+  if (sid === 's-athletics') {
+    active.querySelectorAll('.ev-card').forEach(card => {
+      const org = card.querySelector('.ev-card-org');
+      card.style.display = (!org || org.textContent.includes(schoolName)) ? '' : 'none';
+    });
+  }
+}
+function filterFeed(f) {
+  document.querySelectorAll('#feed-chips .fchip').forEach(c => c.classList.toggle('on', c.dataset.f===f));
+  document.querySelectorAll('#feed-list .post-card').forEach(card => { card.style.display=(f==='all'||card.dataset.school===f)?'block':'none'; });
+}
+function filterSub(p, f) {
+  document.querySelectorAll('#'+p+'-chips .fchip').forEach(c => c.classList.toggle('on', c.dataset.f===f));
+  document.querySelectorAll('[data-'+p+']').forEach(r => { r.style.display=(f==='all'||r.dataset[p]===f)?'flex':'none'; });
+}
+function selectSchoolAbout(s) {
+  document.querySelectorAll('#about-selector .school-pill').forEach(p => p.classList.toggle('active', p.dataset.s===s));
+  ['district','lincoln','washington'].forEach(id => { document.getElementById('about-'+id).style.display=id===s?'block':'none'; });
+}
+function selectSchoolStaff(s) {
+  document.querySelectorAll('#staff-selector .school-pill').forEach(p => p.classList.toggle('active', p.dataset.s===s));
+  ['district','lincoln','washington'].forEach(id => { document.getElementById('staff-'+id).style.display=id===s?'block':'none'; });
+}
+function selectSchoolForms(s) {
+  document.querySelectorAll('#forms-selector .school-pill').forEach(p => p.classList.toggle('active', p.dataset.s===s));
+  ['district','lincoln','washington'].forEach(id => { document.getElementById('forms-'+id).style.display=id===s?'block':'none'; });
+}
+function selectSchoolPages(s) {
+  document.querySelectorAll('#pages-selector .school-pill').forEach(p => p.classList.toggle('active', p.dataset.s===s));
+  ['district','lincoln','washington'].forEach(id => { document.getElementById('pages-'+id).style.display=id===s?'block':'none'; });
+}
+
+// ─── Filter Bottom Sheet ───
+const FILTER_CONFIG = {
+  staff: {
+    schools: ['Lincoln Elem', 'Washington MS'],
+    tags: [
+      {label:'Administration', value:'administration'},
+      {label:'Teaching',       value:'teaching'},
+      {label:'Library',        value:'library'},
+      {label:'Athletics',      value:'athletics'},
+    ]
+  },
+  documents: {
+    schools: ['Lincoln Elem', 'Washington MS'],
+    tags: [
+      {label:'Handbook',  value:'handbook'},
+      {label:'Policy',    value:'policy'},
+      {label:'Nutrition', value:'nutrition'},
+      {label:'Supplies',  value:'supplies'},
+    ]
+  },
+  forms: {
+    schools: ['Lincoln Elem', 'Washington MS'],
+    tags: [
+      {label:'Permission', value:'permission'},
+      {label:'Health',     value:'health'},
+      {label:'Enrollment', value:'enrollment'},
+      {label:'Volunteer',  value:'volunteer'},
+      {label:'Field Trip', value:'field-trip'},
+      {label:'Emergency',  value:'emergency'},
+      {label:'Supplies',   value:'supplies'},
+    ]
+  },
+  pages: {
+    schools: ['Lincoln Elem', 'Washington MS'],
+    tags: [
+      {label:'General Info',   value:'general'},
+      {label:'Newsletters',    value:'newsletter'},
+      {label:'Programs',       value:'programs'},
+      {label:'Transportation', value:'transportation'},
+      {label:'Nutrition',      value:'nutrition'},
+      {label:'Calendar',       value:'calendar'},
+      {label:'Policy',         value:'policy'},
+      {label:'Athletics',      value:'athletics'},
+    ]
+  },
+  dining: {
+    schools: ['Washington MS'],
+    tags: []
+  },
+  events: {
+    schools: ['Lincoln Elem', 'Washington MS', 'Brookwood ISD'],
+    tags: [
+      {label:'Performing Arts', value:'performing-arts'},
+      {label:'Sports',          value:'sports'},
+      {label:'Academic',        value:'academic'},
+      {label:'Field Trip',      value:'field-trip'},
+      {label:'Community',       value:'community'},
+      {label:'District',        value:'district'},
+    ]
+  },
+  athletics: {
+    schools: ['Lincoln Elem', 'Washington MS', 'Brookwood ISD'],
+    tags: [
+      {label:'Game',         value:'game'},
+      {label:'Tournament',   value:'tournament'},
+      {label:'Track & Field',value:'track-field'},
+    ]
+  },
+};
+
+let fsCurrentSection = null;
+let fsActiveTab = 'school';
+let fsSelSchools = new Set();
+let fsSelTags = new Set();
+// Tracks how many filters are currently applied per section
+const fsApplied = {}; // { 'staff': 3, 'documents': 1, ... }
+
+function updateFilterBadge(section) {
+  const badge = document.getElementById('fbadge-' + section);
+  if (!badge) return;
+  const count = fsApplied[section] || 0;
+  badge.textContent = count;
+  badge.classList.toggle('visible', count > 0);
+}
+
+function openFilterSheet(section) {
+  fsCurrentSection = section;
+  fsActiveTab = 'school';
+  document.getElementById('fsheet-overlay').classList.add('open');
+  document.getElementById('fsheet').classList.add('open');
+  switchFilterTab('school');
+  renderFilterSchools();
+  renderFilterTags();
+  // Anchor: e.g. #s-staff/filter/staff/tab/school
+  const active = document.querySelector('.screen.active');
+  const screenId = active ? active.id : 's-more3';
+  pushHash(screenId + '/filter/' + section + '/tab/school');
+}
+
+function closeFilterSheet() {
+  document.getElementById('fsheet-overlay').classList.remove('open');
+  document.getElementById('fsheet').classList.remove('open');
+  // Revert hash to just the screen
+  const active = document.querySelector('.screen.active');
+  if (active && ROUTABLE_SCREENS.includes(active.id)) pushHash(active.id);
+}
+
+function switchFilterTab(tab) {
+  fsActiveTab = tab;
+  document.getElementById('fstab-school').classList.toggle('active', tab === 'school');
+  document.getElementById('fstab-tags').classList.toggle('active', tab === 'tags');
+  document.getElementById('fsheet-school').style.display = tab === 'school' ? '' : 'none';
+  document.getElementById('fsheet-tags').style.display = tab === 'tags' ? '' : 'none';
+  // Hide tags tab if no tags for this section
+  const hasTags = (FILTER_CONFIG[fsCurrentSection]?.tags || []).length > 0;
+  document.getElementById('fstab-tags').style.display = hasTags ? '' : 'none';
+  // Update hash tab segment
+  const active = document.querySelector('.screen.active');
+  const screenId = active ? active.id : 's-more3';
+  if (fsCurrentSection) pushHash(screenId + '/filter/' + fsCurrentSection + '/tab/' + tab);
+}
+
+function fsheetCheckSvg() {
+  return `<svg class="fcheck-svg" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg>`;
+}
+
+function renderFilterSchools() {
+  const cfg = FILTER_CONFIG[fsCurrentSection];
+  if (!cfg) return;
+  const c = document.getElementById('fsheet-school');
+  c.innerHTML = '<div class="fsheet-list">' +
+    cfg.schools.map(s => {
+      const sel = fsSelSchools.has(s);
+      return `<div class="fsheet-row${sel?' sel':''}" onclick="toggleFilterChip('school','${s}')">
+        <span class="fsheet-row-label">${s}</span>
+        <div class="fsheet-row-check">${fsheetCheckSvg()}</div>
+      </div>`;
+    }).join('') + '</div>';
+}
+
+function renderFilterTags() {
+  const cfg = FILTER_CONFIG[fsCurrentSection];
+  if (!cfg || !cfg.tags.length) return;
+  const c = document.getElementById('fsheet-tags');
+  c.innerHTML = '<div class="fsheet-list">' +
+    cfg.tags.map(t => {
+      const sel = fsSelTags.has(t.value);
+      return `<div class="fsheet-row${sel?' sel':''}" onclick="toggleFilterChip('tag','${t.value}')">
+        <span class="fsheet-row-label">${t.label}</span>
+        <div class="fsheet-row-check">${fsheetCheckSvg()}</div>
+      </div>`;
+    }).join('') + '</div>';
+}
+
+function toggleFilterChip(type, value) {
+  if (type === 'school') {
+    fsSelSchools.has(value) ? fsSelSchools.delete(value) : fsSelSchools.add(value);
+    renderFilterSchools();
+  } else {
+    fsSelTags.has(value) ? fsSelTags.delete(value) : fsSelTags.add(value);
+    renderFilterTags();
+  }
+}
+
+function clearFilters() {
+  fsSelSchools.clear();
+  fsSelTags.clear();
+  renderFilterSchools();
+  renderFilterTags();
+  applyFiltersToSection(fsCurrentSection, new Set(), new Set());
+  fsApplied[fsCurrentSection] = 0;
+  updateFilterBadge(fsCurrentSection);
+}
+
+function applyFilters() {
+  applyFiltersToSection(fsCurrentSection, fsSelSchools, fsSelTags);
+  fsApplied[fsCurrentSection] = fsSelSchools.size + fsSelTags.size;
+  updateFilterBadge(fsCurrentSection);
+  closeFilterSheet();
+}
+
+function applyFiltersToSection(section, schools, tags) {
+  if (section === 'events' || section === 'athletics') {
+    // Store for re-application on day navigation
+    if (section === 'events') { evFilterSchools = schools; evFilterTags = tags; applyEvFilter(); }
+    else                       { atFilterSchools = schools; atFilterTags = tags; applyAtFilter(); }
+    return;
+  }
+  const containerMap = {
+    staff:     '#s-staff .scroll',
+    documents: '#s-documents .scroll',
+    dining:    '#s-dining .scroll',
+    forms:     '#forms-district',
+    pages:     '#s-pages .scroll',
+  };
+  const containerSel = containerMap[section];
+  if (!containerSel) return;
+  const container = document.querySelector(containerSel);
+  if (!container) return;
+
+  const rows = container.querySelectorAll('.list-row');
+  rows.forEach(row => {
+    const subEl = row.querySelector('.list-row-sub');
+    const nameEl = row.querySelector('.list-row-name');
+    const subText = subEl ? subEl.textContent : '';
+    const tagVal = nameEl ? (nameEl.dataset.tag || '') : '';
+
+    const schoolPass = schools.size === 0 || [...schools].some(s => subText.includes(s));
+    const tagPass    = tags.size === 0    || tags.has(tagVal);
+    row.style.display = (schoolPass && tagPass) ? '' : 'none';
+  });
+}
+
+let evFilterSchools = new Set();
+let evFilterTags = new Set();
+let atFilterSchools = new Set();
+let atFilterTags = new Set();
+
+function applyEvFilter() {
+  document.querySelectorAll('#ev-schedule .ev-card, #ev-schedule .allday-card').forEach(card => {
+    const org = card.dataset.org || '';
+    const type = card.dataset.type || '';
+    const schoolPass = evFilterSchools.size === 0 || [...evFilterSchools].some(s => org.includes(s));
+    const tagPass    = evFilterTags.size === 0    || evFilterTags.has(type);
+    card.style.display = (schoolPass && tagPass) ? '' : 'none';
+  });
+}
+
+function applyAtFilter() {
+  document.querySelectorAll('#at-schedule .ev-card').forEach(card => {
+    const org = card.dataset.org || '';
+    const type = card.dataset.type || '';
+    const schoolPass = atFilterSchools.size === 0 || [...atFilterSchools].some(s => org.includes(s));
+    const tagPass    = atFilterTags.size === 0    || atFilterTags.has(type);
+    card.style.display = (schoolPass && tagPass) ? '' : 'none';
+  });
+}
+
+// ─── More 1 ───
+const M1_SCHOOLS = {
+  lincoln: {
+    name: 'Lincoln Elem',
+    items: [
+      {lb:'Events',         ic:'#ic-cal',    tgt:'s-events'},
+      {lb:'Athletics',      ic:'#ic-sport',  tgt:'s-athletics'},
+      {lb:'Dining',         ic:'#ic-dining', tgt:'s-dining'},
+      {lb:'Documents',      ic:'#ic-doc',    tgt:'s-documents'},
+      {lb:'Pages',          ic:'#ic-doc',    tgt:'s-pages'},
+      {lb:'Forms',          ic:'#ic-doc',    tgt:'s-forms'},
+      {lb:'Staff Directory',ic:'#ic-people', tgt:'s-staff'},
+    ],
+  },
+  washington: {
+    name: 'Washington MS',
+    items: [
+      {lb:'Events',         ic:'#ic-cal',    tgt:'s-events'},
+      {lb:'Athletics',      ic:'#ic-sport',  tgt:'s-athletics'},
+      {lb:'Dining',         ic:'#ic-dining', tgt:'s-dining'},
+      {lb:'Documents',      ic:'#ic-doc',    tgt:'s-documents'},
+      {lb:'Pages',          ic:'#ic-doc',    tgt:'s-pages'},
+      {lb:'Forms',          ic:'#ic-doc',    tgt:'s-forms'},
+      {lb:'Staff Directory',ic:'#ic-people', tgt:'s-staff'},
+    ],
+  },
+};
+
+const M1_ALL_ITEMS = [
+  // Lincoln
+  {lb:'Events',         sub:'Lincoln Elem', ic:'#ic-cal',    tgt:'s-events'},
+  {lb:'Athletics',      sub:'Lincoln Elem', ic:'#ic-sport',  tgt:'s-athletics'},
+  {lb:'Dining',         sub:'Lincoln Elem', ic:'#ic-dining', tgt:'s-dining'},
+  {lb:'Documents',      sub:'Lincoln Elem', ic:'#ic-doc',    tgt:'s-documents'},
+  {lb:'Pages',          sub:'Lincoln Elem', ic:'#ic-doc',    tgt:'s-pages'},
+  {lb:'Forms',          sub:'Lincoln Elem', ic:'#ic-doc',    tgt:'s-forms'},
+  {lb:'Staff Directory',sub:'Lincoln Elem', ic:'#ic-people', tgt:'s-staff'},
+  // Washington
+  {lb:'Events',         sub:'Washington MS',ic:'#ic-cal',    tgt:'s-events'},
+  {lb:'Athletics',      sub:'Washington MS',ic:'#ic-sport',  tgt:'s-athletics'},
+  {lb:'Dining',         sub:'Washington MS',ic:'#ic-dining', tgt:'s-dining'},
+  {lb:'Documents',      sub:'Washington MS',ic:'#ic-doc',    tgt:'s-documents'},
+  {lb:'Pages',          sub:'Washington MS',ic:'#ic-doc',    tgt:'s-pages'},
+  {lb:'Forms',          sub:'Washington MS',ic:'#ic-doc',    tgt:'s-forms'},
+  {lb:'Staff Directory',sub:'Washington MS',ic:'#ic-people', tgt:'s-staff'},
+];
+
+let m1Recents = [
+  {lb:'Events',    sub:'Lincoln Elem',  ic:'#ic-cal',    tgt:'s-events'},
+  {lb:'Dining',    sub:'Washington MS', ic:'#ic-dining', tgt:'s-dining'},
+];
+
+const m1Open = {recents: true, lincoln: true, washington: true};
+
+function m1Toggle(section) {
+  m1Open[section] = !m1Open[section];
+  m1Render();
+}
+
+const M1_CHEV_D = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+const M1_CHEV_R = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"/></svg>`;
+
+function m1AccordionHdr(label, key, emoji) {
+  const open = m1Open[key];
+  const emojiHtml = emoji ? `<span style="font-size:14px;margin-right:6px;">${emoji}</span>` : '';
+  return `<div onclick="m1Toggle('${key}')" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#fff;border-bottom:1px solid #e1e1e1;cursor:pointer;user-select:none;">
+    <div style="display:flex;align-items:center;">${emojiHtml}<span style="font-size:15px;font-weight:600;color:#2d2d2d;">${label}</span></div>
+    <span style="color:#909090;">${open ? M1_CHEV_D : M1_CHEV_R}</span>
+  </div>`;
+}
+
+let m1ActiveSchool = null; // set when navigating from V1 school accordion
+
+function m1NavTo(lb, sub, ic, tgt) {
+  // store the school name for filtering (sub is the school name, e.g. 'Lincoln Elem')
+  m1ActiveSchool = Object.entries(M1_SCHOOLS).find(([, v]) => v.name === sub)?.[0] || null;
+  m1Recents = m1Recents.filter(r => !(r.lb === lb && r.sub === sub));
+  m1Recents.unshift({lb, sub, ic, tgt});
+  if (m1Recents.length > 5) m1Recents.length = 5;
+  if (tgt) show(tgt);
+}
+
+function m1Render() {
+  const c = document.getElementById('m1-content');
+  if (!c) return;
+  let h = '';
+
+  // Recents
+  h += `<div onclick="m1Toggle('recents')" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px 4px;cursor:pointer;user-select:none;">
+    <span style="font-size:12px;font-weight:500;color:#747474;text-transform:uppercase;letter-spacing:.05em;">Recent</span>
+    <span style="color:#909090;">${m1Open.recents ? M1_CHEV_D : M1_CHEV_R}</span>
+  </div>`;
+  if (m1Open.recents) {
+    if (m1Recents.length) {
+      h += '<div class="more-list">';
+      m1Recents.forEach(r => {
+        const lbE = r.lb.replace(/'/g,"\\'");
+        const subE = r.sub.replace(/'/g,"\\'");
+        h += `<div class="more-item" onclick="m1NavTo('${lbE}','${subE}','${r.ic}','${r.tgt||''}')">
+          <svg class="more-icon"><use href="${r.ic}"/></svg>
+          <div style="flex:1;min-width:0;">
+            <div class="more-label">${r.lb}</div>
+            <div style="font-size:12px;color:#747474;margin-top:1px;">${r.sub}</div>
+          </div>
+          <span class="more-chev">›</span>
+        </div>`;
+      });
+      h += '</div>';
+    } else {
+      h += `<div style="padding:10px 16px 12px;font-size:14px;color:#747474;">No recently visited sections yet.</div>`;
+    }
+  }
+
+  // School accordions
+  Object.entries(M1_SCHOOLS).forEach(([key, school]) => {
+    h += `<div style="margin-top:8px;">${m1AccordionHdr(school.name, key, key==='lincoln'?'🏫':'🏛️')}</div>`;
+    if (m1Open[key]) {
+      h += '<div class="more-list">';
+      school.items.forEach(it => {
+        const lbE = it.lb.replace(/'/g,"\\'");
+        const subE = school.name.replace(/'/g,"\\'");
+        h += `<div class="more-item" onclick="m1NavTo('${lbE}','${subE}','${it.ic}','${it.tgt}')">
+          <svg class="more-icon"><use href="${it.ic}"/></svg>
+          <div class="more-label" style="flex:1;">${it.lb}</div>
+          <span class="more-chev">›</span>
+        </div>`;
+      });
+      h += '</div>';
+    }
+  });
+
+  // Help Center (ungrouped at bottom)
+  h += `<div style="margin-top:8px;margin-bottom:8px;"><div class="more-list"><div class="more-item" onclick="show('s-help')"><svg class="more-icon"><use href="#ic-help"/></svg><div class="more-label" style="flex:1;">Help Center</div><span class="more-chev">›</span></div></div></div>`;
+
+  c.innerHTML = h;
+}
+
+function initM1() { m1Render(); }
+
+// ─── More 1 Search ───
+let m1SearchQuery = null;
+
+const M1_SEARCH_SVG = `<svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1L1 9l8 8"/></svg>`;
+
+function openM1Search() {
+  show('s-more1-search');
+  const inp = document.getElementById('m1-search-input');
+  if (inp) { inp.value = ''; inp.focus(); }
+  document.getElementById('m1-clear-btn').style.display = 'none';
+  m1SearchQuery = '';
+  m1RenderSearchResults('');
+}
+
+function closeM1Search() {
+  m1SearchQuery = null;
+  show('s-more');
+}
+
+function m1ClearSearch() {
+  const inp = document.getElementById('m1-search-input');
+  if (inp) { inp.value = ''; inp.focus(); }
+  document.getElementById('m1-clear-btn').style.display = 'none';
+  m1SearchQuery = '';
+  m1RenderSearchResults('');
+}
+
+function m1SearchUpdate(val) {
+  document.getElementById('m1-clear-btn').style.display = val ? 'block' : 'none';
+  m1SearchQuery = val.trim();
+  m1RenderSearchResults(m1SearchQuery);
+}
+
+function m1SearchNavTo(lb, sub, ic, tgt) {
+  m1Recents = m1Recents.filter(r => !(r.lb === lb && r.sub === sub));
+  m1Recents.unshift({lb, sub, ic, tgt});
+  if (m1Recents.length > 5) m1Recents.length = 5;
+  m1Render();
+  if (tgt) show(tgt);
+}
+
+function m1SearchRow(it) {
+  const lbE = it.lb.replace(/'/g,"\\'");
+  const subE = (it.sub||'').replace(/'/g,"\\'");
+  const nav = it.tgt ? `onclick="m1SearchNavTo('${lbE}','${subE}','${it.ic}','${it.tgt}')"` : '';
+  return `<div class="more-item" ${nav} style="background:#fff;border-bottom:1px solid #dfdfdf;align-items:center;">
+    <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:16px;font-weight:500;color:#2d2d2d;">${it.lb}</div>
+      <div style="font-size:12px;color:#747474;margin-top:2px;">${it.sub||''}</div>
+    </div>
+    <span class="more-chev">›</span>
+  </div>`;
+}
+
+function m1RenderSearchResults(query) {
+  const c = document.getElementById('m1-search-results');
+  if (!c) return;
+
+  if (!query) {
+    let h = `<div class="section-hdr">Recent</div>`;
+    if (m1Recents.length) {
+      h += `<div style="background:#fff;">${m1Recents.map(it => m1SearchRow(it)).join('')}</div>`;
+    } else {
+      h += `<div style="padding:14px 16px;font-size:14px;color:#747474;">No recently visited sections yet.</div>`;
+    }
+    c.innerHTML = h;
+    return;
+  }
+
+  const q = query.toLowerCase();
+  const results = M1_ALL_ITEMS.filter(it =>
+    it.lb.toLowerCase().includes(q) || it.sub.toLowerCase().includes(q)
+  );
+  if (!results.length) {
+    c.innerHTML = `<div style="padding:48px 24px;text-align:center;color:#747474;font-size:14px;">No results for "<strong style="color:#2d2d2d;">${query}</strong>"</div>`;
+    return;
+  }
+  c.innerHTML = `<div style="background:#fff;">${results.map(it => m1SearchRow(it)).join('')}</div>`;
+}
+
+// ─── More 2 ───
+const M2_UNIVERSAL = [
+  {k:'events',    ic:'#ic-cal',    lb:'Events',         tgt:'s-events'},
+  {k:'athletics', ic:'#ic-sport',  lb:'Athletics',      tgt:'s-athletics'},
+  {k:'dining',    ic:'#ic-dining', lb:'Dining',         tgt:'s-dining'},
+  {k:'documents', ic:'#ic-doc',    lb:'Documents',      tgt:'s-documents'},
+  {k:'staff',     ic:'#ic-people', lb:'Staff Directory',tgt:'s-staff'},
+  {k:'help',      ic:'#ic-help',   lb:'Help Center',    tgt:'s-help'},
+];
+
+const M2_SCHOOLS = {
+  lincoln: {
+    pages: [
+      {lb:'About Us',                   ic:'#ic-info', sub:'Pages · Lincoln Elem'},
+      {lb:'PTA Newsletter — Spring 2026',ic:'#ic-doc',  sub:'Pages · Lincoln Elem'},
+      {lb:'After School Programs',      ic:'#ic-doc',  sub:'Pages · Lincoln Elem'},
+      {lb:'Bus Routes & Pickup Times',  ic:'#ic-doc',  sub:'Pages · Lincoln Elem'},
+      {lb:'Cafeteria & Nutrition Info', ic:'#ic-doc',  sub:'Pages · Lincoln Elem'},
+      {lb:'Staff Spotlight',            ic:'#ic-doc',  sub:'Pages · Lincoln Elem'},
+    ],
+    forms: [
+      {lb:'Permission Slip',            ic:'#ic-doc', sub:'Forms · Lincoln Elem', tgt:'s-forms'},
+      {lb:'Emergency Contact Form',     ic:'#ic-doc', sub:'Forms · Lincoln Elem', tgt:'s-forms'},
+      {lb:'Enrollment Forms',           ic:'#ic-doc', sub:'Forms · Lincoln Elem', tgt:'s-forms'},
+      {lb:'Health Form',                ic:'#ic-doc', sub:'Forms · Lincoln Elem', tgt:'s-forms'},
+      {lb:'Volunteer Form',             ic:'#ic-doc', sub:'Forms · Lincoln Elem', tgt:'s-forms'},
+    ],
+  },
+  washington: {
+    pages: [
+      {lb:'About Us',                   ic:'#ic-info', sub:'Pages · Washington MS'},
+      {lb:'Drama Club',                 ic:'#ic-doc',  sub:'Pages · Washington MS'},
+      {lb:'Academic Calendar 2025–26',  ic:'#ic-doc',  sub:'Pages · Washington MS'},
+      {lb:'Parent Resources',           ic:'#ic-doc',  sub:'Pages · Washington MS'},
+      {lb:'Technology & Device Policy', ic:'#ic-doc',  sub:'Pages · Washington MS'},
+      {lb:'Athletics Schedule — Spring',ic:'#ic-doc',  sub:'Pages · Washington MS'},
+    ],
+    forms: [
+      {lb:'Field Trip Permission',      ic:'#ic-doc', sub:'Forms · Washington MS', tgt:'s-forms'},
+      {lb:'Health & Medication Form',   ic:'#ic-doc', sub:'Forms · Washington MS', tgt:'s-forms'},
+      {lb:'Supply Request',             ic:'#ic-doc', sub:'Forms · Washington MS', tgt:'s-forms'},
+      {lb:'Volunteer Form',             ic:'#ic-doc', sub:'Forms · Washington MS', tgt:'s-forms'},
+    ],
+  },
+};
+
+// key → {ic, lb, sub, tgt}
+// Universal items use k as key; school items use "lb§sub"
+let m2FavsMap = new Map();
+
+let m2CurTab = 'discover';
+let m2Recents = [
+  {k:'events',  ic:'#ic-cal',    lb:'Events'},
+  {k:'dining',  ic:'#ic-dining', lb:'Dining'},
+];
+const m2Open = {favorites: true, universal: true};
+
+function m2IsFav(key) { return m2FavsMap.has(key); }
+
+function m2FavSet(key, ic, lb, sub, tgt) {
+  if (m2FavsMap.has(key)) { m2FavsMap.delete(key); } else { m2FavsMap.set(key, {ic, lb, sub: sub||'', tgt: tgt||null}); }
+}
+
+function m2Tab(tab) {
+  m2CurTab = tab;
+  document.querySelectorAll('#m2-tabbar .school-pill').forEach(p => p.classList.toggle('active', p.dataset.t === tab));
+  m2Render();
+}
+
+function m2NavTo(k, ic, lb, tgt) {
+  m2Recents = m2Recents.filter(r => r.k !== k);
+  m2Recents.unshift({k, ic, lb});
+  if (m2Recents.length > 5) m2Recents.length = 5;
+  if (tgt) show(tgt);
+}
+
+// Universal item toggle (k-keyed) — used by discover tab and section topnavs
+function m2ToggleFav(e, k) {
+  if (e) e.stopPropagation();
+  const it = M2_UNIVERSAL.find(u => u.k === k);
+  if (it) m2FavSet(k, it.ic, it.lb, 'Universal', it.tgt);
+  m2Render();
+  m2UpdateSectionStar(k);
+}
+
+// School item toggle (lb§sub keyed) — used by school tabs and search
+function m2ToggleSchoolFav(e, lb, sub, ic, tgt) {
+  if (e) e.stopPropagation();
+  const key = lb + '§' + sub;
+  m2FavSet(key, ic, lb, sub, tgt||null);
+  m2Render();
+  if (m2SearchQuery !== null) m2RenderSearchResults(m2SearchQuery);
+}
+
+// Section topnav star — toggle and update topnav star in-place
+function m2ToggleSectionFav(k) {
+  const it = M2_UNIVERSAL.find(u => u.k === k);
+  if (it) m2FavSet(k, it.ic, it.lb, 'Universal', it.tgt);
+  m2Render();
+  m2UpdateSectionStar(k);
+}
+
+function m2UpdateSectionStar(k) {
+  const btn = document.getElementById('sstar-' + k);
+  if (!btn) return;
+  const on = m2IsFav(k);
+  btn.innerHTML = `<svg width="20" height="20" style="color:${on?'#2d2d2d':'#909090'}"><use href="${on?'#ic-star-filled':'#ic-star-empty'}"/></svg>`;
+}
+
+function m2Toggle(section) {
+  m2Open[section] = !m2Open[section];
+  m2Render();
+}
+
+const CHEV_DOWN = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+const CHEV_RIGHT = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"/></svg>`;
+
+function m2AccordionHdr(label, section) {
+  const open = m2Open[section];
+  return `<div onclick="m2Toggle('${section}')" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px 6px;cursor:pointer;user-select:none;">
+    <span style="font-size:12px;font-weight:500;color:#747474;text-transform:uppercase;letter-spacing:.05em;">${label}</span>
+    <span style="color:#747474;">${open ? CHEV_DOWN : CHEV_RIGHT}</span>
+  </div>`;
+}
+
+function m2StarBtn(isFav, onclick) {
+  const col = isFav ? '#2d2d2d' : '#d1d1d1';
+  const href = isFav ? '#ic-star-filled' : '#ic-star-empty';
+  return `<button class="m2-star${isFav?' on':''}" onclick="${onclick}" style="background:none;border:none;cursor:pointer;padding:0 2px 0 6px;display:flex;align-items:center;">
+    <svg width="18" height="18" style="color:${col}"><use href="${href}"/></svg>
+  </button>`;
+}
+
+function m2UniversalRow(item) {
+  const isFav = m2IsFav(item.k);
+  const navCall = item.tgt ? `m2NavTo('${item.k}','${item.ic}','${item.lb}','${item.tgt}')` : '';
+  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+    <svg class="more-icon" width="20" height="20"><use href="${item.ic}"/></svg>
+    <div class="more-label" style="flex:1;">${item.lb}</div>
+    ${m2StarBtn(isFav, `m2ToggleFav(event,'${item.k}')`)}
+    ${item.tgt ? '<span class="more-chev">›</span>' : ''}
+  </div>`;
+}
+
+function m2RecentRow(item) {
+  const univ = M2_UNIVERSAL.find(u => u.k === item.k);
+  const tgt = univ ? univ.tgt : null;
+  const isFav = m2IsFav(item.k);
+  const navCall = tgt ? `m2NavTo('${item.k}','${item.ic}','${item.lb}','${tgt}')` : '';
+  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+    <svg class="more-icon" width="20" height="20"><use href="${item.ic}"/></svg>
+    <div class="more-label" style="flex:1;">${item.lb}</div>
+    ${m2StarBtn(isFav, `m2ToggleFav(event,'${item.k}')`)}
+    ${tgt ? '<span class="more-chev">›</span>' : ''}
+  </div>`;
+}
+
+function m2SchoolItemRow(it) {
+  const key = it.lb + '§' + it.sub;
+  const isFav = m2IsFav(key);
+  const lbEsc = it.lb.replace(/'/g,"\\'");
+  const subEsc = it.sub.replace(/'/g,"\\'");
+  const navCall = it.tgt ? `show('${it.tgt}')` : '';
+  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+    <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
+    <div class="more-label" style="flex:1;">${it.lb}</div>
+    ${m2StarBtn(isFav, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${it.ic}','${it.tgt||''}')`)}
+    ${it.tgt ? '<span class="more-chev">›</span>' : ''}
+  </div>`;
+}
+
+function m2FavRow(key, data) {
+  const isUniv = !key.includes('§');
+  if (isUniv) {
+    const it = M2_UNIVERSAL.find(u => u.k === key);
+    return it ? m2UniversalRow(it) : '';
+  }
+  const [lb, sub] = key.split('§');
+  const lbEsc = lb.replace(/'/g,"\\'");
+  const subEsc = sub.replace(/'/g,"\\'");
+  const navCall = data.tgt ? `show('${data.tgt}')` : '';
+  return `<div class="more-item" onclick="${navCall}" style="align-items:center;">
+    <svg class="more-icon" width="20" height="20"><use href="${data.ic}"/></svg>
+    <div style="flex:1;min-width:0;">
+      <div class="more-label" style="flex:none;">${lb}</div>
+      <div style="font-size:12px;color:#747474;margin-top:1px;">${sub}</div>
+    </div>
+    ${m2StarBtn(true, `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${data.ic}','${data.tgt||''}')`)}
+    ${data.tgt ? '<span class="more-chev">›</span>' : ''}
+  </div>`;
+}
+
+function m2Render() {
+  const c = document.getElementById('m2-content');
+  if (!c) return;
+  let h = '';
+
+  if (m2CurTab === 'discover') {
+    h += m2AccordionHdr('Favorites', 'favorites');
+    if (m2Open.favorites) {
+      if (m2FavsMap.size) {
+        h += '<div class="more-list">';
+        m2FavsMap.forEach((data, key) => { h += m2FavRow(key, data); });
+        h += '</div>';
+      } else {
+        h += `<div style="padding:10px 16px 12px;font-size:14px;color:#747474;">Tap ☆ on any section to save it here.</div>`;
+      }
+    }
+    h += m2AccordionHdr('Universal', 'universal');
+    if (m2Open.universal) {
+      h += '<div class="more-list">';
+      M2_UNIVERSAL.forEach(it => { h += m2UniversalRow(it); });
+      h += '</div>';
+    }
+
+  } else {
+    const school = M2_SCHOOLS[m2CurTab];
+    h += `<div class="section-hdr">Pages</div><div class="more-list">`;
+    school.pages.forEach(it => { h += m2SchoolItemRow(it); });
+    h += `</div><div class="section-hdr">Forms</div><div class="more-list">`;
+    school.forms.forEach(it => { h += m2SchoolItemRow(it); });
+    h += `</div>`;
+  }
+
+  c.innerHTML = h;
+}
+
+function initM2() {
+  m2CurTab = 'discover';
+  document.querySelectorAll('#m2-tabbar .school-pill').forEach(p => p.classList.toggle('active', p.dataset.t === 'discover'));
+  m2Render();
+}
+
+// ─── More 2 Search ───
+const M2_ALL_ITEMS = [
+  // Universal
+  {k:'events',    lb:'Events',           sub:'Universal', ic:'#ic-cal',    tgt:'s-events'},
+  {k:'athletics', lb:'Athletics',        sub:'Universal', ic:'#ic-sport',  tgt:'s-athletics'},
+  {k:'dining',    lb:'Dining',           sub:'Universal', ic:'#ic-dining', tgt:'s-dining'},
+  {k:'documents', lb:'Documents',        sub:'Universal', ic:'#ic-doc',    tgt:'s-documents'},
+  {k:'staff',     lb:'Staff Directory',  sub:'Universal', ic:'#ic-people', tgt:'s-staff'},
+  {k:'help',      lb:'Help Center',      sub:'Universal', ic:'#ic-help',   tgt:'s-help'},
+  // Lincoln pages
+  {lb:'About Us',                   sub:'Pages · Lincoln Elem', ic:'#ic-info', tgt:null},
+  {lb:'PTA Newsletter — Spring 2026',sub:'Pages · Lincoln Elem',ic:'#ic-doc',  tgt:null},
+  {lb:'After School Programs',      sub:'Pages · Lincoln Elem', ic:'#ic-doc',  tgt:null},
+  {lb:'Bus Routes & Pickup Times',  sub:'Pages · Lincoln Elem', ic:'#ic-doc',  tgt:'s-success-bus-routes'},
+  {lb:'Cafeteria & Nutrition Info', sub:'Pages · Lincoln Elem', ic:'#ic-doc',  tgt:null},
+  {lb:'Staff Spotlight',            sub:'Pages · Lincoln Elem', ic:'#ic-doc',  tgt:null},
+  // Lincoln forms
+  {lb:'Permission Slip',            sub:'Forms · Lincoln Elem', ic:'#ic-doc',  tgt:'s-forms'},
+  {lb:'Emergency Contact Form',     sub:'Forms · Lincoln Elem', ic:'#ic-doc',  tgt:'s-forms'},
+  {lb:'Enrollment Forms',           sub:'Forms · Lincoln Elem', ic:'#ic-doc',  tgt:'s-forms'},
+  {lb:'Health Form',                sub:'Forms · Lincoln Elem', ic:'#ic-doc',  tgt:'s-forms'},
+  {lb:'Volunteer Form',             sub:'Forms · Lincoln Elem', ic:'#ic-doc',  tgt:'s-forms'},
+  // Washington pages
+  {lb:'About Us',                   sub:'Pages · Washington MS',ic:'#ic-info', tgt:null},
+  {lb:'Drama Club',                 sub:'Pages · Washington MS',ic:'#ic-doc',  tgt:null},
+  {lb:'Academic Calendar 2025–26',  sub:'Pages · Washington MS',ic:'#ic-doc',  tgt:null},
+  {lb:'Parent Resources',           sub:'Pages · Washington MS',ic:'#ic-doc',  tgt:null},
+  {lb:'Technology & Device Policy', sub:'Pages · Washington MS',ic:'#ic-doc',  tgt:null},
+  {lb:'Athletics Schedule — Spring',sub:'Pages · Washington MS',ic:'#ic-doc',  tgt:null},
+  // Washington forms
+  {lb:'Field Trip Permission',      sub:'Forms · Washington MS',ic:'#ic-doc',  tgt:'s-forms'},
+  {lb:'Health & Medication Form',   sub:'Forms · Washington MS',ic:'#ic-doc',  tgt:'s-forms'},
+  {lb:'Supply Request',             sub:'Forms · Washington MS',ic:'#ic-doc',  tgt:'s-forms'},
+  {lb:'Volunteer Form',             sub:'Forms · Washington MS',ic:'#ic-doc',  tgt:'s-forms'},
+];
+
+let m2SearchQuery = null;
+
+function openM2Search() {
+  show('s-more2-search');
+  const inp = document.getElementById('m2-search-input');
+  if (inp) { inp.value = ''; inp.focus(); }
+  document.getElementById('m2-clear-btn').style.display = 'none';
+  m2SearchQuery = '';
+  m2RenderSearchResults('');
+}
+
+function closeM2Search() {
+  m2SearchQuery = null;
+  show('s-more2');
+}
+
+function m2ClearSearch() {
+  const inp = document.getElementById('m2-search-input');
+  if (inp) { inp.value = ''; inp.focus(); }
+  document.getElementById('m2-clear-btn').style.display = 'none';
+  m2SearchQuery = '';
+  m2RenderSearchResults('');
+}
+
+function m2SearchUpdate(val) {
+  document.getElementById('m2-clear-btn').style.display = val ? 'block' : 'none';
+  m2SearchQuery = val.trim();
+  m2RenderSearchResults(m2SearchQuery);
+}
+
+function m2SearchNavTo(lb, sub, ic, tgt) {
+  m2Recents = m2Recents.filter(r => !(r.lb === lb && (!r.sub || r.sub === sub)));
+  m2Recents.unshift({lb, sub, ic, tgt});
+  if (m2Recents.length > 5) m2Recents.length = 5;
+  if (tgt) show(tgt);
+}
+
+function m2SearchRow(it) {
+  const isUniv = !!M2_UNIVERSAL.find(u => u.k === it.k);
+  const key = isUniv ? it.k : (it.lb + '§' + it.sub);
+  const isFav = m2IsFav(key);
+  const lbEsc = it.lb.replace(/'/g,"\\'");
+  const subEsc = (it.sub||'').replace(/'/g,"\\'");
+  let starCall, navCall;
+  if (isUniv) {
+    starCall = `m2ToggleFav(event,'${it.k}')`;
+    navCall = it.tgt ? `m2SearchNavTo('${lbEsc}','${subEsc}','${it.ic}','${it.tgt}')` : '';
+  } else {
+    starCall = `m2ToggleSchoolFav(event,'${lbEsc}','${subEsc}','${it.ic}','${it.tgt||''}')`;
+    navCall = it.tgt ? `m2SearchNavTo('${lbEsc}','${subEsc}','${it.ic}','${it.tgt}')` : '';
+  }
+  return `<div class="more-item" onclick="${navCall}" style="background:#fff;border-bottom:1px solid #dfdfdf;align-items:center;">
+    <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:16px;font-weight:500;color:#2d2d2d;">${it.lb}</div>
+      <div style="font-size:12px;color:#747474;margin-top:2px;">${it.sub||''}</div>
+    </div>
+    ${m2StarBtn(isFav, starCall)}
+    <span class="more-chev">›</span>
+  </div>`;
+}
+
+function m2RenderSearchResults(query) {
+  const c = document.getElementById('m2-search-results');
+  if (!c) return;
+
+  if (!query) {
+    let h = `<div class="section-hdr">Recent</div>`;
+    if (m2Recents.length) {
+      h += `<div style="background:#fff;">`;
+      m2Recents.forEach(it => {
+        const univ = M2_UNIVERSAL.find(u => u.k === it.k);
+        const tgt = univ ? univ.tgt : it.tgt;
+        const isFav = m2IsFav(it.k);
+        const lbEsc = (it.lb||'').replace(/'/g,"\\'");
+        const subEsc = (it.sub||'').replace(/'/g,"\\'");
+        const navCall = tgt ? `m2SearchNavTo('${lbEsc}','${subEsc}','${it.ic}','${tgt}')` : '';
+        h += `<div class="more-item" onclick="${navCall}" style="background:#fff;border-bottom:1px solid #dfdfdf;align-items:center;">
+          <svg class="more-icon" width="20" height="20"><use href="${it.ic}"/></svg>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:16px;font-weight:500;color:#2d2d2d;">${it.lb}</div>
+            ${it.sub ? `<div style="font-size:12px;color:#747474;margin-top:2px;">${it.sub}</div>` : ''}
+          </div>
+          ${m2StarBtn(isFav, `m2ToggleFav(event,'${it.k}')`)}
+          ${tgt ? '<span class="more-chev">›</span>' : ''}
+        </div>`;
+      });
+      h += `</div>`;
+    } else {
+      h += `<div style="padding:14px 16px;font-size:14px;color:#747474;">No recently visited sections yet.</div>`;
+    }
+    c.innerHTML = h;
+    return;
+  }
+
+  const q = query.toLowerCase();
+  const items = M2_ALL_ITEMS.filter(it => it.lb.toLowerCase().includes(q) || (it.sub||'').toLowerCase().includes(q));
+  if (!items.length) {
+    c.innerHTML = `<div style="padding:48px 24px;text-align:center;color:#747474;font-size:14px;">No results for "<strong style="color:#2d2d2d;">${query}</strong>"</div>`;
+    return;
+  }
+  c.innerHTML = `<div style="background:#fff;">${items.map(it => m2SearchRow(it)).join('')}</div>`;
+}
+
+// ─── Athletics ───
+const AT_DATA = {
+  '2026-03-17':[{type:'game',time:'3:30 PM',status:'LIVE',org:'Lincoln Elem',home:'Lincoln Tigers',away:'Jefferson Bears',homeScore:14,awayScore:7,addr:'210 Lincoln Ave, Brookwood, TX'}],
+  '2026-03-19':[{type:'game',time:'4:00 PM',status:'UPCOMING',org:'Washington MS',home:'Washington Tigers',away:'Oak Park Wolves',homeScore:0,awayScore:0,addr:'450 Washington Blvd, Brookwood, TX'}],
+  '2026-03-21':[{type:'game',time:'6:00 PM',status:'UPCOMING',org:'Washington MS',home:'Washington Tigers',away:'Jefferson MS',homeScore:0,awayScore:0,addr:'450 Washington Blvd, Brookwood, TX'}],
+  '2026-03-24':[{type:'tournament',time:'8:00 AM',status:'UPCOMING',org:'Brookwood ISD',title:'District Wrestling Tournament',desc:'Annual district tournament. All weight classes compete. Brackets posted day of.',addr:'100 District Blvd, Brookwood, TX'}],
+  '2026-03-26':[{type:'series',time:'9:00 AM',status:'UPCOMING',org:'Lincoln Elem',home:'Lincoln Runners',away:'District Invitees',desc:'Spring Track & Field Series — Meet 2 of 4. All events run simultaneously.',addr:'210 Lincoln Ave, Brookwood, TX'}],
+  '2026-04-04':[{type:'game',time:'10:00 AM',status:'UPCOMING',org:'Lincoln Elem',home:'Lincoln Tigers',away:'Madison Bears',homeScore:0,awayScore:0,addr:'210 Lincoln Ave, Brookwood, TX'}],
+};
+function atHasEv(d){const x=AT_DATA[d];return x&&x.length>0;}
+function atDs(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+let atView='schedule',atSelDate='2026-03-17',atWeekOff=0;
+function atGetWeekSun(off){const t=new Date(2026,2,17);const s=new Date(t);s.setDate(t.getDate()-t.getDay()+off*7);return s;}
+function atMonthLabel() {
+  const d = new Date(atSelDate + 'T00:00:00');
+  return MON_L[d.getMonth()] + ' ' + d.getFullYear();
+}
+function atSetDropdownLabel(l){const el=document.getElementById('at-dropdown-label');if(el)el.textContent=l;}
+function atRenderTabs(){
+  const sun=atGetWeekSun(atWeekOff),inner=document.getElementById('at-inner');if(!inner)return;
+  inner.innerHTML='';
+  for(let i=0;i<7;i++){
+    const d=new Date(sun);d.setDate(sun.getDate()+i);
+    const dstr=atDs(d),isSel=dstr===atSelDate,hasDot=atHasEv(dstr);
+    const el=document.createElement('div');el.className='dt-tab';el.onclick=()=>atPickDay(dstr);
+    if(isSel)el.style.borderBottom='2.5px solid #2d2d2d';
+    el.innerHTML=`<div class="dt-dot${hasDot?'':' hide'}"></div><div style="font-size:16px;font-weight:${isSel?700:500};color:${isSel?'#2d2d2d':'#646464'};line-height:20px;">${d.getDate()}</div><div style="font-size:11px;color:${isSel?'#2d2d2d':'#646464'};text-transform:uppercase;">${DAY_A[d.getDay()]}</div>`;
+    inner.appendChild(el);
+  }
+}
+function atPickDay(dstr){
+  atSelDate=dstr;
+  const t=new Date(2026,2,17),ts=new Date(t);ts.setDate(t.getDate()-t.getDay());
+  const d=new Date(dstr+'T00:00:00'),ds2=new Date(d);ds2.setDate(d.getDate()-d.getDay());
+  atWeekOff=Math.round((ds2-ts)/(7*86400000));atRenderTabs();atRenderSchedule();
+  atSetDropdownLabel(atMonthLabel());
+}
+function atPrevWeek(){atWeekOff--;atRenderTabs();atSetDropdownLabel(atMonthLabel());}
+function atNextWeek(){atWeekOff++;atRenderTabs();atSetDropdownLabel(atMonthLabel());}
+function atRenderCard(ev){
+  const PAW=`<svg width="20" height="20" viewBox="0 0 36 36" fill="#e05c1a"><ellipse cx="10" cy="8" rx="4" ry="5"/><ellipse cx="26" cy="8" rx="4" ry="5"/><ellipse cx="4" cy="18" rx="3.5" ry="4.5"/><ellipse cx="32" cy="18" rx="3.5" ry="4.5"/><path d="M18 14c-6 0-11 4-11 10 0 4 2.5 7 5 8.5 1.5.9 3.5 1.5 6 1.5s4.5-.6 6-1.5c2.5-1.5 5-4.5 5-8.5 0-6-5-10-11-10z"/></svg>`;
+  const liveDot=`<span style="width:6px;height:6px;border-radius:50%;background:#CC314B;display:inline-block;flex-shrink:0;"></span>`;
+  const statusHtml=ev.status==='LIVE'
+    ?`<span style="display:flex;align-items:center;gap:4px;font-size:12px;color:#CC314B;font-weight:600;">${liveDot}LIVE</span>`
+    :`<span style="font-size:12px;color:#646464;">${ev.status}</span>`;
+  let bodyHtml='';
+  if(ev.type==='game'){
+    bodyHtml=`
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.home}</span></div>
+        <span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.homeScore}</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.away}</span></div>
+        <span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.awayScore}</span>
+      </div>`;
+  }else if(ev.type==='series'){
+    bodyHtml=`
+      <div style="display:flex;align-items:center;gap:8px;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.home}</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.away}</span></div>
+      <div style="font-size:15px;color:#646464;line-height:1.45;">${ev.desc}</div>`;
+  }else{
+    bodyHtml=`
+      <div style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.title}</div>
+      <div style="font-size:15px;color:#646464;line-height:1.45;">${ev.desc}</div>`;
+  }
+  const addrSvg=`<svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  const _attype=ev.type==='game'?'game':ev.type==='tournament'?'tournament':'track-field';return `<div class="ev-card" data-org="${ev.org}" data-type="${_attype}">
+    <div class="ev-card-hdr">
+      <div class="ev-card-r1"><span class="ev-time">${ev.time}</span><span style="flex:1;text-align:right;">${statusHtml}</span><span class="ev-keb">···</span></div>
+      <div class="ev-card-org">${ev.org}</div>
+    </div>
+    <div class="ev-card-body" style="display:flex;flex-direction:column;gap:10px;">
+      ${bodyHtml}
+      <div class="ev-addr">${addrSvg}${ev.addr}</div>
+    </div>
+    <div class="ev-actions"><button class="ev-btn-share">SHARE</button><button class="ev-btn-add">ADD TO CALENDAR</button></div>
+  </div>`;
+}
+function atRenderSchedule(){
+  const c=document.getElementById('at-schedule');if(!c)return;
+  const data=AT_DATA[atSelDate];
+  if(!data||!data.length){const _ad=new Date(atSelDate+'T00:00:00'),_alabel=MON_L[_ad.getMonth()]+' '+_ad.getDate();c.innerHTML=`<div style="padding:48px 24px;text-align:center;"><div style="font-size:40px;margin-bottom:12px;">🏆</div><div style="font-size:16px;font-weight:600;color:#2d2d2d;margin-bottom:6px;">No athletic events on ${_alabel}</div><div style="font-size:14px;color:#747474;">Select another day or navigate weeks</div></div>`;return;}
+  document.getElementById('at-schedule').innerHTML=data.map(ev=>atRenderCard(ev)).join('');
+  m1ApplySchoolFilter();
+  applyAtFilter();
+}
+function openAtViewMenu(e){
+  e.stopPropagation();
+  const m=document.getElementById('at-view-menu');
+  m.style.display=m.style.display==='none'?'block':'none';
+}
+function closeAtViewMenu(){
+  const m=document.getElementById('at-view-menu');
+  if(m)m.style.display='none';
+}
+function setAtView(view){
+  atView=view;
+  closeAtViewMenu();
+  const isSched=view==='schedule',isMon=view==='month',isCal=view==='calendar';
+  document.getElementById('at-sched-wrap').style.display=isSched?'block':'none';
+  document.getElementById('at-month-wrap').style.display=isMon?'block':'none';
+  document.getElementById('at-cal-wrap').style.display=isCal?'block':'none';
+  document.getElementById('at-dtbar').style.display=isSched?'flex':'none';
+  ['schedule','month','calendar'].forEach(v=>{
+    const el=document.getElementById('atmenu-check-'+v);
+    if(el)el.style.opacity=v===view?'1':'0';
+  });
+  if(isSched){atSetDropdownLabel('Schedule');atRenderTabs();atRenderSchedule();}
+  else if(isMon){atSetDropdownLabel('Month');renderAtMonthList();}
+  else{atRenderCal();}
+}
+function atToggleView(){ setAtView('calendar'); } // legacy compat
+function atGoToday(){
+  atSelDate='2026-03-17';atWeekOff=0;
+  setAtView(atView==='calendar'||atView==='month'?atView:'schedule');
+  atSelDate='2026-03-17';atWeekOff=0;
+  if(atView==='schedule'){atSetDropdownLabel('Schedule');atRenderTabs();atRenderSchedule();}
+}
+function renderAtMonthList(){
+  const c=document.getElementById('at-month-list');if(!c)return;
+  const today=new Date(atSelDate+'T00:00:00');
+  const allEntries=[];
+  Object.keys(AT_DATA).sort().forEach(dstr=>{
+    const d=new Date(dstr+'T00:00:00');
+    if(d<today) return;
+    AT_DATA[dstr].forEach(ev=>{allEntries.push({dstr,ev});});
+  });
+  if(!allEntries.length){
+    c.innerHTML=`<div style="padding:48px 24px;text-align:center;"><div style="font-size:40px;margin-bottom:12px;">🏆</div><div style="font-size:16px;font-weight:600;color:#2d2d2d;margin-bottom:6px;">No upcoming athletic events</div></div>`;
+    return;
+  }
+  let h='';let lastMonth='';
+  allEntries.forEach(({dstr,ev})=>{
+    const d=new Date(dstr+'T00:00:00');
+    const monthKey=MON_L[d.getMonth()]+' '+d.getFullYear();
+    const monAbbr=MON_L[d.getMonth()].slice(0,3);
+    const dayNum=d.getDate();
+    if(monthKey!==lastMonth){
+      h+=`<div style="padding:14px 16px 6px;font-size:13px;font-weight:600;color:#747474;text-transform:uppercase;letter-spacing:.05em;background:#f8f8f8;border-bottom:1px solid #e1e1e1;">${monthKey}</div>`;
+      lastMonth=monthKey;
+    }
+    const dateTile=`<div class="ev-date-tile"><span class="ev-date-tile-mon">${monAbbr}</span><span class="ev-date-tile-day">${dayNum}</span></div>`;
+    const _attype=ev.type==='game'?'game':ev.type==='tournament'?'tournament':'track-field';
+    // Build the card preserving the AT card body types exactly, but prepend date tile in header
+    const PAW=`<svg width="20" height="20" viewBox="0 0 36 36" fill="#e05c1a"><ellipse cx="10" cy="8" rx="4" ry="5"/><ellipse cx="26" cy="8" rx="4" ry="5"/><ellipse cx="4" cy="18" rx="3.5" ry="4.5"/><ellipse cx="32" cy="18" rx="3.5" ry="4.5"/><path d="M18 14c-6 0-11 4-11 10 0 4 2.5 7 5 8.5 1.5.9 3.5 1.5 6 1.5s4.5-.6 6-1.5c2.5-1.5 5-4.5 5-8.5 0-6-5-10-11-10z"/></svg>`;
+    const liveDot=`<span style="width:6px;height:6px;border-radius:50%;background:#CC314B;display:inline-block;flex-shrink:0;"></span>`;
+    const statusHtml=ev.status==='LIVE'
+      ?`<span style="display:flex;align-items:center;gap:4px;font-size:12px;color:#CC314B;font-weight:600;">${liveDot}LIVE</span>`
+      :`<span style="font-size:12px;color:#646464;">${ev.status}</span>`;
+    let bodyHtml='';
+    if(ev.type==='game'){
+      bodyHtml=`
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;flex:1;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.home}</span></div>
+          <span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.homeScore}</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;flex:1;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.away}</span></div>
+          <span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.awayScore}</span>
+        </div>`;
+    }else if(ev.type==='series'){
+      bodyHtml=`
+        <div style="display:flex;align-items:center;gap:8px;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.home}</span></div>
+        <div style="display:flex;align-items:center;gap:8px;">${PAW}<span style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.away}</span></div>
+        <div style="font-size:15px;color:#646464;line-height:1.45;">${ev.desc}</div>`;
+    }else{
+      bodyHtml=`
+        <div style="font-size:16px;font-weight:600;color:#2d2d2d;">${ev.title}</div>
+        <div style="font-size:15px;color:#646464;line-height:1.45;">${ev.desc}</div>`;
+    }
+    const addrSvg=`<svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+    h+=`<div class="ev-card" data-org="${ev.org}" data-type="${_attype}">
+      <div class="ev-card-hdr">
+        <div class="ev-card-r1" style="align-items:flex-start;">
+          ${dateTile}
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+              <span class="ev-time">${ev.time}</span>
+              <span style="flex:1;text-align:right;">${statusHtml}</span>
+              <span class="ev-keb">···</span>
+            </div>
+            <div class="ev-card-org">${ev.org}</div>
+          </div>
+        </div>
+      </div>
+      <div class="ev-card-body" style="display:flex;flex-direction:column;gap:10px;padding-left:52px;">
+        ${bodyHtml}
+        <div class="ev-addr">${addrSvg}${ev.addr}</div>
+      </div>
+      <div class="ev-actions"><button class="ev-btn-share">SHARE</button><button class="ev-btn-add">ADD TO CALENDAR</button></div>
+    </div>`;
+  });
+  c.innerHTML=h;
+  applyAtFilter();
+}
+function atRenderCal(){
+  const c=document.getElementById('at-cal-wrap');
+  const DOW=['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  let h='<div style="padding-top:8px;">';
+  [[2026,2],[2026,3],[2026,4]].forEach(([y,m])=>{
+    h+=`<div class="cal-month" data-year="${y}"><div class="cal-month-title">${MON_L[m]} ${y}</div><div class="cal-grid">`;
+    DOW.forEach(d=>h+=`<div class="cal-dow">${d}</div>`);
+    const first=new Date(y,m,1),off=(first.getDay()+6)%7;
+    for(let i=0;i<off;i++)h+=`<div class="cal-cell"></div>`;
+    const days=new Date(y,m+1,0).getDate();
+    for(let day=1;day<=days;day++){
+      const dstr=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      let cls='cal-cell';if(dstr===atSelDate)cls+=' sel';
+      h+=`<div class="${cls}" onclick="atPickDayFromCal('${dstr}')"><div class="cal-num">${day}</div>${atHasEv(dstr)?'<div class="cal-ev-dot"></div>':''}</div>`;
+    }
+    h+=`</div></div>`;
+  });
+  c.innerHTML=h+'</div>';
+  atSetDropdownLabel('2026');
+  c.onscroll=function(){
+    const months=c.querySelectorAll('.cal-month[data-year]');
+    for(const m of months){if(m.getBoundingClientRect().bottom>c.getBoundingClientRect().top+20){atSetDropdownLabel(m.dataset.year);break;}}
+  };
+}
+function atPickDayFromCal(dstr){
+  atSelDate=dstr;
+  const t=new Date(2026,2,17),ts=new Date(t);ts.setDate(t.getDate()-t.getDay());
+  const d=new Date(dstr+'T00:00:00'),ds2=new Date(d);ds2.setDate(d.getDate()-d.getDay());
+  atWeekOff=Math.round((ds2-ts)/(7*86400000));
+  setAtView('schedule');
+}
+function initAt(){
+  atWeekOff=0;
+  document.getElementById('at-month-wrap').style.display='none';
+  setAtView('schedule');
+}
+
+// ─── More 3 Search ───
+const M3_ALL_ITEMS=[
+  {lb:'Events',          sub:'Universal',              ic:'#ic-cal',    tgt:'s-events'},
+  {lb:'Athletics',       sub:'Universal',              ic:'#ic-sport',  tgt:'s-athletics'},
+  {lb:'Documents',       sub:'Universal',              ic:'#ic-doc',    tgt:'s-documents'},
+  {lb:'Dining',          sub:'Universal · Washington', ic:'#ic-dining', tgt:'s-dining'},
+  {lb:'Staff Directory', sub:'Universal',              ic:'#ic-people', tgt:'s-staff'},
+  {lb:'Help Center',     sub:'Universal',              ic:'#ic-help',   tgt:null},
+  {lb:'Forms',           sub:'Universal',              ic:'#ic-doc',    tgt:'s-forms'},
+  {lb:'Pages',           sub:'Universal',              ic:'#ic-doc',    tgt:'s-pages'},
+  // Forms by school
+  {lb:'Permission Slip',       sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Emergency Contact Form',sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Enrollment Forms',      sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Health Form',           sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Volunteer Form',        sub:'Forms · Lincoln Elem',  ic:'#ic-doc', tgt:'s-volunteer-form'},
+  {lb:'Field Trip Permission',   sub:'Forms · Washington MS', ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Health & Medication Form',sub:'Forms · Washington MS', ic:'#ic-doc', tgt:'s-forms'},
+  {lb:'Supply Request',          sub:'Forms · Washington MS', ic:'#ic-doc', tgt:'s-forms'},
+  // Pages by school
+  {lb:'About Us',                 sub:'Pages · Lincoln Elem',  ic:'#ic-info', tgt:'s-pages'},
+  {lb:'PTA Newsletter — Spring 2026', sub:'Pages · Lincoln Elem', ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'After School Programs',    sub:'Pages · Lincoln Elem',  ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Bus Routes & Pickup Times',sub:'Pages · Lincoln Elem',  ic:'#ic-doc', tgt:'s-success-bus-routes'},
+  {lb:'Cafeteria & Nutrition Info',sub:'Pages · Lincoln Elem', ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Staff Spotlight',          sub:'Pages · Lincoln Elem',  ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'About Us',                 sub:'Pages · Washington MS', ic:'#ic-info', tgt:'s-pages'},
+  {lb:'Drama Club',               sub:'Pages · Washington MS', ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Academic Calendar 2025–26',sub:'Pages · Washington MS', ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Parent Resources',         sub:'Pages · Washington MS', ic:'#ic-doc', tgt:'s-parent-resources'},
+  {lb:'Technology & Device Policy',sub:'Pages · Washington MS',ic:'#ic-doc', tgt:'s-pages'},
+  {lb:'Athletics Schedule — Spring',sub:'Pages · Washington MS',ic:'#ic-doc', tgt:'s-pages'},
+  // Staff by name
+  {lb:'Ms. Sandra Craig',    sub:'Staff · Lincoln Elem',  ic:'#ic-people', tgt:'s-staff'},
+  {lb:'Mr. James Rivera',    sub:'Staff · Lincoln Elem',  ic:'#ic-people', tgt:'s-staff'},
+  {lb:'Ms. Amy Leung',       sub:'Staff · Lincoln Elem',  ic:'#ic-people', tgt:'s-staff'},
+  {lb:'Ms. Maria Wong',      sub:'Staff · Lincoln Elem',  ic:'#ic-people', tgt:'s-staff'},
+  {lb:'Mr. Robert Davis',    sub:'Staff · Washington MS', ic:'#ic-people', tgt:'s-staff'},
+  {lb:'Ms. Kaitlyn Henson',  sub:'Staff · Washington MS', ic:'#ic-people', tgt:'s-staff'},
+  {lb:'Mr. Brian Moore',     sub:'Staff · Washington MS', ic:'#ic-people', tgt:'s-staff'},
+  {lb:'Mr. Chris Stevens',   sub:'Staff · Washington MS', ic:'#ic-people', tgt:'s-staff'},
+];
+let m3Recents=[
+  {lb:'Events', sub:'Universal', ic:'#ic-cal', tgt:'s-events'},
+  {lb:'Dining', sub:'Universal · Washington', ic:'#ic-dining', tgt:'s-dining'},
+];
+let m3PreviousScreen = 's-more3';
+function openM3Search(){
+  // remember where we came from
+  const active = document.querySelector('.screen.active');
+  m3PreviousScreen = active ? active.id : 's-more3';
+  show('s-more3-search');
+  const inp=document.getElementById('m3-search-input');
+  if(inp){inp.value='';inp.focus();}
+  const clr=document.getElementById('m3-clear-btn');
+  if(clr)clr.style.display='none';
+  m3RenderResults('');
+}
+function closeM3Search(){ show(m3PreviousScreen || 's-more3'); }
+function m3ClearSearch(){
+  const inp=document.getElementById('m3-search-input');
+  if(inp){inp.value='';inp.focus();}
+  const clr=document.getElementById('m3-clear-btn');
+  if(clr)clr.style.display='none';
+  m3RenderResults('');
+}
+function m3SearchUpdate(val){
+  const clr=document.getElementById('m3-clear-btn');
+  if(clr)clr.style.display=val?'block':'none';
+  m3RenderResults(val.trim());
+}
+function m3RenderResults(query){
+  const c=document.getElementById('m3-search-results');if(!c)return;
+  if(!query){
+    let h=`<div class="section-hdr">Recent</div><div style="background:#fff;">`;
+    if(m3Recents.length){m3Recents.forEach(r=>{h+=m3ResultRow(r,true);});}
+    else{h+=`<div style="padding:14px 16px;font-size:14px;color:#747474;">No recent searches yet.</div>`;}
+    h+='</div>';
+    c.innerHTML=h;return;
+  }
+  const q=query.toLowerCase();
+  const results=M3_ALL_ITEMS.filter(it=>it.lb.toLowerCase().includes(q)||it.sub.toLowerCase().includes(q));
+  if(!results.length){c.innerHTML=`<div style="padding:48px 24px;text-align:center;color:#747474;font-size:14px;">No results for "<strong style="color:#2d2d2d;">${query}</strong>"</div>`;return;}
+  let h=`<div class="section-hdr">${results.length} result${results.length!==1?'s':''}</div><div style="background:#fff;">`;
+  results.forEach(r=>{h+=m3ResultRow(r,false);});
+  h+='</div>';
+  c.innerHTML=h;
+}
+function m3ResultRow(item,isRecent){
+  const clockIc=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#909090" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+  const sectionIc=`<svg width="18" height="18"><use href="${item.ic}"/></svg>`;
+  const nav=item.tgt?`onclick="m3NavTo('${item.lb}','${item.sub}','${item.ic}','${item.tgt}')" style="cursor:pointer;"`:`style="cursor:default;"`;
+  return `<div class="more-item" ${nav}>
+    <div style="width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#2d2d2d;">${isRecent?clockIc:sectionIc}</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:15px;color:#2d2d2d;font-weight:500;">${item.lb}</div>
+      <div style="font-size:12px;color:#747474;margin-top:2px;">${item.sub}</div>
+    </div>
+    <span class="more-chev">›</span>
+  </div>`;
+}
+function m3NavTo(lb,sub,ic,tgt){
+  m3Recents=m3Recents.filter(r=>!(r.lb===lb&&r.sub===sub));
+  m3Recents.unshift({lb,sub,ic,tgt});
+  if(m3Recents.length>5)m3Recents.length=5;
+  closeM3Search();
+  if(tgt)show(tgt);
+}
+
+// ─── Events ───
+const DAY_A=['Su','M','T','W','Th','F','Sa'];
+const MON_L=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const EV_TYPE_MAP={
+  'Spirit Week — Day 3':        'district',
+  'Spring Concert':             'performing-arts',
+  'Drama Club Showcase':        'performing-arts',
+  'Basketball vs Jefferson MS': 'sports',
+  'No School — Spring Break':   'district',
+  'Parent-Teacher Conferences': 'academic',
+  'Science Museum Field Trip':  'field-trip',
+  'Spring Carnival':            'community',
+};
+const EV={
+  '2026-03-19':{allDay:[{title:'Spirit Week — Day 3',org:'Brookwood ISD'}],timed:[{time:'6:30 PM',status:'UPCOMING',org:'Lincoln Elem',title:'Spring Concert',desc:'Join us for the annual spring concert in the school gymnasium. Doors open at 6:00 PM. All families welcome.',addr:'210 Lincoln Ave, Brookwood, TX'}]},
+  '2026-03-20':{allDay:[],timed:[{time:'9:30 AM',status:'UPCOMING',org:'Washington MS',title:'Drama Club Showcase',desc:"Students present this semester's performances. Seating is first come, first served.",addr:'450 Washington Blvd, Brookwood, TX'}]},
+  '2026-03-21':{allDay:[],timed:[{time:'6:00 PM',status:'UPCOMING',org:'Washington MS',title:'Basketball vs Jefferson MS',desc:'Home game. Come support the Tigers! Concessions will be available.',addr:'450 Washington Blvd, Brookwood, TX'}]},
+  '2026-03-26':{allDay:[{title:'No School — Spring Break',org:'Brookwood ISD'}],timed:[]},
+  '2026-03-27':{allDay:[{title:'No School — Spring Break',org:'Brookwood ISD'}],timed:[]},
+  '2026-03-28':{allDay:[],timed:[{time:'3:00 PM',status:'UPCOMING',org:'Lincoln Elem',title:'Parent-Teacher Conferences',desc:'Schedule your conference slot through the school office. Evening slots until 7:00 PM.',addr:'210 Lincoln Ave, Brookwood, TX'}]},
+  '2026-04-02':{allDay:[{title:'Science Museum Field Trip',org:'Washington MS'}],timed:[]},
+  '2026-04-10':{allDay:[],timed:[{time:'11:00 AM',status:'UPCOMING',org:'Lincoln Elem',title:'Spring Carnival',desc:'Annual spring carnival with games, food, and activities for the whole family.',addr:'210 Lincoln Ave, Brookwood, TX'}]}
+};
+function hasEv(d){const x=EV[d];return x&&(x.allDay.length>0||x.timed.length>0);}
+function ds(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+let evView='schedule',selDate='2026-03-19',weekOff=0,evReady=false;
+function getWeekSun(off){const t=new Date(2026,2,17);const s=new Date(t);s.setDate(t.getDate()-t.getDay()+off*7);return s;}
+function evMonthLabel() {
+  const d = new Date(selDate + 'T00:00:00');
+  return MON_L[d.getMonth()] + ' ' + d.getDate();
+}
+function evMonthYearLabel() {
+  const d = new Date(selDate + 'T00:00:00');
+  return MON_L[d.getMonth()] + ' ' + d.getFullYear();
+}
+function setEvDropdownLabel(l){const el=document.getElementById('ev-dropdown-label');if(el)el.textContent=l;}
+function renderTabs(){
+  const sun=getWeekSun(weekOff),inner=document.getElementById('dt-inner');if(!inner)return;
+  inner.innerHTML='';
+  for(let i=0;i<7;i++){
+    const d=new Date(sun);d.setDate(sun.getDate()+i);
+    const dstr=ds(d),isSel=dstr===selDate,hasDot=hasEv(dstr);
+    const el=document.createElement('div');el.className='dt-tab';el.onclick=()=>pickDay(dstr);
+    if(isSel)el.style.borderBottom='2.5px solid #2d2d2d';
+    el.innerHTML=`<div class="dt-dot${hasDot?'':' hide'}"></div><div style="font-size:16px;font-weight:${isSel?700:500};color:${isSel?'#2d2d2d':'#646464'};line-height:20px;">${d.getDate()}</div><div style="font-size:11px;color:${isSel?'#2d2d2d':'#646464'};text-transform:uppercase;">${DAY_A[d.getDay()]}</div>`;
+    inner.appendChild(el);
+  }
+}
+function pickDay(dstr){
+  selDate=dstr;
+  const t=new Date(2026,2,17),ts=new Date(t);ts.setDate(t.getDate()-t.getDay());
+  const d=new Date(dstr+'T00:00:00'),ds2=new Date(d);ds2.setDate(d.getDate()-d.getDay());
+  weekOff=Math.round((ds2-ts)/(7*86400000));renderTabs();renderSchedule();
+  setEvDropdownLabel('Schedule');
+}
+function prevWeek(){weekOff--;renderTabs();setEvDropdownLabel('Schedule');}
+function nextWeek(){weekOff++;renderTabs();setEvDropdownLabel('Schedule');}
+function renderSchedule(){
+  const c=document.getElementById('ev-schedule');if(!c)return;
+  const data=EV[selDate];
+  if(!data||(data.allDay.length===0&&data.timed.length===0)){const _ed=new Date(selDate+'T00:00:00'),_elabel=MON_L[_ed.getMonth()]+' '+_ed.getDate();c.innerHTML=`<div style="padding:48px 24px;text-align:center;"><div style="font-size:40px;margin-bottom:12px;">📅</div><div style="font-size:16px;font-weight:600;color:#2d2d2d;margin-bottom:6px;">No events on ${_elabel}</div><div style="font-size:14px;color:#747474;">Select another day or navigate weeks</div></div>`;return;}
+  let h='';
+  (data.allDay||[]).forEach(ev=>{const _atag=EV_TYPE_MAP[ev.title]||'district';h+=`<div class="allday-card" data-org="${ev.org}" data-type="${_atag}"><div class="allday-top"><div><div class="allday-label">All Day</div><div class="allday-org">${ev.org}</div></div><div class="allday-red-dot"></div></div><div class="allday-title">${ev.title}</div></div>`;});
+  (data.timed||[]).forEach(ev=>{const _etag=EV_TYPE_MAP[ev.title]||'community';const _isPT=ev.title==='Parent-Teacher Conferences';h+=`<div class="ev-card" data-org="${ev.org}" data-type="${_etag}"${_isPT?' data-ptlink style="cursor:pointer;"':''}><div class="ev-card-hdr"><div class="ev-card-r1"><span class="ev-time">${ev.time}</span><span class="ev-status">${ev.status}</span><span class="ev-keb">···</span></div><div class="ev-card-org">${ev.org}</div></div><div class="ev-card-body"><div class="ev-title">${ev.title}</div><div class="ev-desc">${ev.desc} <span class="ev-desc-more">more</span></div><div class="ev-addr"><svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${ev.addr}</div></div><div class="ev-actions"><button class="ev-btn-share">SHARE</button><button class="ev-btn-add">ADD TO CALENDAR</button></div></div>`;}); 
+  c.onclick=function(e){if(e.target.closest('[data-ptlink]'))show('s-success-ptconf');};
+  c.innerHTML=h;
+  m1ApplySchoolFilter();
+  applyEvFilter();
+}
+const IC_CAL=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+const IC_LIST=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1.2" fill="currentColor"/><circle cx="3" cy="12" r="1.2" fill="currentColor"/><circle cx="3" cy="18" r="1.2" fill="currentColor"/></svg>`;
+function openEvViewMenu(e){
+  e.stopPropagation();
+  const m=document.getElementById('ev-view-menu');
+  m.style.display=m.style.display==='none'?'block':'none';
+}
+function closeEvViewMenu(){
+  const m=document.getElementById('ev-view-menu');
+  if(m)m.style.display='none';
+}
+function setEvView(view){
+  evView=view;
+  closeEvViewMenu();
+  const isSched=view==='schedule', isMon=view==='month', isCal=view==='calendar';
+  document.getElementById('ev-sched-wrap').style.display=isSched?'block':'none';
+  document.getElementById('ev-month-wrap').style.display=isMon?'block':'none';
+  document.getElementById('ev-cal-wrap').style.display=isCal?'block':'none';
+  document.getElementById('dtbar').style.display=isSched?'flex':'none';
+  ['schedule','month','calendar'].forEach(v=>{
+    const el=document.getElementById('evmenu-check-'+v);
+    if(el)el.style.opacity=v===view?'1':'0';
+  });
+  if(isSched){setEvDropdownLabel('Schedule');renderTabs();renderSchedule();}
+  else if(isMon){setEvDropdownLabel('Month');renderMonthList();}
+  else{renderCal();}
+}
+function toggleEvView(){ setEvView('calendar'); } // legacy compat
+function goToday(){
+  selDate='2026-03-17';weekOff=0;
+  setEvView(evView==='calendar'||evView==='month'?evView:'schedule');
+  selDate='2026-03-17';weekOff=0;
+  if(evView==='schedule'){setEvDropdownLabel('Schedule');renderTabs();renderSchedule();}
+}
+function renderMonthList(){
+  const c=document.getElementById('ev-month-list');if(!c)return;
+  // Collect all events sorted by date, starting from selDate
+  const today=new Date(selDate+'T00:00:00');
+  const allEntries=[];
+  Object.keys(EV).sort().forEach(dstr=>{
+    const d=new Date(dstr+'T00:00:00');
+    if(d<today) return; // skip past events
+    const data=EV[dstr];
+    (data.allDay||[]).forEach(ev=>{allEntries.push({dstr,ev,allDay:true});});
+    (data.timed||[]).forEach(ev=>{allEntries.push({dstr,ev,allDay:false});});
+  });
+  if(!allEntries.length){
+    c.innerHTML=`<div style="padding:48px 24px;text-align:center;"><div style="font-size:40px;margin-bottom:12px;">📅</div><div style="font-size:16px;font-weight:600;color:#2d2d2d;margin-bottom:6px;">No upcoming events</div></div>`;
+    return;
+  }
+  let h='';let lastMonth='';
+  allEntries.forEach(({dstr,ev,allDay})=>{
+    const d=new Date(dstr+'T00:00:00');
+    const monthKey=MON_L[d.getMonth()]+' '+d.getFullYear();
+    const monAbbr=MON_L[d.getMonth()].slice(0,3);
+    const dayNum=d.getDate();
+    if(monthKey!==lastMonth){
+      h+=`<div style="padding:14px 16px 6px;font-size:13px;font-weight:600;color:#747474;text-transform:uppercase;letter-spacing:.05em;background:#f8f8f8;border-bottom:1px solid #e1e1e1;">${monthKey}</div>`;
+      lastMonth=monthKey;
+    }
+    const dateTile=`<div class="ev-date-tile"><span class="ev-date-tile-mon">${monAbbr}</span><span class="ev-date-tile-day">${dayNum}</span></div>`;
+    const _etag=EV_TYPE_MAP[ev.title]||'community';
+    if(allDay){
+      h+=`<div class="allday-card" data-org="${ev.org}" data-type="${_etag}" style="display:flex;align-items:flex-start;">
+        ${dateTile}
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+            <div style="font-size:11px;font-weight:600;color:#747474;letter-spacing:.03em;">ALL DAY</div>
+            <div class="allday-red-dot" style="width:7px;height:7px;border-radius:50%;background:#CC314B;flex-shrink:0;"></div>
+          </div>
+          <div style="font-size:12px;color:#747474;margin-bottom:2px;">${ev.org}</div>
+          <div style="font-size:15px;font-weight:600;color:#2d2d2d;">${ev.title}</div>
+        </div>
+      </div>`;
+    } else {
+      h+=`<div class="ev-card" data-org="${ev.org}" data-type="${_etag}">
+        <div class="ev-card-hdr">
+          <div class="ev-card-r1">
+            ${dateTile}
+            <div style="flex:1;min-width:0;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+                <span class="ev-time">${ev.time}</span>
+                <span class="ev-status">${ev.status}</span>
+                <span class="ev-keb" style="margin-left:auto;">···</span>
+              </div>
+              <div class="ev-card-org">${ev.org}</div>
+            </div>
+          </div>
+        </div>
+        <div class="ev-card-body" style="padding-left:52px;">
+          <div class="ev-title">${ev.title}</div>
+          <div class="ev-desc">${ev.desc} <span class="ev-desc-more">more</span></div>
+          <div class="ev-addr"><svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${ev.addr}</div>
+        </div>
+        <div class="ev-actions"><button class="ev-btn-share">SHARE</button><button class="ev-btn-add">ADD TO CALENDAR</button></div>
+      </div>`;
+    }
+  });
+  c.innerHTML=h;
+  applyEvFilter();
+}
+function renderCal(){
+  const c=document.getElementById('ev-cal-wrap');
+  const DOW=['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  let h='<div style="padding-top:8px;">';
+  [[2026,2],[2026,3],[2026,4]].forEach(([y,m])=>{
+    h+=`<div class="cal-month" data-year="${y}"><div class="cal-month-title">${MON_L[m]} ${y}</div><div class="cal-grid">`;
+    DOW.forEach(d=>h+=`<div class="cal-dow">${d}</div>`);
+    const first=new Date(y,m,1),off=(first.getDay()+6)%7;
+    for(let i=0;i<off;i++)h+=`<div class="cal-cell"></div>`;
+    const days=new Date(y,m+1,0).getDate();
+    for(let day=1;day<=days;day++){
+      const dstr=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      let cls='cal-cell';if(dstr===selDate)cls+=' sel';
+      h+=`<div class="${cls}" onclick="pickDayFromCal('${dstr}')"><div class="cal-num">${day}</div>${hasEv(dstr)?'<div class="cal-ev-dot"></div>':''}</div>`;
+    }
+    h+=`</div></div>`;
+  });
+  c.innerHTML=h+'</div>';
+  setEvDropdownLabel('Year');
+  c.onscroll=function(){
+    const months=c.querySelectorAll('.cal-month[data-year]');
+    for(const m of months){if(m.getBoundingClientRect().bottom>c.getBoundingClientRect().top+20){setEvDropdownLabel(m.dataset.year);break;}}
+  };
+}
+function pickDayFromCal(dstr){
+  selDate=dstr;evView='schedule';
+  document.getElementById('ev-sched-wrap').style.display='block';
+  document.getElementById('ev-cal-wrap').style.display='none';
+  document.getElementById('dtbar').style.display='flex';
+  setEvDropdownLabel('Schedule');
+  const t=new Date(2026,2,17),ts=new Date(t);ts.setDate(t.getDate()-t.getDay());
+  const d=new Date(dstr+'T00:00:00'),ds2=new Date(d);ds2.setDate(d.getDate()-d.getDay());
+  weekOff=Math.round((ds2-ts)/(7*86400000));renderTabs();renderSchedule();
+}
+function initEv(){
+  weekOff=0;
+  document.getElementById('ev-month-wrap').style.display='none';
+  setEvView('schedule');
+}
+// Version 3 locked — no M1 init needed on load
+
+// ─── Hash-based deep-link routing ───
+// Reads the URL hash on load and navigates to the right screen / filter state.
+// Supported formats:
+//   #s-events                             → navigate to events screen
+//   #s-staff/filter/staff/tab/tags        → open staff with filter sheet on tags tab
+(function() {
+  const hash = window.location.hash.replace('#', '');
+  if (!hash) return;
+  const parts = hash.split('/');
+  const screenId = parts[0];
+  if (!screenId || !document.getElementById(screenId)) return;
+  // Navigate to the screen
+  show(screenId);
+  // Optionally open filter sheet at the right tab
+  const filterIdx = parts.indexOf('filter');
+  if (filterIdx !== -1) {
+    const section = parts[filterIdx + 1];
+    const tabIdx = parts.indexOf('tab');
+    const tab = tabIdx !== -1 ? parts[tabIdx + 1] : 'school';
+    if (section) {
+      setTimeout(() => {
+        openFilterSheet(section);
+        switchFilterTab(tab || 'school');
+      }, 50);
+    }
+  }
+})();
+</script>
+
+
+
+<!-- ════ SUCCESS: Parent-Teacher Conferences ════ -->
+<div id="s-success-ptconf" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;background:#fff;text-align:center;">
+    <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div style="font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px;">Task Complete!</div>
+    <div style="font-size:15px;color:#747474;line-height:1.6;margin-bottom:32px;">You found the <strong style="color:#2d2d2d;">Parent-Teacher Conferences</strong> event on March 28.</div>
+    <button onclick="show('s-events')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Events</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ SUCCESS: Bus Routes & Pickup Times ════ -->
+<div id="s-success-bus-routes" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;background:#fff;text-align:center;">
+    <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div style="font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px;">Task Complete!</div>
+    <div style="font-size:15px;color:#747474;line-height:1.6;margin-bottom:32px;">You found <strong style="color:#2d2d2d;">Bus Routes &amp; Pickup Times</strong> for Lincoln Elementary.</div>
+    <button onclick="show('s-pages')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Pages</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ SUCCESS: Volunteer Form ════ -->
+<div id="s-success-volunteer" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;background:#fff;text-align:center;">
+    <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div style="font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px;">Task Complete!</div>
+    <div style="font-size:15px;color:#747474;line-height:1.6;margin-bottom:32px;">You found the <strong style="color:#2d2d2d;">Volunteer Sign-Up Form</strong> for Lincoln Elementary.</div>
+    <button onclick="show('s-forms')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Forms</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ SUCCESS: Parent Resources ════ -->
+<div id="s-success-parent-resources" class="screen">
+  <div class="sbar"><span>9:41</span><span><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg></span></div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;background:#fff;text-align:center;">
+    <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div style="font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px;">Task Complete!</div>
+    <div style="font-size:15px;color:#747474;line-height:1.6;margin-bottom:32px;">You found <strong style="color:#2d2d2d;">Parent Resources</strong> for Washington Middle School.</div>
+    <button onclick="show('s-pages')" style="background:#2d2d2d;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;">← Back to Pages</button>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<!-- ════ FILTER BOTTOM SHEET ════ -->
+<div id="fsheet-overlay" class="fsheet-overlay" onclick="closeFilterSheet()"></div>
+<div id="fsheet" class="fsheet">
+  <div class="fsheet-handle"></div>
+  <div class="fsheet-header">
+    <span class="fsheet-title">Filter</span>
+    <button class="fsheet-clear" onclick="clearFilters()">Clear all</button>
+  </div>
+  <div class="fsheet-tabs">
+    <div class="fsheet-tab active" id="fstab-school" onclick="switchFilterTab('school')">School</div>
+    <div class="fsheet-tab" id="fstab-tags" onclick="switchFilterTab('tags')">Tags</div>
+  </div>
+  <div id="fsheet-school" class="fsheet-section"></div>
+  <div id="fsheet-tags" class="fsheet-section" style="display:none;"></div>
+  <div class="fsheet-footer">
+    <button class="fsheet-apply" onclick="applyFilters()">Apply Filters</button>
+  </div>
+</div>
+</body>
+</html>

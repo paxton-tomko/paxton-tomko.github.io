@@ -7,8 +7,8 @@ This is a GitHub Pages site that hosts UI prototypes. The `index.html` at the ro
 ## Route Conventions
 
 - All directory and file names must be **lowercase** with **hyphens** replacing spaces (e.g., `More Menu Updates` → `more-menu-updates`)
-- Prototype HTML files are named by version number only (e.g., `v6.html`, not `v6-prototype.html`)
-- Structure: `prototypes/<feature-name>/<version>.html`
+- Prototype HTML files are named as `<name>-<version>.html` or just `<version>.html` (e.g., `search-v1.html`, `v6.html`)
+- Structure: `prototypes/<feature-name>/<name>-<version>.html`
 
 ## Critical: macOS Case-Insensitive Filesystem
 

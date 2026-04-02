@@ -21,7 +21,8 @@ You are adding a new prototype to a GitHub Pages site. The input (`$ARGUMENTS`) 
 
 Ask the user (if not obvious from context):
 - **Feature name**: e.g., "More Menu Updates" — this becomes the folder name.
-- **Version number**: e.g., "v7" — this becomes the file name.
+- **Version number**: e.g., "v7"
+- **Prototype name** (optional): e.g., "Search" — if provided, the file is named `<name>-<version>.html` (e.g., `search-v1.html`). If omitted, just `<version>.html`.
 
 Check `prototypes/` for existing folders. If the feature already has a folder, use it. If not, create one.
 
@@ -29,7 +30,7 @@ Check `prototypes/` for existing folders. If the feature already has a folder, u
 
 All paths must be **lowercase with hyphens** replacing spaces:
 - `More Menu Updates` → `more-menu-updates`
-- Final path: `prototypes/<feature-name>/<version>.html`
+- Final path: `prototypes/<feature-name>/<name>-<version>.html` or `prototypes/<feature-name>/<version>.html`
 
 **CRITICAL — macOS case-insensitive filesystem**: Never rename a directory by only changing case (e.g., `mv Foo foo`). macOS treats these as the same path. Always rename through a temporary intermediate:
 ```sh
@@ -41,7 +42,7 @@ Failure to do this can permanently delete untracked files.
 
 - If importing an existing file, **copy** it (do not move) to the target path, then confirm with the user before deleting the original.
 - If creating from an idea, write the new HTML file directly to the target path.
-- File name is the version number only: `v3.html`, `v7.html`, etc.
+- File name format: `<name>-<version>.html` (e.g., `search-v1.html`) or just `<version>.html` (e.g., `v3.html`) if no name is provided.
 
 ### 5. Update index.html
 
