@@ -19,7 +19,7 @@
   m.mazeUniversalSnippetApiKey = e;
 })(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'ca832a46-e4da-49ad-aeaf-dd2523bea24d');
 </script>
-<link rel="stylesheet" href="_shared.css">
+<link rel="stylesheet" href="/prototypes/more-menu-updates/search-v1/shared.css">
 </head>
 <body>
 <div class="phone">
@@ -54,7 +54,7 @@
   <div class="topnav">
     <button class="back-btn" data-maze-id="back-to-more" onclick="showMore()"><svg width="10" height="18"><use href="#ic-back"/></svg></button>
     <span class="topnav-title">Events</span>
-    <div class="tnicons"><button id="sstar-events" class="icon-btn" onclick="m2ToggleSectionFav('events')"><svg width="20" height="20" style="color:#909090"><use href="#ic-star-empty"/></svg></button><div class="filter-btn-wrap"><button class="icon-btn" data-maze-id="open-filter-events" onclick="openFilterSheet('events')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-events"></span></div></div>
+    <div class="tnicons"><div class="filter-btn-wrap"><button class="icon-btn" data-maze-id="open-filter-events" onclick="openFilterSheet('events')"><svg width="20" height="20"><use href="#ic-filter"/></svg></button><span class="filter-badge" id="fbadge-events"></span></div></div>
   </div>
   <div class="dtbar" id="dtbar">
     <button class="dt-nav" data-maze-id="events-prev-week" onclick="prevWeek()">‹</button>
@@ -102,7 +102,7 @@
   </div>
 </div>
 </div>
-<script src="_shared.js"></script>
+<script src="/prototypes/more-menu-updates/search-v1/shared.js"></script>
 <script>
 loadState();
 restoreFilterBadges();

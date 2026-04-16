@@ -1,4 +1,5 @@
 // ─── Page Map ───
+const BASE = '/prototypes/more-menu-updates/search-v1/';
 const PAGE_MAP = {
   's-feed': 'feed.html',
   's-rooms': 'rooms.html',
@@ -25,7 +26,7 @@ const PAGE_MAP = {
 // ─── Navigation ───
 function show(id) {
   if (PAGE_MAP[id]) {
-    window.location.href = PAGE_MAP[id];
+    window.location.href = BASE + PAGE_MAP[id];
   }
 }
 
@@ -357,7 +358,7 @@ function openM3Search(from){
   const fromPage = from || detectCurrentPage();
   try { sessionStorage.setItem('sv1-search-from', fromPage); } catch(e) {}
   saveState();
-  window.location.href = 'search.html';
+  window.location.href = BASE + 'search.html';
 }
 
 function closeM3Search(){
@@ -365,7 +366,7 @@ function closeM3Search(){
   try { fromPage = sessionStorage.getItem('sv1-search-from') || 'index.html'; } catch(e) {}
   // Map screen IDs to filenames if needed
   if (PAGE_MAP[fromPage]) fromPage = PAGE_MAP[fromPage];
-  window.location.href = fromPage;
+  window.location.href = BASE + fromPage;
 }
 
 function detectCurrentPage() {
@@ -430,7 +431,7 @@ function m3NavTo(lb,sub,ic,tgt){
   if(m3Recents.length>5)m3Recents.length=5;
   saveState();
   if(tgt && PAGE_MAP[tgt]) {
-    window.location.href = PAGE_MAP[tgt];
+    window.location.href = BASE + PAGE_MAP[tgt];
   }
 }
 
